@@ -31,7 +31,7 @@ Route::middleware(['middleware' => 'pvb'])->group(function () {
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], function () {
-    Route::get('home', [AdminController::class, 'index'])->name('teacher.home');
+    Route::get('home', [AdminController::class, 'index'])->name('admin.home');
 });
 
 Route::group(['prefix' => 't', 'middleware' => ['teacher', 'auth', 'pvb']], function () {
@@ -40,4 +40,5 @@ Route::group(['prefix' => 't', 'middleware' => ['teacher', 'auth', 'pvb']], func
 
 Route::group(['prefix' => 's', 'middleware' => ['student', 'auth', 'pvb']], function () {
     Route::get('home', [StudentController::class, 'index'])->name('student.home');
+    Route::get('topic/listening', [StudentController::class, 'listening'])->name('student.topic.listening');
 });
