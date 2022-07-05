@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+
 class LoginController extends Controller
 {
     /*
@@ -27,7 +29,16 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected function redirectTo()
+    {
+        if (Auth()->user()->role == 'admin') {
+            return route('admin.home');
+        } else if (Auth()->user()->role == 'teacher'){
+            return route('teacher.home');
+        }else{
+            return route('student.home');
+        }
+    }
     /**
      * Create a new controller instance.
      *
@@ -36,5 +47,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request){
+        $input = $request->all();
+        $this->validate($request,[
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8',
+        ]);
+
+        if(auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password']))){
+            if(auth()->user()->role == 'admin'){
+                return redirect()->route('admin.home');
+            }else if(auth()->user()->role == 'teacher'){ 
+                return redirect()->route('teacher.home');
+            }else{
+                return redirect()->route('student.home');
+            }
+        }else{
+            return redirect()->route('login')->with('error','Email atau password salah!');
+        }
     }
 }

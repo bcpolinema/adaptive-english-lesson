@@ -11,37 +11,33 @@
 |
 */
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
+Route::middleware(['middleware' => 'pvb'])->group(function () {
+    Auth::routes();
 });
 
-Route::get('/login', function () {
-    return view('login');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], function () {
+    Route::get('home', [AdminController::class, 'index'])->name('teacher.home');
 });
 
-Route::get('/exercises', function () {
-    return view('exercises');
+Route::group(['prefix' => 't', 'middleware' => ['teacher', 'auth', 'pvb']], function () {
+    Route::get('home', [TeacherController::class, 'index'])->name('teacher.home');
 });
 
-Route::get('/std_exercises', function () {
-    return view('std_exercises');
+Route::group(['prefix' => 's', 'middleware' => ['student', 'auth', 'pvb']], function () {
+    Route::get('home', [StudentController::class, 'index'])->name('student.home');
 });
-
-Route::get('/std_learnings', function () {
-    return view('std_learnings');
-});
-
-Route::get('/subjects', function () {
-    return view('subjects');
-});
-
-Route::get('/topics', function () {
-    return view('topics');
-});
-

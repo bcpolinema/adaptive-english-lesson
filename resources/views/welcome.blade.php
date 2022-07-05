@@ -30,7 +30,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!"> </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Login</a></li>
+
+                    @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Home</a>
+                    </li>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
+                    </li>
+                    @endif
+                    @endauth
                 </ul>
             </div>
         </div>
@@ -83,7 +97,7 @@
                 <div class="col-lg-4">
                     <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                         <div class="features-icons-icon d-flex">
-                                <i class="bi-headphones m-auto text-primary"></i>
+                            <i class="bi-headphones m-auto text-primary"></i>
                         </div>
                         <h3>Writing</h3>
                         <p class="lead mb-0">Deskripsi fitur 1</p>
@@ -133,8 +147,8 @@
                 <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                     <h2>Pembelajaran Online</h2>
                     <p class="lead mb-0">
-                       Pembelajaran dilakukan secara online. <br>
-                       Dimana saja Kapan saja.
+                        Pembelajaran dilakukan secara online. <br>
+                        Dimana saja Kapan saja.
                     </p>
                 </div>
             </div>
@@ -147,14 +161,16 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="{{asset('landing-page/assets/img/testimonials-1.jpg')}}" alt="..." />
+                        <img class="img-fluid rounded-circle mb-3"
+                            src="{{asset('landing-page/assets/img/testimonials-1.jpg')}}" alt="..." />
                         <h5>Margaret E.</h5>
                         <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="{{asset('landing-page/assets/img/testimonials-2.jpg')}}" alt="..." />
+                        <img class="img-fluid rounded-circle mb-3"
+                            src="{{asset('landing-page/assets/img/testimonials-2.jpg')}}" alt="..." />
                         <h5>Fred S.</h5>
                         <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of
                             super nice landing pages."</p>
@@ -162,7 +178,8 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="{{asset('landing-page/assets/img/testimonials-3.jpg')}}" alt="..." />
+                        <img class="img-fluid rounded-circle mb-3"
+                            src="{{asset('landing-page/assets/img/testimonials-3.jpg')}}" alt="..." />
                         <h5>Sarah W.</h5>
                         <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to
                             us!"</p>
@@ -177,7 +194,8 @@
             <div class="row justify-content-center">
                 <div class="col-xl-6">
                     <h2 class="mb-4">Ready to get started? <br>
-                        <a style="color: inherit;" href="">Sign up</a> now!</h2>
+                        <a style="color: inherit;" href="">Sign up</a> now!
+                    </h2>
                 </div>
             </div>
         </div>
