@@ -21,12 +21,12 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) { 
-            if (Auth::guard($guard)->check() && Auth::user()->role == "admin") {
+            if (Auth::guard($guard)->check() && Auth::user()->roles == "admin") {
                 return redirect()->route('admin.home');
-            }elseif (Auth::guard($guard)->check() && Auth::user()->role == "teacher") {
+            }elseif (Auth::guard($guard)->check() && Auth::user()->roles == "teacher") {
                 return redirect()->route('teacher.home');
             }
-             elseif (Auth::guard($guard)->check() && Auth::user()->role == "student") {
+             elseif (Auth::guard($guard)->check() && Auth::user()->roles == "student") {
                 return redirect()->route('student.home');
             }
         }
