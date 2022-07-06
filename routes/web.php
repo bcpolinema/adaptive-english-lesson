@@ -32,6 +32,8 @@ Route::middleware(['middleware' => 'pvb'])->group(function () {
 
 Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], function () {
     Route::get('home', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('topic', [AdminController::class, 'topic'])->name('admin.topic');
+    Route::post('add-topic', [AdminController::class, 'addTopic'])->name('admin.add.topic');
 });
 
 Route::group(['prefix' => 't', 'middleware' => ['teacher', 'auth', 'pvb']], function () {

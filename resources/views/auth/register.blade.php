@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>Adaptive English Lesson | Politeknik Negeri Malang </title>
 
     <base href="{{ \URL::to('/') }} ">
     <!-- Bootstrap -->
@@ -29,10 +29,39 @@
                         @csrf
                         <h1>Create Account</h1>
                         <div>
-                            <input type="email" class="form-control" placeholder="Email" required="" />
+                            <input placeholder="Name" id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div>
-                            <input type="password" class="form-control" placeholder="Password" required="" />
+                            <input placeholder="Email" id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div>
+                            <input placeholder="Password" id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password" required
+                                autocomplete="new-password">
+
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div>
+                            <input placeholder="Confirm password" id="password-confirm" type="password" class="form-control"
+                                name="password_confirmation" required autocomplete="new-password">
                         </div>
                         <div>
                             <button type="submit" class="btn btn-primary">
