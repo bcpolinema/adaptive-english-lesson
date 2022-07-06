@@ -84,7 +84,7 @@ class RegisterController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->role = "student";
+        $user->roles = "student";
         $user->password = Hash::make($request->password);
 
         if ($user->save()) {

@@ -66,14 +66,14 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="/"><i class="fa fa-home"></i> Home </a>
+                <li><a href="{{ route('admin.home') }}"><i class="fa fa-home"></i> Home </a>
                   <!-- <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>
                       <li><a href="index2.html">Dashboard2</a></li>
                       <li><a href="index3.html">Dashboard3</a></li>
                     </ul> -->
                 </li>
-                <li><a href="/exercises"><i class="fa fa-edit"></i> Exercises </span></a>
+                <li><a href="{{ route('admin.exercises') }}"><i class="fa fa-edit"></i> Exercises </span></a>
                   <!-- <ul class="nav child_menu">
                       <li><a href="form.html">General Form</a></li>
                       <li><a href="form_advanced.html">Advanced Components</a></li>
@@ -85,8 +85,8 @@
                 </li>
                 <li><a><i class="fa fa-user"></i> Student <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="/std_exercises">Exercises</a></li>
-                    <li><a href="/std_learnings">Learnings</a></li>
+                    <li><a href="{{ route('admin.std_exercises') }}">Exercises</a></li>
+                    <li><a href="{{ route('admin.std_learnings') }}">Learnings</a></li>
                     <!-- <li><a href="typography.html">Typography</a></li>
                       <li><a href="icons.html">Icons</a></li>
                       <li><a href="glyphicons.html">Glyphicons</a></li>
@@ -96,13 +96,13 @@
                       <li><a href="calendar.html">Calendar</a></li> -->
                   </ul>
                 </li>
-                <li><a href="/subjects"><i class="fa fa-table"></i> Subjects </a>
+                <li><a href="{{ route('admin.subjects') }}"><i class="fa fa-table"></i> Subjects </a>
                   <!-- <ul class="nav child_menu">
                       <li><a href="tables.html">Tables</a></li>
                       <li><a href="tables_dynamic.html">Table Dynamic</a></li>
                     </ul> -->
                 </li>
-                <li><a href="/topics"><i class="fa fa-book"></i> Topics </a>
+                <li><a href="{{ route('admin.topics') }}"><i class="fa fa-book"></i> Topics </a>
                   <!-- <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
                       <li><a href="chartjs2.html">Chart JS2</a></li>

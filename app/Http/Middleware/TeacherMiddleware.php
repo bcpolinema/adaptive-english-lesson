@@ -16,7 +16,7 @@ class TeacherMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == 'teacher') {
+        if (Auth::check() && Auth::user()->roles == 'teacher') {
             return $next($request);
         }else{
             return redirect()->route('login');
