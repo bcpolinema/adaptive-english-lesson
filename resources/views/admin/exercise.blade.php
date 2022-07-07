@@ -1,4 +1,4 @@
-@extends('layout-master')
+@extends('layout-admin')
 @section('content')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -15,7 +15,7 @@
       </div><!-- /.container-fluid -->
     </section>
 
-    <table id="tabel-data" class="table table-striped table-bordered">
+    <!-- <table id="tabel-data" class="table table-striped table-bordered">
         <thead>
             <tr>
             <th>Name</th>
@@ -36,7 +36,7 @@
             <td>$320,800</td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>

@@ -21,6 +21,18 @@ class AdminController extends Controller
         return view('admin.subject');
     }
 
+    public function exercise(){
+        return view('admin.exercise');
+    }
+
+    public function std_exercise(){
+        return view('admin.std_exercise');
+    }
+
+    public function std_learning(){
+        return view('admin.std_learning');
+    }
+
     public function addTopic(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',

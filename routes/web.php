@@ -38,10 +38,15 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     // Subject
     Route::get('subject', [AdminController::class, 'subject'])->name('admin.subject');
     Route::post('add-subject', [AdminController::class, 'addSubject'])->name('admin.add.subject');
-    
-    Route::get('data/exercises', [AdminController::class, 'index_exercises'])->name('admin.exercises');
-    Route::get('data/std_exercises', [AdminController::class, 'index_std_exercises'])->name('admin.std_exercises');
-    Route::get('data/std_learnings', [AdminController::class, 'index_std_learnings'])->name('admin.std_learnings');
+    // Exercise
+    Route::get('exercise', [AdminController::class, 'exercise'])->name('admin.exercise');
+    Route::post('add-exercise', [AdminController::class, 'addExercise'])->name('admin.add.exercise');
+    // Student Exercise
+    Route::get('std-exercise', [AdminController::class, 'std_exercise'])->name('admin.std_exercise');
+
+    // Student Learning
+    Route::get('std-learning', [AdminController::class, 'std_learning'])->name('admin.std_learning');
+
 });
 
 Route::group(['prefix' => 't', 'middleware' => ['teacher', 'auth', 'pvb']], function () {
