@@ -69,7 +69,7 @@
                 <li><a href="/"><i class="fa fa-home"></i> Home </a>
 
                 </li>
-                <li><a href="/exercises"><i class="fa fa-edit"></i> Exercises </span></a>
+                <li><a href="{{route('admin.subject')}}"><i class="fa fa-edit"></i> Exercises </span></a>
                 </li>
                 <li><a><i class="fa fa-user"></i> Student <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
@@ -77,7 +77,7 @@
                     <li><a href="/std_learnings">Learnings</a></li>
                   </ul>
                 </li>
-                <li><a href="/subjects"><i class="fa fa-table"></i> Subjects </a>
+                <li><a href="{{route('admin.subject')}}"><i class="fa fa-table"></i> Subjects </a>
                 </li>
                 <li><a href="{{route('admin.topic')}}"><i class="fa fa-book"></i> Topics </a>
                 </li>
