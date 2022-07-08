@@ -11,8 +11,7 @@
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">Settings 1</a>
                             <a class="dropdown-item" href="#">Settings 2</a>
@@ -28,13 +27,12 @@
                 <form id="add_topic" action="{{route('admin.add.topic')}}" method="POST" class="form-label-left input_mask">
                     @csrf
                     <div class="col-md-12  form-group has-feedback">
-                        <input type="text" name="name" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Name">
+                        <input type="text" name="name" class="form-control has-feedback-left" placeholder="Name">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="col-md-12  form-group has-feedback">
-                        <input type="text" name="description" class="form-control has-feedback-left" id="inputSuccess2"
-                            placeholder="Description">
+                        <input type="text" name="description" class="form-control has-feedback-left" placeholder="Description">
                         <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text description_error"></span>
                     </div>
@@ -53,8 +51,8 @@
 
 @section('script')
 <script>
-    $(document).ready(function(){
-        $('#add_topic').on('submit', function(e){
+    $(document).ready(function() {
+        $('#add_topic').on('submit', function(e) {
             e.preventDefault();
             var form = this;
             $.ajax({
@@ -64,12 +62,12 @@
                 processData: false,
                 dataType: 'json',
                 contentType: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     $(this).find('span.error-text').text('');
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.code == 0) {
-                        $.each(data.error, function (prefix, val) {
+                        $.each(data.error, function(prefix, val) {
                             $(form).find('span.' + prefix + '_error').text(val[0]);
                         });
                     } else {

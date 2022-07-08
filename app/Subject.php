@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    protected $table = 'm_topics';
+    protected $table = 'm_subjects';
     public $timestamps = false;
 
     protected $fillable = [
