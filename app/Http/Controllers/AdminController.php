@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Subject;
 use App\Topic;
+use App\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -81,6 +82,11 @@ class AdminController extends Controller
         End of Topic
     */
 
+    /*
+        Start of Subject
+    */
+
+
     public function addSubject(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -124,4 +130,55 @@ class AdminController extends Controller
             }
         }
     }
+
+    
+    /*
+        End of Subject
+    */
+
+    /*
+        Start of Exercise
+    */
+
+    public function addExercise(Request $request){
+        $validator = Validator::make($request->all(), [
+            'subject_id' => 'required|integer',
+            'question' => 'required|string',
+            'option_a' => 'required|string',
+            'option_b' => 'required|string',
+            'option_c' => 'required|string',
+            'option_d' => 'required|string',
+            'option_e' => 'required|string',
+            'answer_key' => 'required|string|max:5',
+            'weight' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            //Create exercise
+            $exercise = new Exercise();
+            $exercise->subject_id = $request->subject_id;
+            $exercise->question = $request->question;
+            $exercise->option_a = $request->option_a;
+            $exercise->option_b = $request->option_b;
+            $exercise->option_c = $request->option_c;
+            $exercise->option_d = $request->option_d;
+            $exercise->option_e = $request->option_e;
+            $exercise->answer_key = $request->answer_key;
+            $exercise->weight = $request->weight;
+            $query = $exercise->save();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'New Exercise has been successfully saved']);
+            }
+        }
+    }
+
+    /*
+        End of Exercise
+    */
+
 }
