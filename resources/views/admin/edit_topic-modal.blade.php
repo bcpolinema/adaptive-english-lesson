@@ -24,7 +24,8 @@
                         <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text description_error"></span>
                     </div>
-                    <button type="submit" class="btn btn-default">Update</button>
+                    <button class="btn btn-primary" type="reset">Reset</button>
+                    <button type="submit" class="btn btn-success">Add</button>
                 </form>
             </div>
         </div>

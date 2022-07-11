@@ -180,6 +180,21 @@ class AdminController extends Controller
         }
     }
 
+    public function subject_list()
+    {
+        $subjects = Subject::all('id', 'title', 'topic_id', 'ts_entri');
+        return DataTables::of($subjects)
+            ->addColumn('actions', function ($row) {
+                return
+                '<div class="btn-group" role="group">
+                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                </div>';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
 
     /*
         End of Subject

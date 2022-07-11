@@ -74,7 +74,7 @@
                             <br />
 
                             <div>
-                                <h1><i class="fa fa-book"></i>Adaptive English Lesson</h1>
+                                <h1><i class="fa fa-book"></i> Adaptive English Lesson</h1>
                                 <p>© 2022 All Rights Reserved.</p>
                             </div>
                         </div>

@@ -11,7 +11,7 @@ class Subject extends Model
 
     protected $fillable = [
         'title',
-        'topick_id',
+        'topic_id',
         'is_pretest',
         'content',
         'video',
