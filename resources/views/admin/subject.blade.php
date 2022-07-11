@@ -19,7 +19,8 @@
             </div>
             <div class="x_content">
                 <br />
-                <form id="add_subject" action="{{route('admin.add.subject')}}" method="POST" class="form-label-left input_mask" enctype="multipart/form-data">
+                <form id="add_subject" action="{{route('admin.add.subject')}}" method="POST"
+                    class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6 form-group has-feedback">
                         <input type="text" name="title" class="form-control has-feedback-left" placeholder="Title">
@@ -37,7 +38,8 @@
                         <label for="is_pretest"> Is Pretest</label><br>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
-                        <textarea type="text" rows="5" name="content" class="form-control has-feedback-left" placeholder="Content"></textarea>
+                        <textarea type="text" rows="5" name="content" class="form-control has-feedback-left"
+                            placeholder="Content"></textarea>
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text name_error"></span>
                     </div>
@@ -52,12 +54,14 @@
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="col-md-6  form-group has-feedback">
-                        <input type="file" name="image" accept="image/*" class="form-control has-feedback-left" placeholder="Name">
+                        <input type="file" name="image" accept="image/*" class="form-control has-feedback-left"
+                            placeholder="Name">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="col-md-6 col-sm-6 form-group">
-                        <input type="text" name="youtube" class="form-control has-feedback-left" placeholder="YouTube Link">
+                        <input type="text" name="youtube" class="form-control has-feedback-left"
+                            placeholder="YouTube Link">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text name_error"></span>
                     </div>
@@ -117,7 +121,7 @@
                             <tr class="headings">
                                 <th class="column-title">ID </th>
                                 <th class="column-title">Title</th>
-                                <th class="column-title">Topic ID</th>
+                                <th class="column-title">Topic</th>
                                 <th class="column-title">TS Entri</th>
                                 <th class="column-title">Action</th>
                             </tr>
@@ -178,8 +182,8 @@
                     name: "title"
                 },
                 {
-                    data: "topic_id",
-                    name: "topic_id"
+                    data: "topic_name",
+                    name: "topic.name"
                 },
                 {
                     data: "ts_entri",

@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '783c5cbbbb241cc09069cbd8c44e5e8f26aed35f',
+        'reference' => 'f6e4572761f81852f84fa0889245b5856221947c',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -331,7 +331,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '783c5cbbbb241cc09069cbd8c44e5e8f26aed35f',
+            'reference' => 'f6e4572761f81852f84fa0889245b5856221947c',
             'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
@@ -587,12 +587,12 @@
             'dev_requirement' => true,
         ),
         'psr/container' => array(
-            'pretty_version' => '1.1.2',
-            'version' => '1.1.2.0',
+            'pretty_version' => '1.1.1',
+            'version' => '1.1.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/container',
             'aliases' => array(),
-            'reference' => '513e0666f7216c7459170d56df27dfcefe1689ea',
+            'reference' => '8622567409010282b7aeebe4bb841fe98b58dcaf',
             'dev_requirement' => false,
         ),
         'psr/event-dispatcher-implementation' => array(

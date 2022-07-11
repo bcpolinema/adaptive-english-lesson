@@ -17,4 +17,9 @@ class Topic extends Model
     protected $dates = [
         'ts_entri',
     ];
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
 }

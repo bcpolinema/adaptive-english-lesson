@@ -27,4 +27,9 @@ class Subject extends Model
     protected $dates = [
         'ts_entri',
     ];
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
 }
