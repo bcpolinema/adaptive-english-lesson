@@ -34,6 +34,7 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     Route::get('home', [AdminController::class, 'index'])->name('admin.home');
     // Topic
     Route::get('topic', [AdminController::class, 'topic'])->name('admin.topic');
+    Route::get('topic-list', [AdminController::class, 'topic_list'])->name('admin.topic.list');
     Route::post('add-topic', [AdminController::class, 'addTopic'])->name('admin.add.topic');
     // Subject
     Route::get('subject', [AdminController::class, 'subject'])->name('admin.subject');

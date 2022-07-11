@@ -7,6 +7,7 @@ use App\Topic;
 use App\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class AdminController extends Controller
@@ -22,6 +23,11 @@ class AdminController extends Controller
     public function topic()
     {
         return view('admin.topic');
+    }
+
+    public function topic_list(){
+        $topics = Topic::all();
+        return DataTables::of($topics)->make(true);
     }
 
     public function subject()
