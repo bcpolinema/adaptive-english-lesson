@@ -29,7 +29,6 @@
   <link href="{{ asset('gentelella/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet" />
   <!-- bootstrap-daterangepicker -->
   <link href="{{ asset('gentelella/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-  {{ asset('gentelella/datatables.net-bs/css/dataTables.bootstrap.min.css') }}
   <!-- Datatables -->
   <link href=" {{ asset('gentelella/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
   <link href=" {{ asset('gentelella/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">

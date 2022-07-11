@@ -25,9 +25,26 @@ class AdminController extends Controller
         return view('admin.topic');
     }
 
-    public function topic_list(){
+    public function topic_list()
+    {
         $topics = Topic::all();
-        return DataTables::of($topics)->make(true);
+        return DataTables::of($topics)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+              </div>';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
+    public function topic_detail(Request $request)
+    {
+        $topic_id = $request->topic_id;
+        $topic_details = Topic::find($topic_id);
+        return response()->json(['details' => $topic_details]);
     }
 
     public function subject()
@@ -80,6 +97,32 @@ class AdminController extends Controller
                 return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
             } else {
                 return response()->json(['code' => 1, 'msg' => 'New Topic has been successfully saved']);
+            }
+        }
+    }
+
+    public function updateTopic(Request $request)
+    {
+        $topic_id = $request->topic_id;
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|unique:m_topics,name,' . $topic_id,
+            'description' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            //Create topic
+            $topic = Topic::find($topic_id);
+            $topic->name = $request->name;
+            $topic->description = $request->description;
+            $query = $topic->save();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'Topic has been successfully updated']);
             }
         }
     }
@@ -137,7 +180,7 @@ class AdminController extends Controller
         }
     }
 
-    
+
     /*
         End of Subject
     */
@@ -146,7 +189,8 @@ class AdminController extends Controller
         Start of Exercise
     */
 
-    public function addExercise(Request $request){
+    public function addExercise(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'subject_id' => 'required|integer',
             'question' => 'required|string',
@@ -186,5 +230,4 @@ class AdminController extends Controller
     /*
         End of Exercise
     */
-
 }

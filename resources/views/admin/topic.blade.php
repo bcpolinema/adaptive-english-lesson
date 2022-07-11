@@ -38,7 +38,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group row">
                         <div class="col-md-9 col-sm-9  offset-md-3">
-                            <button id="add_topic_btn" type="submit" class="btn btn-success">Add</button>
+                            <button id="update_topic_btn" type="submit" class="btn btn-success">Add</button>
                         </div>
                     </div>
                 </form>
@@ -77,7 +77,7 @@
                                 <th class="column-title">Name</th>
                                 <th class="column-title">Description</th>
                                 <th class="column-title">TS Entri</th>
-
+                                <th class="column-title">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,6 +89,7 @@
     </div>
 </div>
 
+@include('admin.edit_topic-modal')
 @endsection
 
 @section('script')
@@ -142,7 +143,54 @@
                     data: "ts_entri",
                     name: "ts_entri"
                 },
+                {
+                    data: "actions",
+                    name: "actions"
+                },
             ]
+        });
+
+
+        $(document).on('click', '#edit_topic_btn', function() {
+            const topic_id = $(this).data('id');
+            const url = '{{ route("admin.topic.detail") }}';
+            $('.edit_topic_modal').find('form')[0].reset();
+            $.post(url, {
+                topic_id: topic_id
+            }, function(data) {
+                $('.edit_topic_modal').find('input[name="topic_id"]').val(data.details.id);
+                $('.edit_topic_modal').find('input[name="name"]').val(data.details.name);
+                $('.edit_topic_modal').find('input[name="description"]').val(data.details.description);
+                $('.edit_topic_modal').modal('show');
+            }, 'json');
+        });
+
+        $('#update_topic_form').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            $.ajax({
+                url: $(form).attr('action'),
+                method: $(form).attr('method'),
+                data: new FormData(form),
+                processData: false,
+                dataType: 'json',
+                contentType: false,
+                beforeSend: function() {
+                    $(this).find('span.error-text').text('');
+                },
+                success: function(data) {
+                    if (data.code == 0) {
+                        $.each(data.error, function(prefix, val) {
+                            $(form).find('span.' + prefix + '_error').text(val[0]);
+                        });
+                    } else {
+                        $(form)[0].reset();
+                        $('#topic_table').DataTable().ajax.reload(null, false);
+                        $('.edit_topic_modal').modal('hide');
+                        alert(data.msg);
+                    }
+                }
+            });
         });
     });
 </script>
