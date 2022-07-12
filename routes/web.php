@@ -47,7 +47,6 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     Route::post('add-exercise', [AdminController::class, 'addExercise'])->name('admin.add.exercise');
     // Student Exercise
     Route::get('std-exercise', [AdminController::class, 'std_exercise'])->name('admin.std_exercise');
-
     // Student Learning
     Route::get('std-learning', [AdminController::class, 'std_learning'])->name('admin.std_learning');
 
