@@ -28,6 +28,11 @@ class Subject extends Model
         'ts_entri',
     ];
 
+    public function exercises()
+    {
+        return $this->hasMany(Exercise::class);
+    }
+
     public function topic()
     {
         return $this->belongsTo(Topic::class);

@@ -49,14 +49,22 @@ class AdminController extends Controller
 
     public function subject()
     {
-        $topics = Topic::all('id','name');
+        $topics = Topic::all('id', 'name');
         return view('admin.subject', compact('topics'));
     }
 
+
     public function exercise()
     {
-        $subjects = Subject::all('id','title');
+        $subjects = Subject::all('id', 'title');
         return view('admin.exercise', compact('subjects'));
+    }
+
+    public function exercise_detail(Request $request)
+    {
+        $exercise_id = $request->exercise_id;
+        $exercise_details = Exercise::find($exercise_id);
+        return response()->json(['details' => $exercise_details]);
     }
 
     public function std_exercise()
@@ -262,7 +270,67 @@ class AdminController extends Controller
         }
     }
 
-    /*
+
+    public function exercise_list()
+    {
+        $exercises = Exercise::with('subject');
+        return DataTables::of($exercises)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_exercise_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_exercise_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                </div>';
+            })
+            ->addColumn('subject_title', function (Exercise $exercise) {
+                return $exercise->subject->title;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
+    public function updateExercise(Request $request)
+    {
+        $exercise_id = $request->exercise_id;
+
+        $validator = Validator::make($request->all(), [
+            'subject_id' => 'required|integer',
+            'question' => 'required|string',
+            'option_a' => 'required|string',
+            'option_b' => 'required|string',
+            'option_c' => 'required|string',
+            'option_d' => 'required|string',
+            'option_e' => 'required|string',
+            'answer_key' => 'required|string|max:5',
+            'weight' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            //Create topic
+            $exercise = Exercise::find($exercise_id);
+            $exercise->subject_id = $request->subject_id;
+            $exercise->question = $request->question;
+            $exercise->option_a = $request->option_a;
+            $exercise->option_b = $request->option_b;
+            $exercise->option_c = $request->option_c;
+            $exercise->option_d = $request->option_d;
+            $exercise->option_e = $request->option_e;
+            $exercise->answer_key = $request->answer_key;
+            $exercise->weight = $request->weight;
+            $query = $exercise->save();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'Exercise has been successfully updated']);
+            }
+
+
+            /*
         End of Exercise
-    */
+        */
+        }
+    }
 }

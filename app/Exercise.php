@@ -24,4 +24,9 @@ class Exercise extends Model
     protected $dates = [
         'ts_entri',
     ];
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }
