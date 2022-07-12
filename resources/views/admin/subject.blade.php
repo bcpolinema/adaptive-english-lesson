@@ -6,14 +6,9 @@
         <h1>Subject</h1>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Form Design <small>different form elements</small></h2>
+                <h2>Add Subject Data</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li>
-                        <a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -94,12 +89,8 @@
                     <div class="ln_solid"></div>
                     <div class="form-group row">
                         <div class="col-md-9 col-sm-9 offset-md-3">
-                            <button class="btn btn-primary" type="reset">
-                                Reset
-                            </button>
-                            <button type="submit" class="btn btn-success">
-                                Submit
-                            </button>
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                            <button type="submit" class="btn btn-success">Add</button>
                         </div>
                     </div>
                 </form>
@@ -113,10 +104,7 @@
             <div class="x_title">
                 <h2>Subject</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>

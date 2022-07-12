@@ -55,7 +55,8 @@ class AdminController extends Controller
 
     public function exercise()
     {
-        return view('admin.exercise');
+        $subjects = Subject::all('id','title');
+        return view('admin.exercise', compact('subjects'));
     }
 
     public function std_exercise()
