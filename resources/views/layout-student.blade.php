@@ -11,7 +11,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Adaptive English Lesson | Politeknik Negeri Malang </title>
+  <title>Adaptive English Lesson | Politeknik Negeri Malang</title>
 
   <base href="{{ \URL::to('/') }} ">
   <!-- Bootstrap -->
@@ -29,12 +29,6 @@
   <link href="{{ asset('gentelella/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet" />
   <!-- bootstrap-daterangepicker -->
   <link href="{{ asset('gentelella/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-  <!-- Datatables -->
-  <link href=" {{ asset('gentelella/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('gentelella/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('gentelella/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('gentelella/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('gentelella//datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Custom Theme Style -->
   <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
@@ -46,7 +40,7 @@
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Adaptive English Lesson</span></a>
+            <a href="/" class="site_title"><i class="fa fa-book"></i> <span>A E L</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -72,20 +66,19 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="/"><i class="fa fa-home"></i> Home </a>
-
+                <li><a href="{{ route('student.home') }}"><i class="fa fa-home"></i> Home </a>
                 </li>
-                <li><a href="{{route('admin.exercise')}}"><i class="fa fa-edit"></i> Exercises </span></a>
+                <li><a href="/"><i class="fa fa-edit"></i> Exercises </span></a>
                 </li>
                 <li><a><i class="fa fa-user"></i> Student <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="{{route('admin.std_exercise')}}">Exercises</a></li>
-                    <li><a href="{{route('admin.std_learning')}}">Learnings</a></li>
+                    <li><a href="/">Exercises</a></li>
+                    <li><a href="/">Learnings</a></li>
                   </ul>
                 </li>
-                <li><a href="{{route('admin.subject')}}"><i class="fa fa-table"></i> Subjects </a>
+                <li><a href="/"><i class="fa fa-table"></i> Subjects </a>
                 </li>
-                <li><a href="{{route('admin.topic')}}"><i class="fa fa-signal"></i> Level </a>
+                <li><a href="/"><i class="fa fa-book"></i> Topics </a>
                 </li>
               </ul>
             </div>
@@ -104,7 +97,8 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
               <li class="">
-                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                  aria-expanded="false">
                   <img src="{{ asset('images/img.jpg') }}" alt="">
                   @auth
                   {{ Auth::user()->name }}
@@ -186,34 +180,8 @@
   <script src="{{ asset('gentelella/moment/min/moment.min.js') }}"></script>
   <script src="{{ asset('gentelella/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
-  <!-- Datatables -->
-  <script src="{{ asset('gentelella/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
-  <script src="{{ asset('gentelella/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
-  <script src="{{ asset('gentelella/pdfmake/build/pdfmake.min.js') }}"></script>
-  <script src="{{ asset('gentelella/pdfmake/build/vfs_fonts.js') }}"></script>
-
   <!-- Custom Theme Scripts -->
   <script src="{{ asset('build/js/custom.min.js') }}"></script>
-
-  <script>
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-  </script>
-
-  @yield('script')
 
 </body>
 

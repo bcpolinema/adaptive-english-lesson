@@ -1,4 +1,4 @@
-@extends('layout-master')
+@extends('layout-student')
 @section('content')
 
 <div class="row">
@@ -12,118 +12,30 @@
     </div>
 </div>
 <div class="row">
+
+    @forelse ($topics as $topic)
     <div class="col-md-4">
         <div class="thumbnail">
             <div class="image view view-first">
                 <img style="width: 100%; display: block;" src="images/topik/listening.jpg" alt="image">
                 <div class="mask">
-                    <p>Mulai Belajar Listening</p>
+                    <p>Start Lesson</p>
                     <div class="tools tools-bottom">
-                        <a href="{{route('student.topic.listening')}}"><i class="fa fa-headphones"></i></a>
+                        <a href="{{ route('student.topic', ['name' => $topic->{'name'} ] ) }}"><i class="fa fa-info-circle"></i></a>
                     </div>
                 </div>
             </div>
             <div class="caption">
-                <p><strong>Listening</strong>
+                <p><strong>{{ $topic-> {'name'} }}</strong>
                 </p>
-                <p>Snow and Ice Incoming</p>
+                <p>{{ $topic-> {'description'} }}</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="images/topik/vocabulary.jpg" alt="image">
-                <div class="mask no-caption">
-                    <div class="tools tools-bottom">
-                        <a href="#"><i class="fa fa-link"></i></a>
-                        <a href="#"><i class="fa fa-pencil"></i></a>
-                        <a href="#"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="caption">
-                <p><strong>Vocabulary</strong>
-                </p>
-                <p>Snow and Ice Incoming</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="images/media.jpg" alt="image">
-                <div class="mask no-caption">
-                    <div class="tools tools-bottom">
-                        <a href="#"><i class="fa fa-link"></i></a>
-                        <a href="#"><i class="fa fa-pencil"></i></a>
-                        <a href="#"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="caption">
-                <p><strong>Grammar</strong>
-                </p>
-                <p>Snow and Ice Incoming</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="images/media.jpg" alt="image">
-                <div class="mask no-caption">
-                    <div class="tools tools-bottom">
-                        <a href="#"><i class="fa fa-link"></i></a>
-                        <a href="#"><i class="fa fa-pencil"></i></a>
-                        <a href="#"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="caption">
-                <p><strong>Image Name</strong>
-                </p>
-                <p>Snow and Ice Incoming</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="images/media.jpg" alt="image">
-                <div class="mask no-caption">
-                    <div class="tools tools-bottom">
-                        <a href="#"><i class="fa fa-link"></i></a>
-                        <a href="#"><i class="fa fa-pencil"></i></a>
-                        <a href="#"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="caption">
-                <p><strong>Image Name</strong>
-                </p>
-                <p>Snow and Ice Incoming</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="images/media.jpg" alt="image">
-                <div class="mask no-caption">
-                    <div class="tools tools-bottom">
-                        <a href="#"><i class="fa fa-link"></i></a>
-                        <a href="#"><i class="fa fa-pencil"></i></a>
-                        <a href="#"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="caption">
-                <p><strong>Image Name</strong>
-                </p>
-                <p>Snow and Ice Incoming</p>
-            </div>
-        </div>
-    </div>
+    @empty
+    <code>no topic available at the moment</code>
+    @endforelse
+
+
 </div>
 @endsection
