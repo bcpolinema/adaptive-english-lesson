@@ -128,7 +128,7 @@
         </div>
     </div>
 </div>
-
+@include('admin.edit_subject-modal')
 @endsection
 
 @section('script')
@@ -189,6 +189,54 @@
                     name: "actions"
                 },
             ]
+        });
+
+        
+        $(document).on('click', '#edit_subject_btn', function() {
+            const subject_id = $(this).data('id');
+            const url = '{{ route("admin.subject.detail") }}';
+            $('.edit_subject_modal').find('form')[0].reset();
+            $.post(url, {
+                subject_id: subject_id
+            }, function(data) {
+                $('.edit_subject_modal').find('input[name="subject_id"]').val(data.details.id);
+                $('.edit_subject_modal').find('input[name="title"]').val(data.details.title);
+                $('.edit_subject_modal').find('select[name="topic_id"]').val(data.details.topic_id);
+                $('.edit_subject_modal').find('input[name="youtube"]').val(data.details.youtube);
+                $('.edit_subject_modal').find('input[name="route1"]').val(data.details.route1);
+                $('.edit_subject_modal').find('input[name="route2"]').val(data.details.route2);
+                $('.edit_subject_modal').find('input[name="route3"]').val(data.details.route3);
+                $('.edit_subject_modal').find('input[name="route4"]').val(data.details.route4);
+                $('.edit_subject_modal').modal('show');
+            }, 'json');
+        });
+
+        $('#update_subject_form').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            $.ajax({
+                url: $(form).attr('action'),
+                method: $(form).attr('method'),
+                data: new FormData(form),
+                processData: false,
+                dataType: 'json',
+                contentType: false,
+                beforeSend: function() {
+                    $(this).find('span.error-text').text('');
+                },
+                success: function(data) {
+                    if (data.code == 0) {
+                        $.each(data.error, function(prefix, val) {
+                            $(form).find('span.' + prefix + '_error').text(val[0]);
+                        });
+                    } else {
+                        $(form)[0].reset();
+                        $('#subject_table').DataTable().ajax.reload(null, false);
+                        $('.edit_subject_modal').modal('hide');
+                        alert(data.msg);
+                    }
+                }
+            });
         });
 
     });

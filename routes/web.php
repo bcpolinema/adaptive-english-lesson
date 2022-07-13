@@ -42,6 +42,8 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     Route::get('subject', [AdminController::class, 'subject'])->name('admin.subject');
     Route::post('add-subject', [AdminController::class, 'addSubject'])->name('admin.add.subject');
     Route::get('subject-list', [AdminController::class, 'subject_list'])->name('admin.subject.list');
+    Route::post('subject-detail', [AdminController::class, 'subject_detail'])->name('admin.subject.detail');
+    Route::post('subject-update', [AdminController::class, 'updatesubject'])->name('admin.update.subject');
     // Exercise
     Route::get('exercise', [AdminController::class, 'exercise'])->name('admin.exercise');
     Route::post('add-exercise', [AdminController::class, 'addExercise'])->name('admin.add.exercise');
