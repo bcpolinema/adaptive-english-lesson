@@ -25,7 +25,7 @@
                         <span class="text-danger error-text description_error"></span>
                     </div>
                     <button class="btn btn-primary" type="reset">Reset</button>
-                    <button type="submit" class="btn btn-success">Add</button>
+                    <button type="submit" class="btn btn-success">Update</button>
                 </form>
             </div>
         </div>

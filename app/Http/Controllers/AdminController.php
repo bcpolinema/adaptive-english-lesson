@@ -148,6 +148,14 @@ class AdminController extends Controller
 
     public function addSubject(Request $request)
     {
+        $audio_name = "";
+        $video_name = "";
+        $image_name = "";
+
+        $audio_upload = false;
+        $video_upload = false;
+        $image_upload = false;
+
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'topic_id' => 'required|string',
@@ -167,23 +175,34 @@ class AdminController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
 
-            $audio_path = 'audio/';
-            $audio = $request->file('audio');
-            $audio_name = $audio->getClientOriginalName();
+            if ($request->hasFile('audio')) {
+                $audio_path = 'audio/';
+                $audio = $request->file('audio');
+                $this->audio_name = $audio->getClientOriginalName();
+                $this->audio_upload = $audio->storeAs($audio_path, $audio_name, 'public');
+            } else {
+                $this->audio_upload = true;
+            }
 
-            $video_path = 'video/';
-            $video = $request->file('video');
-            $video_name = $video->getClientOriginalName();
+            if ($request->hasFile('video')) {
+                $video_path = 'video/';
+                $video = $request->file('video');
+                $this->video_name = $video->getClientOriginalName();
+                $this->video_upload = $video->storeAs($video_path, $video_name, 'public');
+            } else {
+                $this->video_upload = true;
+            }
 
-            $image_path = 'image/';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
+            if ($request->hasFile('image')) {
+                $image_path = 'image/';
+                $image = $request->file('image');
+                $this->image_name = $image->getClientOriginalName();
+                $this->image_upload = $image->storeAs($image_path, $image_name, 'public');
+            } else {
+                $this->image_upload = true;
+            }
 
-            $audio_upload = $audio->storeAs($audio_path, $audio_name, 'public');
-            $video_upload = $video->storeAs($video_path, $video_name, 'public');
-            $image_upload = $image->storeAs($image_path, $image_name, 'public');
-
-            if ($audio_upload and $video_upload and $image_upload) {
+            if ($this->audio_upload and $this->video_upload and $this->image_upload) {
                 Subject::insert([
                     'title' => $request->title,
                     'topic_id' => $request->topic_id,

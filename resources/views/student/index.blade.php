@@ -21,7 +21,7 @@
                 <div class="mask">
                     <p>Start Lesson</p>
                     <div class="tools tools-bottom">
-                        <a href="{{ route('student.topic', ['name' => $topic->{'name'} ] ) }}"><i class="fa fa-info-circle"></i></a>
+                        <a href="{{ route('student.topic', ['id' => $topic->{'id'} ] ) }}"><i class="fa fa-info-circle"></i></a>
                     </div>
                 </div>
             </div>
