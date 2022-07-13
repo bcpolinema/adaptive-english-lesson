@@ -265,7 +265,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'topic_id' => 'required|string',
-            'is_pretest' => 'string',
+            'is_pretest' => 'numeric',
             'content' => 'required|string',
             'video' => 'mimes:mp4',
             'audio' => 'mimes:mp3',

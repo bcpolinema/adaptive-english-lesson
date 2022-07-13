@@ -202,6 +202,7 @@
                 $('.edit_subject_modal').find('input[name="subject_id"]').val(data.details.id);
                 $('.edit_subject_modal').find('input[name="title"]').val(data.details.title);
                 $('.edit_subject_modal').find('select[name="topic_id"]').val(data.details.topic_id);
+                $('.edit_subject_modal').find('textarea[name="content"]').val(data.details.content);
                 $('.edit_subject_modal').find('input[name="youtube"]').val(data.details.youtube);
                 $('.edit_subject_modal').find('input[name="route1"]').val(data.details.route1);
                 $('.edit_subject_modal').find('input[name="route2"]').val(data.details.route2);

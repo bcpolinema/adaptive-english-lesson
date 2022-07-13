@@ -65,4 +65,5 @@ Route::group(['prefix' => 's', 'middleware' => ['student', 'auth', 'pvb']], func
     Route::get('home', [StudentController::class, 'index'])->name('student.home');
     Route::get('topic/{id}', [StudentController::class, 'topic'])->name('student.topic');
     Route::get('topic/listening', [StudentController::class, 'listening'])->name('student.topic.listening');
+    Route::get('exercise/{id}', [StudentController::class, 'exercise'])->name('student.exercise');
 });

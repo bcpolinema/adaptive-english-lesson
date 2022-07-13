@@ -18,8 +18,8 @@
                     <li>
                         <div class="block">
                             <div class="tags">
-                                <a href="" class="tag">
-                                    <span>Link</span>
+                                <a href="{{route('student.exercise', ['id'=>$subject->id])}}" class="tag">
+                                    <span>Start</span>
                                 </a>
                             </div>
                             <div class="block_content">

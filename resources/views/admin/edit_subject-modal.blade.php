@@ -32,8 +32,8 @@
                         <span class="text-danger error-text topic_id_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group">
-                        <input type="checkbox" name="is_pretest" value="1">
                         <input type="hidden" name="is_pretest" value="0">
+                        <input type="checkbox" name="is_pretest" value="1">
                         <label for="is_pretest"> Is Pretest</label><br>
                         <span class="text-danger error-text is_pretest_error"></span>
                     </div>
