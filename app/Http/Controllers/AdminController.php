@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Subject;
 use App\Topic;
 use App\Exercise;
+use App\User;
+use App\StdExercise;
+use App\StdLearning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -76,12 +79,17 @@ class AdminController extends Controller
 
     public function std_exercise()
     {
-        return view('admin.std_exercise');
+        $stdlrn = StdLearning::all('id', 'user_id', 'subject_id');
+        $user = User::all('id', 'name');
+        $exrcs = Exercise::all('id', 'subject_id');
+        return view('admin.std_exercise', compact('stdlrn', 'user', 'exrcs'));
     }
 
     public function std_learning()
     {
-        return view('admin.std_learning');
+        $subject = Subject::all('id', 'title');
+        $user = User::all('id', 'name');
+        return view('admin.std_learning', compact('subject', 'user'));
     }
 
 
@@ -451,5 +459,46 @@ class AdminController extends Controller
         End of Exercise
         */
         }
+    }
+
+    
+    /*
+        Start of Std Exercise
+    */
+
+    public function addStdExercise(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'learning_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'exercise_id' => 'required|integer',
+            'answer' => 'required|string',
+            'is_correct' => 'required|boolean',
+            'score' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            //Create topic
+            $stdexr = new StdExercise();
+            $stdexr->learning_id = $request->learning_id;
+            $stdexr->user_id = $request->user_id;
+            $stdexr->exercise_id = $request->exercise_id;
+            $stdexr->answer = $request->answer;
+            $stdexr->is_correct = $request->is_correct;
+            $stdexr->score = $request->score;
+            $query = $stdexr->save();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'New Std Exercise has been successfully saved']);
+            }
+        }
+
+        /*
+        End of Std Exercise
+        */
     }
 }
