@@ -55,11 +55,11 @@
     </div>
 </div>
 
-<!-- <div class="row">
+<div class="row">
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Exercise</h2>
+                <h2>Student Learning</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -67,13 +67,15 @@
             </div>
             <div class="x_content">
                 <div class="table-responsive">
-                    <table id="exercise_table" class="table table-striped jambo_table">
+                    <table id="std_learning_table" class="table table-striped jambo_table">
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
+                                <th class="column-title">Student Name</th>
                                 <th class="column-title">Subject</th>
-                                <th class="column-title">Question</th>
-                                <th class="column-title">Answer Key</th>
+                                <th class="column-title">TS Start</th>
+                                <th class="column-title">TS Exercise</th>
+                                <th class="column-title">Score</th>
                                 <th class="column-title">TS Entri</th>
                                 <th class="column-title">Action</th>
                             </tr>
@@ -85,9 +87,9 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
-@include('admin.edit_std_exercise-modal')
+@include('admin.edit_std_learning-modal')
 @endsection
 
 @section('script')
@@ -148,7 +150,7 @@
                     name: "actions"
                 },
             ]
-        });*
+        });
 
 
         $(document).on('click', '#edit_exercise_btn', function() {

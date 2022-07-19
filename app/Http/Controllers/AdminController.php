@@ -29,21 +29,6 @@ class AdminController extends Controller
         return view('admin.topic');
     }
 
-    public function topic_list()
-    {
-        $topics = Topic::all();
-        return DataTables::of($topics)
-            ->addColumn('actions', function ($row) {
-                return
-                    '<div class="btn-group" role="group">
-                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
-              </div>';
-            })
-            ->rawColumns(['actions'])
-            ->make(true);
-    }
-
     public function topic_detail(Request $request)
     {
         $topic_id = $request->topic_id;
@@ -126,6 +111,21 @@ class AdminController extends Controller
         }
     }
 
+    public function topic_list()
+    {
+        $topics = Topic::all();
+        return DataTables::of($topics)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+              </div>';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
     public function updateTopic(Request $request)
     {
         $topic_id = $request->topic_id;
@@ -150,6 +150,13 @@ class AdminController extends Controller
                 return response()->json(['code' => 1, 'msg' => 'Topic has been successfully updated']);
             }
         }
+    }
+
+    public function deleteTopic($id)
+    {
+		$topic = Topic::find($id);
+        $topic->destroy();
+        return response()->json(['success'=>'Topic deleted successfully.']);
     }
 
     /*
@@ -350,6 +357,12 @@ class AdminController extends Controller
         }
     }
 
+    public function deleteSubject($id)
+    {
+        Subject::find($id)->delete();   
+        return response()->json(['success'=>'Subject deleted successfully.']);    
+    }
+
 
     /*
         End of Subject
@@ -455,12 +468,18 @@ class AdminController extends Controller
             }
 
 
-            /*
-        End of Exercise
-        */
         }
     }
 
+    public function deleteExercise($id)
+    {
+       
+    }
+    
+    /*
+        End of Exercise
+    */
+    
     
     /*
         Start of Std Exercise
@@ -497,10 +516,27 @@ class AdminController extends Controller
             }
         }
 
-        /*
-        End of Std Exercise
-        */
+       
     }
+
+    public function std_exercise_list()
+    {
+       
+    }
+
+    public function updateStdExercise(Request $request)
+    {
+       
+    }
+
+    public function deleteStdExercise($id)
+    {
+       
+    }
+
+    /*
+        End of Std Exercise
+    */
 
      
     /*
@@ -544,8 +580,25 @@ class AdminController extends Controller
             }
         }
 
-        /*
-        End of Std Learning
-        */
+      
     }
+
+    public function std_learning_list()
+    {
+       
+    }
+
+    public function updateStdLearning(Request $request)
+    {
+       
+    }
+
+    public function deleteStdLearning($id)
+    {
+       
+    }
+
+    /*
+        End of Std Learning
+    */
 }

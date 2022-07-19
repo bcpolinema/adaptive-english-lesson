@@ -172,6 +172,24 @@
                 }
             });
         });
+
+        $(document).on('click', '#delete_topic_btn', function() {
+            var id = $(this).data('id');
+            confirm("Are You sure want to delete !");
+        
+            $.ajax(
+            {
+                url: 'delete-topic/'+id,
+                type: 'DELETE',
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        });
+
     });
 </script>
 @endsection

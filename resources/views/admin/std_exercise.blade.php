@@ -119,7 +119,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 @include('admin.edit_std_exercise-modal')
 @endsection
@@ -153,7 +153,7 @@
             });
         });
 
-        $('#std_exercise_table').DataTable({
+        /*$('#std_exercise_table').DataTable({
             processing: true,
             info: true,
             ajax: "{{ route('admin.std_exercise.list') }}",
@@ -182,10 +182,10 @@
                     name: "actions"
                 },
             ]
-        });*
+        });
 
 
-        /*$(document).on('click', '#edit_exercise_btn', function() {
+        $(document).on('click', '#edit_exercise_btn', function() {
             const exercise_id = $(this).data('id');
             const url = '{{ route("admin.exercise.detail") }}';
             $('.edit_exercise_modal').find('form')[0].reset();
