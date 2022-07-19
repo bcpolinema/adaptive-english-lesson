@@ -38,7 +38,7 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     Route::get('topic-list', [AdminController::class, 'topic_list'])->name('admin.topic.list');
     Route::post('topic-detail', [AdminController::class, 'topic_detail'])->name('admin.topic.detail');
     Route::post('topic-update', [AdminController::class, 'updateTopic'])->name('admin.update.topic');
-    Route::delete('delete-topic/{id}', [AdminController::class, 'deleteTopic']);
+    Route::post('delete-topic', [AdminController::class, 'deleteTopic'])->name('admin.delete.topic');
     // Subject
     Route::get('subject', [AdminController::class, 'subject'])->name('admin.subject');
     Route::post('add-subject', [AdminController::class, 'addSubject'])->name('admin.add.subject');

@@ -152,11 +152,16 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteTopic($id)
+    public function deleteTopic(Request $request)
     {
-		$topic = Topic::find($id);
-        $topic->destroy();
-        return response()->json(['success'=>'Topic deleted successfully.']);
+		$topic_id = $request->id;
+        $query = Topic::find($topic_id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Topic has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }
     }
 
     /*

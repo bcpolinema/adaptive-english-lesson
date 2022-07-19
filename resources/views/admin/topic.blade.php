@@ -174,20 +174,32 @@
         });
 
         $(document).on('click', '#delete_topic_btn', function() {
-            var id = $(this).data('id');
-            confirm("Are You sure want to delete !");
-        
-            $.ajax(
-            {
-                url: 'delete-topic/'+id,
-                type: 'DELETE',
-                success: function (data) {
-                    table.draw();
-                },
-                error: function (data) {
-                    console.log('Error:', data);
+            var topic_id = $(this).data('id');
+            var url = '<?= route("admin.delete.topic") ?>';
+                    
+            swal.fire({
+                title:'Are you sure?',
+                html:'You want to <b>delete</b> this country',
+                showCancelButton:true,
+                showCloseButton:true,
+                cancelButtonText:'Cancel',
+                confirmButtonText:'Yes, Delete',
+                cancelButtonColor:'#d33',
+                confirmButtonColor:'#556ee6',
+                width:300,
+                allowOutsideClick:false
+            }).then(function(result){
+                if(result.value){
+                    $.post(url,{topic_id:topic_id}, function(data){
+                        if(data.code == 1){
+                            $('#topic_table').DataTable().ajax.reload(null, false);
+                            toastr.success(data.msg);
+                        }else{
+                            toastr.error(data.msg);
+                        }
+                    },'json');
                 }
-            });
+             });
         });
 
     });
