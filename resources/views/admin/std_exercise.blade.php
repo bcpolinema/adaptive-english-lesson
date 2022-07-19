@@ -13,7 +13,7 @@
             </div>
             <div class="x_content">
                 <br>
-                <form id="add_exercise" action="{{route('admin.add.exercise')}}" method="POST"
+                <form id="add_std_exercise" action="{{route('admin.add.std_exercise')}}" method="POST"
                     class="form-label-left input_mask">
                     @csrf
                     <div class="col-md-4 col-sm-6 form-group">
@@ -22,50 +22,55 @@
                             @forelse ($stdlrn as $stdlr)
                             <option value="{{$stdlr-> {'id'} }}"> {{$stdlr-> {'learning_id'} }} </option>
                             @empty
-                            <option value="0">-- No Learning Available -- </option>
+                            <option value="0">-- No Learning's Available -- </option>
                             @endforelse
                         </select>
-                        <span class="text-danger error-text subject_id_error"></span>
+                        <span class="text-danger error-text learning_id_error"></span>
                     </div>
                     <div class="col-md-4 col-sm-6 form-group">
-                        <select class="form-control" name="learning_id">
+                        <select class="form-control" name="user_id">
                             <option selected disabled> -- Choose Student --</option>
                             @forelse ($user as $std)
-                            <option value="{{$std-> {'id'} }}"> {{$std-> {'name'} }} </option>
+                            <option value="{{$std-> {'id'} }}"> {{ $std->{'name'} }} </option>
                             @empty
                             <option value="0">-- No Student's Available -- </option>
                             @endforelse
                         </select>
-                        <span class="text-danger error-text subject_id_error"></span>
+                        <span class="text-danger error-text user_id_error"></span>
                     </div>
                     <div class="col-md-4 col-sm-6 form-group">
-                        <select class="form-control" name="learning_id">
+                        <select class="form-control" name="exercise_id">
                             <option selected disabled> -- Choose Exercise --</option>
                             @forelse ($exrcs as $exr)
-                            <option value="{{$exr-> {'id'} }}"> {{$exr-> {'subject_id'} }} </option>
+                            <option value="{{$exr-> {'id'} }}"> {{$exr-> {'question'} }} </option>
                             @empty
-                            <option value="0">-- No Student's Available -- </option>
+                            <option value="0">-- No Exercise's Available -- </option>
                             @endforelse
                         </select>
-                        <span class="text-danger error-text subject_id_error"></span>
+                        <span class="text-danger error-text exercise_id_error"></span>
                     </div>
-                    <div class="col-md-6  form-group has-feedback">
-                        <input type="text" name="answer" class="form-control has-feedback-left"
-                            placeholder="Answer">
-                        <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <input type="checkbox" name="is_correct" value="1">
+                        <input type="hidden" name="is_correct" value="0">
+                        <label for="is_pretest"> Is Correct</label><br>
+                        <span class="text-danger error-text is_correct_error"></span>
+                    </div>
+                    <div class="col-md-6 form-group has-feedback">
+                        <select class="form-control" name="answer">
+                            <option selected disabled> -- Choose Answer --</option>
+                            <option value="a"> Option A </option>
+                            <option value="b"> Option B </option>
+                            <option value="c"> Option C </option>
+                            <option value="d"> Option D </option>
+                            <option value="e"> Option E </option>
+                        </select>
                         <span class="text-danger error-text answer_error"></span>
                     </div>
                     <div class="col-md-6  form-group has-feedback">
-                        <input type="text" name="option_d" class="form-control has-feedback-left"
-                            placeholder="Is Correct">
-                        <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text option_d_error"></span>
-                    </div>
-                    <div class="col-md-6  form-group has-feedback">
-                        <input type="text" name="option_b" class="form-control has-feedback-left"
+                        <input type="text" name="score" class="form-control has-feedback-left"
                             placeholder="Score">
                         <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text option_b_error"></span>
+                        <span class="text-danger error-text score_error"></span>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">
@@ -84,11 +89,11 @@
     </div>
 </div>
 
-<!-- <div class="row">
+<div class="row">
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Exercise</h2>
+                <h2>Student Exercise</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -96,13 +101,13 @@
             </div>
             <div class="x_content">
                 <div class="table-responsive">
-                    <table id="exercise_table" class="table table-striped jambo_table">
+                    <table id="std_exercise_table" class="table table-striped jambo_table">
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
-                                <th class="column-title">Subject</th>
-                                <th class="column-title">Question</th>
-                                <th class="column-title">Answer Key</th>
+                                <th class="column-title">Student Name</th>
+                                <th class="column-title">Exercise</th>
+                                <th class="column-title">Score</th>
                                 <th class="column-title">TS Entri</th>
                                 <th class="column-title">Action</th>
                             </tr>
@@ -148,10 +153,10 @@
             });
         });
 
-        /*$('#exercise_table').DataTable({
+        $('#std_exercise_table').DataTable({
             processing: true,
             info: true,
-            ajax: "{{ route('admin.exercise.list') }}",
+            ajax: "{{ route('admin.std_exercise.list') }}",
             columns: [{
                     data: "id",
                     name: "id"
@@ -180,7 +185,7 @@
         });*
 
 
-        $(document).on('click', '#edit_exercise_btn', function() {
+        /*$(document).on('click', '#edit_exercise_btn', function() {
             const exercise_id = $(this).data('id');
             const url = '{{ route("admin.exercise.detail") }}';
             $('.edit_exercise_modal').find('form')[0].reset();

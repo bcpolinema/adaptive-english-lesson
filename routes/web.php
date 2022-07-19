@@ -52,9 +52,16 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     Route::post('exercise-update', [AdminController::class, 'updateExercise'])->name('admin.update.exercise');
     // Student Exercise
     Route::get('std-exercise', [AdminController::class, 'std_exercise'])->name('admin.std_exercise');
-    Route::post('add-std-exercise', [AdminController::class, 'addExercise'])->name('admin.add.stdexercise');
+    Route::post('add-std-exercise', [AdminController::class, 'addStdExercise'])->name('admin.add.std_exercise');
+    Route::get('std-exercise-list', [AdminController::class, 'std_exercise_list'])->name('admin.std_exercise.list');
+    Route::post('std-exercise-detail', [AdminController::class, 'std_exercise_detail'])->name('admin.std_exercise.detail');
+    Route::post('std-exercise-update', [AdminController::class, 'updateStdExercise'])->name('admin.update.std_exercise');
     // Student Learning
     Route::get('std-learning', [AdminController::class, 'std_learning'])->name('admin.std_learning');
+    Route::post('add-std-learning', [AdminController::class, 'addStdLearning'])->name('admin.add.std_learning');
+    Route::get('std-learning-list', [AdminController::class, 'std_learning_list'])->name('admin.std_learning.list');
+    Route::post('std-learning-detail', [AdminController::class, 'std_learning_detail'])->name('admin.std_learning.detail');
+    Route::post('std-learning-update', [AdminController::class, 'updateStdLearning'])->name('admin.update.std_learning');
 
 });
 

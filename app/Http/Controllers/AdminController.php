@@ -80,15 +80,15 @@ class AdminController extends Controller
     public function std_exercise()
     {
         $stdlrn = StdLearning::all('id', 'user_id', 'subject_id');
-        $user = User::all('id', 'name');
-        $exrcs = Exercise::all('id', 'subject_id');
+        $user = User::all()->where('roles', 'student');
+        $exrcs = Exercise::all('id', 'question');
         return view('admin.std_exercise', compact('stdlrn', 'user', 'exrcs'));
     }
 
     public function std_learning()
     {
         $subject = Subject::all('id', 'title');
-        $user = User::all('id', 'name');
+        $user = User::all()->where('roles', 'student');
         return view('admin.std_learning', compact('subject', 'user'));
     }
 
@@ -473,7 +473,7 @@ class AdminController extends Controller
             'user_id' => 'required|integer',
             'exercise_id' => 'required|integer',
             'answer' => 'required|string',
-            'is_correct' => 'required|boolean',
+            'is_correct' => 'string',
             'score' => 'required|integer',
         ]);
 
@@ -499,6 +499,53 @@ class AdminController extends Controller
 
         /*
         End of Std Exercise
+        */
+    }
+
+     
+    /*
+        Start of Std Learning
+    */
+
+    public function addStdLearning(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer',
+            'subject_id' => 'required|integer',
+            'ts_start' => 'required|date_format:Y-m-d H:i:s',
+            'is_validated'  => 'string',
+            'ts_exercise' => 'required|date_format:Y-m-d H:i:s',
+            'score'  => 'required|integer',
+            'next_learning'  => 'integer',
+            'comment' => 'string',
+            'is_termination' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            //Create topic
+            $stdlrn = new StdLearning();
+            $stdlrn->user_id = $request->user_id;
+            $stdlrn->subject_id= $request->subject_id;
+            $stdlrn->ts_start = $request->ts_start;
+            $stdlrn->is_validated = $request->is_validated;
+            $stdlrn->ts_exercise = $request->ts_exercise;
+            $stdlrn->score = $request->score;
+            $stdlrn->next_learning = $request->next_learning;
+            $stdlrn->comment = $request->comment;
+            $stdlrn->is_termination = $request->is_termination;
+            $query = $stdlrn->save();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'New Std Learning has been successfully saved']);
+            }
+        }
+
+        /*
+        End of Std Learning
         */
     }
 }
