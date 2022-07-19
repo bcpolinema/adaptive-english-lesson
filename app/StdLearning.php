@@ -24,4 +24,19 @@ class StdLearning extends Model
     protected $dates = [
         'ts_entri',
     ];
+
+    public function stdexercises()
+    {
+        return $this->hasMany(StdExercise::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+     
+    public function subjects()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }
