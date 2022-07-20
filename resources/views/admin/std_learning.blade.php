@@ -38,6 +38,50 @@
                         </select>
                         <span class="text-danger error-text subject_id_error"></span>
                     </div>
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <input type="checkbox" name="is_validated" value="1">
+                        <input type="hidden" name="is_validated" value="0">
+                        <label for="is_validated"> Is Validated</label><br>
+                        <span class="text-danger error-text is_validated_error"></span>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
+                        <label for="ts_start"> TS Start</label><br>
+                        <input type="datetime-local" name="ts_start" class="form-control has-feedback-left"
+                            placeholder="TS Start">
+                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text ts_start_error"></span>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
+                        <label for="ts_exercise"> TS Exercise</label><br>
+                        <input type="datetime-local" name="ts_exercise" class="form-control has-feedback-left"
+                            placeholder="TS Exercise">
+                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text ts_exercise_error"></span>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
+                        <input type="text" name="score" class="form-control has-feedback-left"
+                            placeholder="Score">
+                        <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text score_error"></span>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
+                        <input type="text" name="next_learning" class="form-control has-feedback-left"
+                            placeholder="Next Learning">
+                        <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text next_learning_error"></span>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group has-feedback">
+                        <textarea type="text" rows="3" name="comment" class="form-control has-feedback-left"
+                            placeholder="Comment"></textarea>
+                        <span class="fa fa-question-circle form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text comment_error"></span>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <input type="checkbox" name="is_termination" value="1">
+                        <input type="hidden" name="is_termination" value="0">
+                        <label for="is_termination"> Is Termination</label><br>
+                        <span class="text-danger error-text is_termination_error"></span>
+                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">
                         <div class="col-md-9 col-sm-9 offset-md-3">
@@ -121,25 +165,33 @@
             });
         });
 
-        /*$('#exercise_table').DataTable({
+        $('#std_learning_table').DataTable({
             processing: true,
             info: true,
-            ajax: "{{ route('admin.exercise.list') }}",
+            ajax: "{{ route('admin.std_learning.list') }}",
             columns: [{
                     data: "id",
                     name: "id"
+                },
+                {
+                    data: "user_name",
+                    name: "user.name"
                 },
                 {
                     data: "subject_title",
                     name: "subject.title"
                 },
                 {
-                    data: "question",
-                    name: "question"
+                    data: "ts_start",
+                    name: "ts_start"
                 },
                 {
-                    data: "answer_key",
-                    name: "answer_key"
+                    data: "ts_exercise",
+                    name: "ts_exercise"
+                },
+                {
+                    data: "score",
+                    name: "score"
                 },
                 {
                     data: "ts_entri",
@@ -153,7 +205,7 @@
         });
 
 
-        $(document).on('click', '#edit_exercise_btn', function() {
+        /*$(document).on('click', '#edit_exercise_btn', function() {
             const exercise_id = $(this).data('id');
             const url = '{{ route("admin.exercise.detail") }}';
             $('.edit_exercise_modal').find('form')[0].reset();
@@ -202,6 +254,30 @@
                 }
             });
         });*/
+
+        $(document).on('click', '#delete_std_learning_btn', function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            if (confirm("Are You sure want to delete !")) {
+                $.ajax({
+                    url: "{{ route('admin.delete.std_learning') }}",
+                    method: "post",
+                    data: {
+                        id: id,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.code == 0) {
+                            alert(response.msg);
+                        } else {
+                            $('#std_learning_table').DataTable().ajax.reload(null, false);
+                            alert(response.msg);
+                        }
+                    }
+                });
+            };
+
+        });
     });
 </script>
 @endsection

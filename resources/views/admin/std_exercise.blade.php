@@ -52,7 +52,7 @@
                     <div class="col-md-12 col-sm-12 form-group">
                         <input type="checkbox" name="is_correct" value="1">
                         <input type="hidden" name="is_correct" value="0">
-                        <label for="is_pretest"> Is Correct</label><br>
+                        <label for="is_correct"> Is Correct</label><br>
                         <span class="text-danger error-text is_correct_error"></span>
                     </div>
                     <div class="col-md-6 form-group has-feedback">

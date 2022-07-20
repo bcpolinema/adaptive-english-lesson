@@ -74,7 +74,7 @@ class AdminController extends Controller
     public function std_learning()
     {
         $subject = Subject::all('id', 'title');
-        $user = User::all('id', 'name')->where('roles', 'student');
+        $user = User::all()->where('roles', 'student');
         return view('admin.std_learning', compact('subject', 'user'));
     }
 
@@ -601,10 +601,10 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer',
             'subject_id' => 'required|integer',
-            'ts_start' => 'required|date_format:Y-m-d H:i:s',
+            'ts_start' => 'required',
             'is_validated'  => 'string',
-            'ts_exercise' => 'required|date_format:Y-m-d H:i:s',
-            'score'  => 'required|integer',
+            'ts_exercise' => 'required',
+            'score'  => 'integer',
             'next_learning'  => 'integer',
             'comment' => 'string',
             'is_termination' => 'string',
@@ -638,8 +638,8 @@ class AdminController extends Controller
 
     public function std_learning_list()
     {
-        $stdlrngs = StdLearning::with('users', 'subject');
-        return DataTables::of($stdexrcs)
+        $stdlrngs = StdLearning::with('user', 'subject');
+        return DataTables::of($stdlrngs)
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
@@ -647,11 +647,15 @@ class AdminController extends Controller
                 <button id="delete_std_learning_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
                 </div>';
             })
-            ->addColumn('users_name', function (StdLearning $stdlrng) {
-                return $stdlrng->users->name;
+            ->addColumn('subject_title', function (StdLearning $stdlrn) {
+                return $stdlrn->subject->title;
+            })
+            ->addColumn('user_name', function (StdLearning $stdlrn) {
+                return $stdlrn->user->name;
             })
             ->rawColumns(['actions'])
             ->make(true);
+       
     }
 
     public function updateStdLearning(Request $request)

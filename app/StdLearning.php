@@ -30,12 +30,12 @@ class StdLearning extends Model
         return $this->hasMany(StdExercise::class);
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
      
-    public function subjects()
+    public function subject()
     {
         return $this->belongsTo(Subject::class);
     }
