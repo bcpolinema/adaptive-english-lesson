@@ -38,14 +38,14 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     Route::get('topic-list', [AdminController::class, 'topic_list'])->name('admin.topic.list');
     Route::post('topic-detail', [AdminController::class, 'topic_detail'])->name('admin.topic.detail');
     Route::post('topic-update', [AdminController::class, 'updateTopic'])->name('admin.update.topic');
-    Route::delete('delete-topic', [AdminController::class, 'deleteTopic'])->name('admin.delete.topic');
+    Route::post('delete-topic', [AdminController::class, 'deleteTopic'])->name('admin.delete.topic');
     // Subject
     Route::get('subject', [AdminController::class, 'subject'])->name('admin.subject');
     Route::post('add-subject', [AdminController::class, 'addSubject'])->name('admin.add.subject');
     Route::get('subject-list', [AdminController::class, 'subject_list'])->name('admin.subject.list');
     Route::post('subject-detail', [AdminController::class, 'subject_detail'])->name('admin.subject.detail');
     Route::post('subject-update', [AdminController::class, 'updatesubject'])->name('admin.update.subject');
-    Route::delete('delete-subject', [AdminController::class, 'deleteSubject'])->name('admin.delete.subject');
+    Route::post('delete-subject', [AdminController::class, 'deleteSubject'])->name('admin.delete.subject');
     // Exercise
     Route::get('exercise', [AdminController::class, 'exercise'])->name('admin.exercise');
     Route::post('add-exercise', [AdminController::class, 'addExercise'])->name('admin.add.exercise');

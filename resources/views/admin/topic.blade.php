@@ -192,28 +192,27 @@
 
         $(document).on('click', '#delete_topic_btn', function(e) {
             e.preventDefault();
-            let id = $(this).attr('id');
-            let csrf = '{{ csrf_token() }}';
-            confirm("Are You sure want to delete !");
+            let id = $(this).data('id');
+            // let csrf = '{{ csrf_token() }}';
+            if (confirm("Are You sure want to delete !")) {
+                $.ajax({
+                    url: "{{ route('admin.delete.topic') }}",
+                    method: "post",
+                    data: {
+                        id: id,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.code == 0) {
+                            alert(response.msg);
+                        } else {
+                            $('#topic_table').DataTable().ajax.reload(null, false);
+                            alert(response.msg);
+                        }
+                    }
+                });
+            };
 
-            $.ajax({
-                url: "{{ route('admin.delete.topic') }}",
-                method: "delete",
-                data: {
-                    id: id,
-                    _token: csrf
-                },
-                success: function(response) {
-                    if (data.code == 0) {
-                        $.each(data.error, function(prefix, val) {
-                            $(form).find('span.' + prefix + '_error').text(val[0]);
-                        });
-                    } else {
-                        $('#topic_table').DataTable().ajax.reload(null, false);
-                        alert(data.msg);
-                    } 
-                }
-            });       
         });
     });
 </script>
