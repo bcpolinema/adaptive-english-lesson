@@ -73,7 +73,7 @@ class AdminController extends Controller
     public function std_learning()
     {
         $subject = Subject::all('id', 'title');
-        $user = User::all()->where('roles', 'student');
+        $user = User::all('id', 'name')->where('roles', 'student');
         return view('admin.std_learning', compact('subject', 'user'));
     }
 
@@ -154,8 +154,8 @@ class AdminController extends Controller
 
     public function deleteTopic(Request $request)
     {
-		$topic_id = $request->id;
-        $query = Topic::find($topic_id)->delete();
+		$id = $request->id;
+        $query = Topic::find($id)->delete();
 
         if($query){
             return response()->json(['code'=>1, 'msg'=>'Topic has been deleted from database']);
@@ -362,10 +362,29 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteSubject($id)
+    public function deleteSubject(Request $request)
     {
-        Subject::find($id)->delete();   
-        return response()->json(['success'=>'Subject deleted successfully.']);    
+        $id = $request->id;
+        $query = Subject::find($id);
+
+        // Hapus Image
+        if (Storage::delete('public/images/' . $query->image)) {
+			Subject::destroy($id);
+		}
+        // Hapus Video
+        if (Storage::delete('public/video/' . $query->video)) {
+			Kegiatan::destroy($id);
+		}
+        // Hapus Audio
+        if (Storage::delete('public/audio/' . $emp->audio)) {
+			Kegiatan::destroy($id);
+		}
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Subject has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }  
     }
 
 
@@ -476,9 +495,16 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteExercise($id)
+    public function deleteExercise(Request $request)
     {
-       
+        $id = $request->id;
+        $query = Exercise::find($id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Exercise has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }
     }
     
     /*
@@ -504,7 +530,7 @@ class AdminController extends Controller
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-            //Create topic
+            //Create StdExercise
             $stdexr = new StdExercise();
             $stdexr->learning_id = $request->learning_id;
             $stdexr->user_id = $request->user_id;
@@ -526,6 +552,20 @@ class AdminController extends Controller
 
     public function std_exercise_list()
     {
+        $stdexr = StdExercise::with('stdlearnings', 'users', 'exercises');
+        return DataTables::of($stdexr)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_subject_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                </div>';
+            })
+            ->addColumn('users_name', function (StdExercise $stdexr) {
+                return $stdexr->user->name;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
        
     }
 
@@ -534,9 +574,16 @@ class AdminController extends Controller
        
     }
 
-    public function deleteStdExercise($id)
+    public function deleteStdExercise(Request $request)
     {
-       
+        $id = $request->id;
+        $query = StdExercise::find($id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Student Exercise has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }
     }
 
     /*
@@ -598,9 +645,16 @@ class AdminController extends Controller
        
     }
 
-    public function deleteStdLearning($id)
+    public function deleteStdLearning(Request $request)
     {
-       
+        $id = $request->id;
+        $query = StdLearning::find($id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Student Learning has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }
     }
 
     /*

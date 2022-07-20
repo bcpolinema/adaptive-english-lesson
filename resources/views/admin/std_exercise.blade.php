@@ -20,7 +20,7 @@
                         <select class="form-control" name="learning_id">
                             <option selected disabled> -- Choose Learning --</option>
                             @forelse ($stdlrn as $stdlr)
-                            <option value="{{$stdlr-> {'id'} }}"> {{$stdlr-> {'learning_id'} }} </option>
+                            <option value="{{$stdlr-> {'id'} }}"> {{$stdlr->{'learning_id'} }} </option>
                             @empty
                             <option value="0">-- No Learning's Available -- </option>
                             @endforelse
@@ -106,7 +106,6 @@
                             <tr class="headings">
                                 <th class="column-title">ID </th>
                                 <th class="column-title">Student Name</th>
-                                <th class="column-title">Exercise</th>
                                 <th class="column-title">Score</th>
                                 <th class="column-title">TS Entri</th>
                                 <th class="column-title">Action</th>
@@ -153,7 +152,7 @@
             });
         });
 
-        /*$('#std_exercise_table').DataTable({
+        $('#std_exercise_table').DataTable({
             processing: true,
             info: true,
             ajax: "{{ route('admin.std_exercise.list') }}",
@@ -162,16 +161,12 @@
                     name: "id"
                 },
                 {
-                    data: "subject_title",
-                    name: "subject.title"
+                    data: "users_name",
+                    name: "users.name"
                 },
                 {
-                    data: "question",
-                    name: "question"
-                },
-                {
-                    data: "answer_key",
-                    name: "answer_key"
+                    data: "score",
+                    name: "score"
                 },
                 {
                     data: "ts_entri",
@@ -185,7 +180,7 @@
         });
 
 
-        $(document).on('click', '#edit_exercise_btn', function() {
+        /*$(document).on('click', '#edit_exercise_btn', function() {
             const exercise_id = $(this).data('id');
             const url = '{{ route("admin.exercise.detail") }}';
             $('.edit_exercise_modal').find('form')[0].reset();

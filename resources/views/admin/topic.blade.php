@@ -173,35 +173,48 @@
             });
         });
 
-        $(document).on('click', '#delete_topic_btn', function() {
+        /*$(document).on('click', '#delete_topic_btn', function() {
             var topic_id = $(this).data('id');
-            var url = '<?= route("admin.delete.topic") ?>';
+            var url = '{{ route("admin.delete.topic") }}';
+            confirm("Are You sure want to delete !");
                     
-            swal.fire({
-                title:'Are you sure?',
-                html:'You want to <b>delete</b> this country',
-                showCancelButton:true,
-                showCloseButton:true,
-                cancelButtonText:'Cancel',
-                confirmButtonText:'Yes, Delete',
-                cancelButtonColor:'#d33',
-                confirmButtonColor:'#556ee6',
-                width:300,
-                allowOutsideClick:false
-            }).then(function(result){
-                if(result.value){
+           
                     $.post(url,{topic_id:topic_id}, function(data){
                         if(data.code == 1){
                             $('#topic_table').DataTable().ajax.reload(null, false);
-                            toastr.success(data.msg);
+                            alert(data.msg);
                         }else{
-                            toastr.error(data.msg);
+                            alert(data.msg);
                         }
                     },'json');
-                }
-             });
-        });
+           
+        });*/
 
+        $(document).on('click', '#delete_topic_btn', function(e) {
+            e.preventDefault();
+            let id = $(this).attr('id');
+            let csrf = '{{ csrf_token() }}';
+            confirm("Are You sure want to delete !");
+
+            $.ajax({
+                url: "{{ route('admin.delete.topic') }}",
+                method: "delete",
+                data: {
+                    id: id,
+                    _token: csrf
+                },
+                success: function(response) {
+                    if (data.code == 0) {
+                        $.each(data.error, function(prefix, val) {
+                            $(form).find('span.' + prefix + '_error').text(val[0]);
+                        });
+                    } else {
+                        $('#topic_table').DataTable().ajax.reload(null, false);
+                        alert(data.msg);
+                    } 
+                }
+            });       
+        });
     });
 </script>
 @endsection
