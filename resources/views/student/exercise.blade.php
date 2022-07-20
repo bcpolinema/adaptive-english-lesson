@@ -18,35 +18,37 @@
                     <source src="{{ asset('storage/audio/' . $subject->audio) }}">
                     Your browser does not support the audio element.
                 </audio>
-                <form action="" method="POST">
+                <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="subject_id">
                     @forelse ($exercises as $exercise)
                     <br>
                     <div class="form-group row">
                         <label>{{ $exercise->{'question'} }} </label>
                         <div>
-                            <div class="checkbox">
+                            <div class="radio">
                                 <label>
-                                    <input type="checkbox" value="a"> A. {{ $exercise->{'option_a'} }}
+                                    <input data-exercise_id = {{$exercise->{'id'} }} name="answer" type="radio" value="a"> A. {{ $exercise->{'option_a'} }}
                                 </label>
                             </div>
-                            <div class="checkbox">
+                            <div class="radio">
                                 <label>
-                                    <input type="checkbox" value="b"> B. {{ $exercise->{'option_b'} }}
+                                    <input name="answer" type="radio" value="b"> B. {{ $exercise->{'option_b'} }}
                                 </label>
                             </div>
-                            <div class="checkbox">
+                            <div class="radio">
                                 <label>
-                                    <input type="checkbox" value="c"> C. {{ $exercise->{'option_c'} }}
+                                    <input name="answer" type="radio" value="c"> C. {{ $exercise->{'option_c'} }}
                                 </label>
                             </div>
-                            <div class="checkbox">
+                            <div class="radio">
                                 <label>
-                                    <input type="checkbox" value="d"> D. {{ $exercise->{'option_d'} }}
+                                    <input name="answer" type="radio" value="d"> D. {{ $exercise->{'option_d'} }}
                                 </label>
                             </div>
-                            <div class="checkbox">
+                            <div class="radio">
                                 <label>
-                                    <input type="checkbox" value="e"> E. {{ $exercise->{'option_e'} }}
+                                    <input name="answer" type="radio" value="e"> E. {{ $exercise->{'option_e'} }}
                                 </label>
                             </div>
                         </div>
@@ -67,6 +69,40 @@
     </div>
 </div>
 @empty
-<code>no data available</code>
+<code>no exercise available</code>
 @endforelse
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#exercise_form').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            alert("submited");
+            // $.ajax({
+            //     url: $(form).attr('action'),
+            //     method: $(form).attr('method'),
+            //     data: new FormData(form),
+            //     processData: false,
+            //     dataType: 'json',
+            //     contentType: false,
+            //     beforeSend: function() {
+            //         $(this).find('span.error-text').text('');
+            //     },
+            //     success: function(data) {
+            //         if (data.code == 0) {
+            //             $.each(data.error, function(prefix, val) {
+            //                 $(form).find('span.' + prefix + '_error').text(val[0]);
+            //             });
+            //         } else {
+            //             $(form)[0].reset();
+            //             $('#topic_table').DataTable().ajax.reload(null, false);
+            //             alert(data.msg);
+            //         }
+            //     }
+            // });
+        });
+    });
+</script>
 @endsection

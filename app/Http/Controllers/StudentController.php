@@ -6,30 +6,38 @@ use App\Exercise;
 use App\Subject;
 use App\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $topics = Topic::all('id', 'name');
         return view('student.index', compact('topics'));
     }
 
-    public function topic(Request $request){
+    public function topic(Request $request)
+    {
         // $topics = Topic::where('name', '=', $request->name)->get();
         $subjects = Subject::where('topic_id', '=', $request->id)
-        ->where('is_pretest', '=', 1)
-        ->get();
+            ->where('is_pretest', '=', 1)
+            ->get();
         return view('student.topic', compact('subjects'));
     }
 
-    public function exercise(Request $request){
+    public function exercise(Request $request)
+    {
         $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
         $exercises = Exercise::where('subject_id', '=', $request->id)->get();
-        return view('student.exercise', compact('subjects','exercises'));
+
+        return view('student.exercise', compact('subjects', 'exercises'));
     }
 
-    public function listening(){
-        return view('student.listening');
+    public function submitAnswer(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'answer' => 'required|max:1',
+        ]);
     }
-    
 }

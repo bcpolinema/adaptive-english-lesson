@@ -32,8 +32,10 @@
   <!-- Datatables -->
   <link href=" {{ asset('gentelella/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
   <link href=" {{ asset('gentelella/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('gentelella/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('gentelella/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+  <link href=" {{ asset('gentelella/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+    rel="stylesheet">
+  <link href=" {{ asset('gentelella/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+    rel="stylesheet">
   <link href=" {{ asset('gentelella//datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Custom Theme Style -->
@@ -104,7 +106,8 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
               <li class="">
-                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                  aria-expanded="false">
                   <img src="{{ asset('images/img.jpg') }}" alt="">
                   @auth
                   {{ Auth::user()->name }}

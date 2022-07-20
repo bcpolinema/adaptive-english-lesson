@@ -177,6 +177,16 @@
   <!-- Custom Theme Scripts -->
   <script src="{{ asset('build/js/custom.min.js') }}"></script>
 
+
+  <script>
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+  </script>
+
+  @yield('script')
 </body>
 
 </html>

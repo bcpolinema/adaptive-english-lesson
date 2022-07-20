@@ -51,7 +51,8 @@ class AdminController extends Controller
     public function subject()
     {
         $topics = Topic::all('id', 'name');
-        return view('admin.subject', compact('topics'));
+        $subjects = Subject::all('id', 'title');
+        return view('admin.subject', compact('topics', 'subjects'));
     }
 
     public function subject_detail(Request $request)
