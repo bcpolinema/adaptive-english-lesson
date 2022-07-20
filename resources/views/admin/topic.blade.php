@@ -173,23 +173,6 @@
             });
         });
 
-        /*$(document).on('click', '#delete_topic_btn', function() {
-            var topic_id = $(this).data('id');
-            var url = '{{ route("admin.delete.topic") }}';
-            confirm("Are You sure want to delete !");
-                    
-           
-                    $.post(url,{topic_id:topic_id}, function(data){
-                        if(data.code == 1){
-                            $('#topic_table').DataTable().ajax.reload(null, false);
-                            alert(data.msg);
-                        }else{
-                            alert(data.msg);
-                        }
-                    },'json');
-           
-        });*/
-
         $(document).on('click', '#delete_topic_btn', function(e) {
             e.preventDefault();
             let id = $(this).data('id');

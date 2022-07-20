@@ -145,6 +145,7 @@
                             $(form).find('span.' + prefix + '_error').text(val[0]);
                         });
                     } else {
+                        $('#std_exercise_table').DataTable().ajax.reload(null, false);
                         $(form)[0].reset();
                         alert(data.msg);
                     }
@@ -161,8 +162,8 @@
                     name: "id"
                 },
                 {
-                    data: "users_name",
-                    name: "users.name"
+                    data: "user_name",
+                    name: "user.name"
                 },
                 {
                     data: "score",
@@ -222,13 +223,37 @@
                         });
                     } else {
                         $(form)[0].reset();
-                        $('#exercise_table').DataTable().ajax.reload(null, false);
-                        $('.edit_exercise_modal').modal('hide');
+                        $('#std_exercise_table').DataTable().ajax.reload(null, false);
+                        $('.edit_std_exercise_modal').modal('hide');
                         alert(data.msg);
                     }
                 }
             });
         });*/
+
+        $(document).on('click', '#delete_std_exercise_btn', function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            if (confirm("Are You sure want to delete !")) {
+                $.ajax({
+                    url: "{{ route('admin.delete.std_exercise') }}",
+                    method: "post",
+                    data: {
+                        id: id,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.code == 0) {
+                            alert(response.msg);
+                        } else {
+                            $('#std_exercise_table').DataTable().ajax.reload(null, false);
+                            alert(response.msg);
+                        }
+                    }
+                });
+            };
+
+        });
     });
 </script>
 @endsection

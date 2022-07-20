@@ -553,17 +553,17 @@ class AdminController extends Controller
 
     public function std_exercise_list()
     {
-        $stdexr = StdExercise::with('stdlearnings', 'users', 'exercises');
-        return DataTables::of($stdexr)
+        $stdexrcs = StdExercise::with('stdlearning', 'user', 'exercise');
+        return DataTables::of($stdexrcs)
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
-                <button id="edit_subject_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                <button id="edit_std_exercise_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_std_exercise_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
                 </div>';
             })
-            ->addColumn('users_name', function (StdExercise $stdexr) {
-                return $stdexr->user->name;
+            ->addColumn('user_name', function (StdExercise $stdexrc) {
+                return $stdexrc->user->name;
             })
             ->rawColumns(['actions'])
             ->make(true);
@@ -638,7 +638,20 @@ class AdminController extends Controller
 
     public function std_learning_list()
     {
-       
+        $stdlrngs = StdLearning::with('users', 'subject');
+        return DataTables::of($stdexrcs)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_std_learning_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_std_learning_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                </div>';
+            })
+            ->addColumn('users_name', function (StdLearning $stdlrng) {
+                return $stdlrng->users->name;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
 
     public function updateStdLearning(Request $request)

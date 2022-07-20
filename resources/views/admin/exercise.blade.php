@@ -155,6 +155,7 @@
                         });
                     } else {
                         $(form)[0].reset();
+                        $('#exercise_table').DataTable().ajax.reload(null, false);
                         alert(data.msg);
                     }
                 }
@@ -241,6 +242,30 @@
                     }
                 }
             });
+        });
+
+        $(document).on('click', '#delete_exercise_btn', function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            if (confirm("Are You sure want to delete !")) {
+                $.ajax({
+                    url: "{{ route('admin.delete.exercise') }}",
+                    method: "post",
+                    data: {
+                        id: id,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.code == 0) {
+                            alert(response.msg);
+                        } else {
+                            $('#exercise_table').DataTable().ajax.reload(null, false);
+                            alert(response.msg);
+                        }
+                    }
+                });
+            };
+
         });
     });
 </script>

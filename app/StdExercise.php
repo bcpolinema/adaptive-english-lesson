@@ -22,17 +22,17 @@ class StdExercise extends Model
         'ts_entri',
     ];
 
-    public function stdlearnings()
+    public function stdlearning()
     {
         return $this->belongsTo(StdLearning::class);
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
      
-    public function exercises()
+    public function exercise()
     {
         return $this->belongsTo(Exercise::class);
     }
