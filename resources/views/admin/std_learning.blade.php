@@ -67,7 +67,7 @@
                     <div class="col-md-6  form-group has-feedback">
                         <input type="text" name="next_learning" class="form-control has-feedback-left"
                             placeholder="Next Learning">
-                        <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                        <span class="fa fa-arrow-right form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text next_learning_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
@@ -115,7 +115,7 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
-                                <th class="column-title">Student Name</th>
+                                <!-- <th class="column-title">Student Name</th> -->
                                 <th class="column-title">Subject</th>
                                 <th class="column-title">TS Start</th>
                                 <th class="column-title">TS Exercise</th>
@@ -174,10 +174,6 @@
                     name: "id"
                 },
                 {
-                    data: "user_name",
-                    name: "user.name"
-                },
-                {
                     data: "subject_title",
                     name: "subject.title"
                 },
@@ -205,29 +201,26 @@
         });
 
 
-        /*$(document).on('click', '#edit_exercise_btn', function() {
-            const exercise_id = $(this).data('id');
-            const url = '{{ route("admin.exercise.detail") }}';
-            $('.edit_exercise_modal').find('form')[0].reset();
+        $(document).on('click', '#edit_std_learning_btn', function() {
+            const std_learning_id = $(this).data('id');
+            const url = '{{ route("admin.std_learning.detail") }}';
+            $('.edit_std_learning_modal').find('form')[0].reset();
             $.post(url, {
-                exercise_id: exercise_id
+                std_learning_id: std_learning_id
             }, function(data) {
-                $('.edit_exercise_modal').find('input[name="exercise_id"]').val(data.details.id);
-                $('.edit_exercise_modal').find('select[name="subject_id"]').val(data.details.subject_id);
-                $('.edit_exercise_modal').find('textarea[name="question"]').val(data.details.question);
-                $('.edit_exercise_modal').find('input[name="option_a"]').val(data.details.option_a);
-                $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
-                $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
-                $('.edit_exercise_modal').find('input[name="option_c"]').val(data.details.option_c);
-                $('.edit_exercise_modal').find('input[name="option_d"]').val(data.details.option_d);
-                $('.edit_exercise_modal').find('input[name="option_e"]').val(data.details.option_e);
-                $('.edit_exercise_modal').find('select[name="answer_key"]').val(data.details.answer_key);
-                $('.edit_exercise_modal').find('input[name="weight"]').val(data.details.weight);
-                $('.edit_exercise_modal').modal('show');
+                $('.edit_std_learning_modal').find('input[name="std_learning_id"]').val(data.details.id);
+                $('.edit_std_learning_modal').find('select[name="user_id"]').val(data.details.user_id);
+                $('.edit_std_learning_modal').find('select[name="subject_id"]').val(data.details.subject_id);
+                $('.edit_std_learning_modal').find('input[name="ts_start"]').val(data.details.ts_start);
+                $('.edit_std_learning_modal').find('input[name="ts_exercise"]').val(data.details.ts_exercise);
+                $('.edit_std_learning_modal').find('input[name="score"]').val(data.details.score);
+                $('.edit_std_learning_modal').find('input[name="next_learning"]').val(data.details.next_learning);
+                $('.edit_std_learning_modal').find('textarea[name="comment"]').val(data.details.comment);
+                $('.edit_std_learning_modal').modal('show');
             }, 'json');
         });
 
-        $('#update_exercise_form').on('submit', function(e) {
+        $('#update_std_learning_form').on('submit', function(e) {
             e.preventDefault();
             var form = this;
             $.ajax({
@@ -247,13 +240,13 @@
                         });
                     } else {
                         $(form)[0].reset();
-                        $('#exercise_table').DataTable().ajax.reload(null, false);
-                        $('.edit_exercise_modal').modal('hide');
+                        $('#std_learning_table').DataTable().ajax.reload(null, false);
+                        $('.edit_std_learning_modal').modal('hide');
                         alert(data.msg);
                     }
                 }
             });
-        });*/
+        });
 
         $(document).on('click', '#delete_std_learning_btn', function(e) {
             e.preventDefault();

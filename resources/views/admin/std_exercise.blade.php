@@ -20,7 +20,7 @@
                         <select class="form-control" name="learning_id">
                             <option selected disabled> -- Choose Learning --</option>
                             @forelse ($stdlrn as $stdlr)
-                            <option value="{{$stdlr-> {'id'} }}"> {{$stdlr->{'learning_id'} }} </option>
+                            <option value="{{$stdlr-> {'id'} }}"> {{$stdlr->{'subject_id'} }} </option>
                             @empty
                             <option value="0">-- No Learning's Available -- </option>
                             @endforelse
@@ -106,6 +106,7 @@
                             <tr class="headings">
                                 <th class="column-title">ID </th>
                                 <th class="column-title">Student Name</th>
+                                <th class="column-title">Exercise</th>
                                 <th class="column-title">Score</th>
                                 <th class="column-title">TS Entri</th>
                                 <th class="column-title">Action</th>
@@ -166,6 +167,10 @@
                     name: "user.name"
                 },
                 {
+                    data: "exercise_question",
+                    name: "exercise.question"
+                },
+                {
                     data: "score",
                     name: "score"
                 },
@@ -181,29 +186,24 @@
         });
 
 
-        /*$(document).on('click', '#edit_exercise_btn', function() {
-            const exercise_id = $(this).data('id');
-            const url = '{{ route("admin.exercise.detail") }}';
-            $('.edit_exercise_modal').find('form')[0].reset();
+        $(document).on('click', '#edit_std_exercise_btn', function() {
+            const std_exercise_id = $(this).data('id');
+            const url = '{{ route("admin.std_exercise.detail") }}';
+            $('.edit_std_exercise_modal').find('form')[0].reset();
             $.post(url, {
-                exercise_id: exercise_id
+                std_exercise_id: std_exercise_id
             }, function(data) {
-                $('.edit_exercise_modal').find('input[name="exercise_id"]').val(data.details.id);
-                $('.edit_exercise_modal').find('select[name="subject_id"]').val(data.details.subject_id);
-                $('.edit_exercise_modal').find('textarea[name="question"]').val(data.details.question);
-                $('.edit_exercise_modal').find('input[name="option_a"]').val(data.details.option_a);
-                $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
-                $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
-                $('.edit_exercise_modal').find('input[name="option_c"]').val(data.details.option_c);
-                $('.edit_exercise_modal').find('input[name="option_d"]').val(data.details.option_d);
-                $('.edit_exercise_modal').find('input[name="option_e"]').val(data.details.option_e);
-                $('.edit_exercise_modal').find('select[name="answer_key"]').val(data.details.answer_key);
-                $('.edit_exercise_modal').find('input[name="weight"]').val(data.details.weight);
-                $('.edit_exercise_modal').modal('show');
+                $('.edit_std_exercise_modal').find('input[name="std_exercise_id"]').val(data.details.id);
+                $('.edit_std_exercise_modal').find('select[name="learning_id"]').val(data.details.learning_id);
+                $('.edit_std_exercise_modal').find('select[name="user_id"]').val(data.details.user_id);
+                $('.edit_std_exercise_modal').find('select[name="exercise_id"]').val(data.details.exercise_id);
+                $('.edit_std_exercise_modal').find('select[name="answer"]').val(data.details.answer);
+                $('.edit_std_exercise_modal').find('input[name="score"]').val(data.details.score);
+                $('.edit_std_exercise_modal').modal('show');
             }, 'json');
         });
 
-        $('#update_exercise_form').on('submit', function(e) {
+        $('#update_std_exercise_form').on('submit', function(e) {
             e.preventDefault();
             var form = this;
             $.ajax({
@@ -229,7 +229,7 @@
                     }
                 }
             });
-        });*/
+        });
 
         $(document).on('click', '#delete_std_exercise_btn', function(e) {
             e.preventDefault();
