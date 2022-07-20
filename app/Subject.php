@@ -37,4 +37,10 @@ class Subject extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+
+    public function stdlearnings()
+    {
+        return $this->hasMany(StdLearning::class);
+    }
+
 }

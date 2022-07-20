@@ -29,4 +29,9 @@ class Exercise extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function stdexercises()
+    {
+        return $this->hasMany(StdExercise::class);
+    }
 }

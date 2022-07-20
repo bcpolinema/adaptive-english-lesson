@@ -38,22 +38,35 @@ Route::group(['prefix' => 'a', 'middleware' => ['admin', 'auth', 'pvb']], functi
     Route::get('topic-list', [AdminController::class, 'topic_list'])->name('admin.topic.list');
     Route::post('topic-detail', [AdminController::class, 'topic_detail'])->name('admin.topic.detail');
     Route::post('topic-update', [AdminController::class, 'updateTopic'])->name('admin.update.topic');
+    Route::post('delete-topic', [AdminController::class, 'deleteTopic'])->name('admin.delete.topic');
     // Subject
     Route::get('subject', [AdminController::class, 'subject'])->name('admin.subject');
     Route::post('add-subject', [AdminController::class, 'addSubject'])->name('admin.add.subject');
     Route::get('subject-list', [AdminController::class, 'subject_list'])->name('admin.subject.list');
     Route::post('subject-detail', [AdminController::class, 'subject_detail'])->name('admin.subject.detail');
     Route::post('subject-update', [AdminController::class, 'updatesubject'])->name('admin.update.subject');
+    Route::post('delete-subject', [AdminController::class, 'deleteSubject'])->name('admin.delete.subject');
     // Exercise
     Route::get('exercise', [AdminController::class, 'exercise'])->name('admin.exercise');
     Route::post('add-exercise', [AdminController::class, 'addExercise'])->name('admin.add.exercise');
     Route::get('exercise-list', [AdminController::class, 'exercise_list'])->name('admin.exercise.list');
     Route::post('exercise-detail', [AdminController::class, 'exercise_detail'])->name('admin.exercise.detail');
     Route::post('exercise-update', [AdminController::class, 'updateExercise'])->name('admin.update.exercise');
+    Route::delete('delete-exercise', [AdminController::class, 'deleteExercise'])->name('admin.delete.exercise');
     // Student Exercise
     Route::get('std-exercise', [AdminController::class, 'std_exercise'])->name('admin.std_exercise');
+    Route::post('add-std-exercise', [AdminController::class, 'addStdExercise'])->name('admin.add.std_exercise');
+    Route::get('std-exercise-list', [AdminController::class, 'std_exercise_list'])->name('admin.std_exercise.list');
+    Route::post('std-exercise-detail', [AdminController::class, 'std_exercise_detail'])->name('admin.std_exercise.detail');
+    Route::post('std-exercise-update', [AdminController::class, 'updateStdExercise'])->name('admin.update.std_exercise');
+    Route::delete('delete-std-exercise', [AdminController::class, 'deleteStdExercise'])->name('admin.delete.std_exercise');
     // Student Learning
     Route::get('std-learning', [AdminController::class, 'std_learning'])->name('admin.std_learning');
+    Route::post('add-std-learning', [AdminController::class, 'addStdLearning'])->name('admin.add.std_learning');
+    Route::get('std-learning-list', [AdminController::class, 'std_learning_list'])->name('admin.std_learning.list');
+    Route::post('std-learning-detail', [AdminController::class, 'std_learning_detail'])->name('admin.std_learning.detail');
+    Route::post('std-learning-update', [AdminController::class, 'updateStdLearning'])->name('admin.update.std_learning');
+    Route::delete('delete-std-learning', [AdminController::class, 'deleteStdLearning'])->name('admin.delete.std_learning');
 
 });
 

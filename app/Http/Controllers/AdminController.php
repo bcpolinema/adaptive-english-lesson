@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Subject;
 use App\Topic;
 use App\Exercise;
+use App\User;
+use App\StdExercise;
+use App\StdLearning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -24,21 +27,6 @@ class AdminController extends Controller
     public function topic()
     {
         return view('admin.topic');
-    }
-
-    public function topic_list()
-    {
-        $topics = Topic::all();
-        return DataTables::of($topics)
-            ->addColumn('actions', function ($row) {
-                return
-                    '<div class="btn-group" role="group">
-                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
-              </div>';
-            })
-            ->rawColumns(['actions'])
-            ->make(true);
     }
 
     public function topic_detail(Request $request)
@@ -77,12 +65,17 @@ class AdminController extends Controller
 
     public function std_exercise()
     {
-        return view('admin.std_exercise');
+        $stdlrn = StdLearning::all('id', 'user_id', 'subject_id');
+        $user = User::all()->where('roles', 'student');
+        $exrcs = Exercise::all('id', 'question');
+        return view('admin.std_exercise', compact('stdlrn', 'user', 'exrcs'));
     }
 
     public function std_learning()
     {
-        return view('admin.std_learning');
+        $subject = Subject::all('id', 'title');
+        $user = User::all('id', 'name')->where('roles', 'student');
+        return view('admin.std_learning', compact('subject', 'user'));
     }
 
 
@@ -119,6 +112,21 @@ class AdminController extends Controller
         }
     }
 
+    public function topic_list()
+    {
+        $topics = Topic::all();
+        return DataTables::of($topics)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+              </div>';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
     public function updateTopic(Request $request)
     {
         $topic_id = $request->topic_id;
@@ -142,6 +150,18 @@ class AdminController extends Controller
             } else {
                 return response()->json(['code' => 1, 'msg' => 'Topic has been successfully updated']);
             }
+        }
+    }
+
+    public function deleteTopic(Request $request)
+    {
+		$id = $request->id;
+        $query = Topic::find($id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Topic has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
         }
     }
 
@@ -343,6 +363,31 @@ class AdminController extends Controller
         }
     }
 
+    public function deleteSubject(Request $request)
+    {
+        $id = $request->id;
+        $query = Subject::find($id);
+
+        // Hapus Image
+        if (Storage::delete('public/images/' . $query->image)) {
+			Subject::destroy($id);
+		}
+        // Hapus Video
+        if (Storage::delete('public/video/' . $query->video)) {
+			Kegiatan::destroy($id);
+		}
+        // Hapus Audio
+        if (Storage::delete('public/audio/' . $emp->audio)) {
+			Kegiatan::destroy($id);
+		}
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Subject has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }  
+    }
+
 
     /*
         End of Subject
@@ -448,9 +493,172 @@ class AdminController extends Controller
             }
 
 
-            /*
-        End of Exercise
-        */
         }
     }
+
+    public function deleteExercise(Request $request)
+    {
+        $id = $request->id;
+        $query = Exercise::find($id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Exercise has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }
+    }
+    
+    /*
+        End of Exercise
+    */
+    
+    
+    /*
+        Start of Std Exercise
+    */
+
+    public function addStdExercise(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'learning_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'exercise_id' => 'required|integer',
+            'answer' => 'required|string',
+            'is_correct' => 'string',
+            'score' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            //Create StdExercise
+            $stdexr = new StdExercise();
+            $stdexr->learning_id = $request->learning_id;
+            $stdexr->user_id = $request->user_id;
+            $stdexr->exercise_id = $request->exercise_id;
+            $stdexr->answer = $request->answer;
+            $stdexr->is_correct = $request->is_correct;
+            $stdexr->score = $request->score;
+            $query = $stdexr->save();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'New Std Exercise has been successfully saved']);
+            }
+        }
+
+       
+    }
+
+    public function std_exercise_list()
+    {
+        $stdexr = StdExercise::with('stdlearnings', 'users', 'exercises');
+        return DataTables::of($stdexr)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_subject_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                </div>';
+            })
+            ->addColumn('users_name', function (StdExercise $stdexr) {
+                return $stdexr->user->name;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+       
+    }
+
+    public function updateStdExercise(Request $request)
+    {
+       
+    }
+
+    public function deleteStdExercise(Request $request)
+    {
+        $id = $request->id;
+        $query = StdExercise::find($id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Student Exercise has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }
+    }
+
+    /*
+        End of Std Exercise
+    */
+
+     
+    /*
+        Start of Std Learning
+    */
+
+    public function addStdLearning(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer',
+            'subject_id' => 'required|integer',
+            'ts_start' => 'required|date_format:Y-m-d H:i:s',
+            'is_validated'  => 'string',
+            'ts_exercise' => 'required|date_format:Y-m-d H:i:s',
+            'score'  => 'required|integer',
+            'next_learning'  => 'integer',
+            'comment' => 'string',
+            'is_termination' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            //Create topic
+            $stdlrn = new StdLearning();
+            $stdlrn->user_id = $request->user_id;
+            $stdlrn->subject_id= $request->subject_id;
+            $stdlrn->ts_start = $request->ts_start;
+            $stdlrn->is_validated = $request->is_validated;
+            $stdlrn->ts_exercise = $request->ts_exercise;
+            $stdlrn->score = $request->score;
+            $stdlrn->next_learning = $request->next_learning;
+            $stdlrn->comment = $request->comment;
+            $stdlrn->is_termination = $request->is_termination;
+            $query = $stdlrn->save();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'New Std Learning has been successfully saved']);
+            }
+        }
+
+      
+    }
+
+    public function std_learning_list()
+    {
+       
+    }
+
+    public function updateStdLearning(Request $request)
+    {
+       
+    }
+
+    public function deleteStdLearning(Request $request)
+    {
+        $id = $request->id;
+        $query = StdLearning::find($id)->delete();
+
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'Student Learning has been deleted from database']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }
+    }
+
+    /*
+        End of Std Learning
+    */
 }
