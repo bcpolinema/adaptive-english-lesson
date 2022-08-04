@@ -147,7 +147,7 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
-                                <th class="column-title">Title</th>
+                                <th class="column-title">Subject Title</th>
                                 <th class="column-title">Topic</th>
                                 <th class="column-title">Action</th>
                             </tr>
