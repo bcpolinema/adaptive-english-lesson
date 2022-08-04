@@ -5,7 +5,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Topic Data</h2>
+                <h2>Add Level Data</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -16,12 +16,12 @@
                 <form id="add_topic" action="{{route('admin.add.topic')}}" method="POST" class="form-label-left input_mask">
                     @csrf
                     <div class="col-md-12  form-group has-feedback">
-                        <input type="text" name="name" class="form-control has-feedback-left" placeholder="Name">
+                        <input type="text" name="name" class="form-control has-feedback-left" placeholder="Level Name">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="col-md-12  form-group has-feedback">
-                        <input type="text" name="description" class="form-control has-feedback-left" placeholder="Description">
+                        <input type="text" name="description" class="form-control has-feedback-left" placeholder="Level Description">
                         <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text description_error"></span>
                     </div>
@@ -42,7 +42,7 @@
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Topic</h2>
+                <h2>Level</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -54,9 +54,8 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
-                                <th class="column-title">Name</th>
-                                <th class="column-title">Description</th>
-                                <th class="column-title">TS Entri</th>
+                                <th class="column-title">Level Name</th>
+                                <th class="column-title">Level Description</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -118,10 +117,6 @@
                 {
                     data: "description",
                     name: "description"
-                },
-                {
-                    data: "ts_entri",
-                    name: "ts_entri"
                 },
                 {
                     data: "actions",
