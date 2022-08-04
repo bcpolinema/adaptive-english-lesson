@@ -65,24 +65,56 @@
                         <span class="text-danger error-text youtube_error"></span>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <input type="number" name="route1" class="form-control has-feedback-left" placeholder="Route 1">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+                        <select class="form-control" name="route1">
+                            <option selected disabled> -- Route 1 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <input type="number" name="route1" class="form-control has-feedback-left" placeholder="Route 1">
+                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
                         <span class="text-danger error-text route1_error"></span>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <input type="number" name="route2" class="form-control has-feedback-left" placeholder="Route 2">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+                        <select class="form-control" name="route2">
+                            <option selected disabled> -- Route 2 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <input type="number" name="route2" class="form-control has-feedback-left" placeholder="Route 2">
+                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
                         <span class="text-danger error-text route2_error"></span>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <input type="number" name="route3" class="form-control has-feedback-left" placeholder="Route 3">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route3_error"></span>
+                        <select class="form-control" name="route3">
+                            <option selected disabled> -- Route 3 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <input type="number" name="route3" class="form-control has-feedback-left" placeholder="Route 3">
+                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
+                        <span class="text-danger error-text route3_error"></span> 
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <input type="number" name="route4" class="form-control has-feedback-left" placeholder="Route 4">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route4_error"></span>
+                        <select class="form-control" name="route4">
+                            <option selected disabled> -- Route 4 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <input type="number" name="route4" class="form-control has-feedback-left" placeholder="Route 4">
+                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
+                        <span class="text-danger error-text route4_error"></span> 
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">

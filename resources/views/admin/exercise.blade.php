@@ -66,11 +66,11 @@
                     <div class="col-md-3 form-group has-feedback">
                         <select class="form-control" name="answer_key">
                             <option selected disabled> -- Choose Answer --</option>
-                            <option value="a"> Option A </option>
-                            <option value="b"> Option B </option>
-                            <option value="c"> Option C </option>
-                            <option value="d"> Option D </option>
-                            <option value="e"> Option E </option>
+                            <option value="A"> Option A </option>
+                            <option value="B"> Option B </option>
+                            <option value="C"> Option C </option>
+                            <option value="D"> Option D </option>
+                            <option value="E"> Option E </option>
                         </select>
                         <span class="text-danger error-text name_error"></span>
                     </div>
@@ -116,7 +116,6 @@
                                 <th class="column-title">Subject</th>
                                 <th class="column-title">Question</th>
                                 <th class="column-title">Answer Key</th>
-                                <th class="column-title">TS Entri</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -180,11 +179,20 @@
                 },
                 {
                     data: "answer_key",
-                    name: "answer_key"
-                },
-                {
-                    data: "ts_entri",
-                    name: "ts_entri"
+                    render: function(data, type, row){
+                        if(row.answer_key == 'A'){
+                            return '<strong> (A) </strong>' + row.option_a;
+                        }else if(row.answer_key == 'B'){
+                            return '<strong> (B) </strong>' + row.option_b;
+                        }else if(row.answer_key == 'C'){
+                            return '<strong> (C) </strong>' + row.option_c;
+                        }else if(row.answer_key == 'D'){
+                            return '<strong> (D) </strong>' + row.option_d;
+                        }else{
+                            return '<strong> (E) </strong>' + row.option_e;
+                        }
+                    },
+                    
                 },
                 {
                     data: "actions",

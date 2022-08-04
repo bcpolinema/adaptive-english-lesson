@@ -18,7 +18,7 @@
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6 form-group has-feedback">
-                        <input type="text" name="title" class="form-control has-feedback-left" placeholder="Title">
+                        <input type="text" name="title" class="form-control has-feedback-left" placeholder="Subject Title">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text title_error"></span>
                     </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
                         <textarea type="text" rows="5" name="content" class="form-control has-feedback-left"
-                            placeholder="Content"></textarea>
+                            placeholder="Subject Content"></textarea>
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text content_error"></span>
                     </div>
@@ -67,24 +67,57 @@
                         <span class="text-danger error-text youtube_error"></span>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
+                        <select class="form-control" name="route1">
+                            <option selected disabled> -- Route 1 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <span class="text-danger error-text topic_id_error"></span>
                         <input type="number" name="route1" class="form-control has-feedback-left" placeholder="Route 1">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route1_error"></span>
+                        <span class="text-danger error-text route1_error"></span> -->
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <input type="number" name="route2" class="form-control has-feedback-left" placeholder="Route 2">
+                        <select class="form-control" name="route2">
+                            <option selected disabled> -- Route 2 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <input type="number" name="route2" class="form-control has-feedback-left" placeholder="Route 2">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route2_error"></span>
+                        <span class="text-danger error-text route2_error"></span> -->
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <input type="number" name="route3" class="form-control has-feedback-left" placeholder="Route 3">
+                        <select class="form-control" name="route3">
+                            <option selected disabled> -- Route 3 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <input type="number" name="route3" class="form-control has-feedback-left" placeholder="Route 3">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route3_error"></span>
+                        <span class="text-danger error-text route3_error"></span> -->
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <input type="number" name="route4" class="form-control has-feedback-left" placeholder="Route 4">
+                        <select class="form-control" name="route4">
+                            <option selected disabled> -- Route 4 --</option>
+                            @forelse ($subjects as $s)
+                            <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <!-- <input type="number" name="route4" class="form-control has-feedback-left" placeholder="Route 4">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route4_error"></span>
+                        <span class="text-danger error-text route4_error"></span> -->
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">
@@ -116,7 +149,6 @@
                                 <th class="column-title">ID </th>
                                 <th class="column-title">Title</th>
                                 <th class="column-title">Topic</th>
-                                <th class="column-title">TS Entri</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -179,10 +211,6 @@
                 {
                     data: "topic_name",
                     name: "topic.name"
-                },
-                {
-                    data: "ts_entri",
-                    name: "ts_entri"
                 },
                 {
                     data: "actions",
