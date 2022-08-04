@@ -189,7 +189,11 @@
                     } else {
                         $(form)[0].reset();
                         $('#subject_table').DataTable().ajax.reload(null, false);
-                        alert(data.msg);
+                        Swal.fire(
+                            'Added!',
+                            'Subject Data Added Successfully!',
+                            'success'
+                        )
                     }
                 },
             });
@@ -262,12 +266,56 @@
                         $(form)[0].reset();
                         $('#subject_table').DataTable().ajax.reload(null, false);
                         $('.edit_subject_modal').modal('hide');
-                        alert(data.msg);
+                        Swal.fire(
+                            'Updated!',
+                            'Subject Data Updated Successfully!',
+                            'success'
+                        )
                     }
                 }
             });
         });
 
+        $(document).on('click', '#delete_subject_btn', function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('admin.delete.subject') }}",
+                        method: "post",
+                        data: {
+                            id: id,
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.code == 0) {
+                                Swal.fire(
+                                    'Oops!',
+                                    'Something went wrong!.',
+                                    'error'
+                                )
+                            } else {
+                                $('#subject_table').DataTable().ajax.reload(null, false);
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Subject data has been deleted.',
+                                    'success'
+                                )
+                            }
+                        }
+                    });
+                }
+            })
+        });
     });
 </script>
 @endsection

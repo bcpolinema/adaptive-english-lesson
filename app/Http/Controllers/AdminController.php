@@ -388,12 +388,14 @@ class AdminController extends Controller
 		}
         // Hapus Video
         if (Storage::delete('public/video/' . $query->video)) {
-			Kegiatan::destroy($id);
+			Subject::destroy($id);
 		}
         // Hapus Audio
-        if (Storage::delete('public/audio/' . $emp->audio)) {
-			Kegiatan::destroy($id);
+        if (Storage::delete('public/audio/' . $query->audio)) {
+			Subject::destroy($id);
 		}
+
+        $query->delete();
 
         if($query){
             return response()->json(['code'=>1, 'msg'=>'Subject has been deleted from database']);

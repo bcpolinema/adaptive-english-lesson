@@ -95,7 +95,11 @@
                     } else {
                         $(form)[0].reset();
                         $('#topic_table').DataTable().ajax.reload(null, false);
-                        alert(data.msg);
+                        Swal.fire(
+                            'Added!',
+                            'Leve Data Added Successfully!',
+                            'success'
+                        )
                     }
                 }
             });
@@ -162,7 +166,11 @@
                         $(form)[0].reset();
                         $('#topic_table').DataTable().ajax.reload(null, false);
                         $('.edit_topic_modal').modal('hide');
-                        alert(data.msg);
+                        Swal.fire(
+                            'Updated!',
+                            'Level Data Updated Successfully!',
+                            'success'
+                        )
                     }
                 }
             });
@@ -171,26 +179,42 @@
         $(document).on('click', '#delete_topic_btn', function(e) {
             e.preventDefault();
             let id = $(this).data('id');
-            // let csrf = '{{ csrf_token() }}';
-            if (confirm("Are You sure want to delete !")) {
-                $.ajax({
-                    url: "{{ route('admin.delete.topic') }}",
-                    method: "post",
-                    data: {
-                        id: id,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.code == 0) {
-                            alert(response.msg);
-                        } else {
-                            $('#topic_table').DataTable().ajax.reload(null, false);
-                            alert(response.msg);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('admin.delete.topic') }}",
+                        method: "post",
+                        data: {
+                            id: id,
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.code == 0) {
+                                Swal.fire(
+                                    'Oops!',
+                                    'Something went wrong!.',
+                                    'error'
+                                )
+                            } else {
+                                $('#topic_table').DataTable().ajax.reload(null, false);
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Level data has been deleted.',
+                                    'success'
+                                )
+                            }
                         }
-                    }
-                });
-            };
-
+                    });
+                }    
+            })
         });
     });
 </script>

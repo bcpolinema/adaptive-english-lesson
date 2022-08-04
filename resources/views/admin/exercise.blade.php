@@ -155,7 +155,11 @@
                     } else {
                         $(form)[0].reset();
                         $('#exercise_table').DataTable().ajax.reload(null, false);
-                        alert(data.msg);
+                        Swal.fire(
+                            'Added!',
+                            'Exercise Data Added Successfully!',
+                            'success'
+                        )
                     }
                 }
             });
@@ -246,7 +250,11 @@
                         $(form)[0].reset();
                         $('#exercise_table').DataTable().ajax.reload(null, false);
                         $('.edit_exercise_modal').modal('hide');
-                        alert(data.msg);
+                        Swal.fire(
+                            'Updated!',
+                            'Exercise Data Updated Successfully!',
+                            'success'
+                        )
                     }
                 }
             });
@@ -255,25 +263,42 @@
         $(document).on('click', '#delete_exercise_btn', function(e) {
             e.preventDefault();
             let id = $(this).data('id');
-            if (confirm("Are You sure want to delete !")) {
-                $.ajax({
-                    url: "{{ route('admin.delete.exercise') }}",
-                    method: "post",
-                    data: {
-                        id: id,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.code == 0) {
-                            alert(response.msg);
-                        } else {
-                            $('#exercise_table').DataTable().ajax.reload(null, false);
-                            alert(response.msg);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('admin.delete.exercise') }}",
+                        method: "post",
+                        data: {
+                            id: id,
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.code == 0) {
+                                Swal.fire(
+                                    'Oops!',
+                                    'Something went wrong!.',
+                                    'error'
+                                )
+                            } else {
+                                $('#exercise_table').DataTable().ajax.reload(null, false);
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Exercise data has been deleted.',
+                                    'success'
+                                )
+                            }
                         }
-                    }
-                });
-            };
-
+                    });
+                }
+            })
         });
     });
 </script>
