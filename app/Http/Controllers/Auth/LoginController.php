@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Alert;
+
 
 use Illuminate\Http\Request;
 
@@ -29,7 +31,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    protected function redirectTo()
+    /*protected function redirectTo()
     {
         if (Auth()->user()->roles == 'admin') {
             return route('admin.home');
@@ -38,7 +40,7 @@ class LoginController extends Controller
         }else{
             return route('student.home');
         }
-    }
+    }*/
     /**
      * Create a new controller instance.
      *
@@ -58,14 +60,18 @@ class LoginController extends Controller
 
         if(auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password']))){
             if(auth()->user()->roles == 'admin'){
+                Alert::success('Login Successfully!', 'Welcome to Admin Page!');
                 return redirect()->route('admin.home');
-            }else if(auth()->user()->roles == 'teacher'){ 
+            }else if(auth()->user()->roles == 'teacher'){
+                Alert::success('Login Successfully!', 'Welcome to Teacher Page!'); 
                 return redirect()->route('teacher.home');
             }else{
+                Alert::success('Login Successfully!', 'Welcome to Student Page!');
                 return redirect()->route('student.home');
             }
         }else{
-            return redirect()->route('login')->with('error','Email atau password salah!');
+            Alert::error('Oops! Login Failure.', 'Something went wrong!');
+            return redirect()->route('login');
         }
     }
 }

@@ -89,7 +89,7 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
 
         if ($user->save()) {
-            Alert::success('Registration Successfully!');
+            Alert::success('Registration Successfully!', 'You can fill this form to login.');
             return redirect()->route('login');
         } else {
             Alert::error('Oops! Registration Failure.', 'Something went wrong!');

@@ -216,9 +216,11 @@
     });
   </script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  @include('sweetalert::alert')
 
   @yield('script')
-
+  
 </body>
 
 </html>
