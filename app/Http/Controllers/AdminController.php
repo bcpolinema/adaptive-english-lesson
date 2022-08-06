@@ -39,7 +39,7 @@ class AdminController extends Controller
     public function subject()
     {
         $topics = Topic::all('id', 'name');
-        $subjects = Subject::all('id', 'title');
+        $subjects = Subject::all('id', 'title', 'no_level');
         return view('admin.subject', compact('topics', 'subjects'));
     }
 
@@ -239,6 +239,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'topic_id' => 'required|string',
+            'no_level' => 'required|string',
             'is_pretest' => 'string',
             'content' => 'required|string',
             'video' => 'mimes:mp4',
@@ -282,10 +283,13 @@ class AdminController extends Controller
                 $this->image_upload = true;
             }
 
+
+
             if ($this->audio_upload and $this->video_upload and $this->image_upload) {
                 Subject::insert([
                     'title' => $request->title,
                     'topic_id' => $request->topic_id,
+                    'no_level' => $request->no_level,
                     'is_pretest' => $request->is_pretest,
                     'content' => $request->content,
                     'audio' => $audio_name,
@@ -338,6 +342,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'topic_id' => 'required|string',
+            'no_level' => 'required|string',
             'is_pretest' => 'numeric',
             'content' => 'required|string',
             'video' => 'mimes:mp4',
@@ -397,6 +402,7 @@ class AdminController extends Controller
                 $subject->update([
                     'title' => $request->title,
                     'topic_id' => $request->topic_id,
+                    'no_level' => $request->no_level,
                     'is_pretest' => $request->is_pretest,
                     'content' => $request->content,
                     'audio' => $audio_name,

@@ -28,6 +28,16 @@
                         </select>
                         <span class="text-danger error-text topic_id_error"></span>
                     </div>
+                    <div class="col-md-6 col-sm-6 form-group">
+                        <select class="form-control" name="no_level">
+                            <option selected disabled> -- Choose No Level --</option>
+                            <option value="1">Level 1</option>
+                            <option value="2">Level 2</option>
+                            <option value="3">Level 3</option>
+                            <option value="4">Level 4</option>
+                        </select>
+                        <span class="text-danger error-text no_level_error"></span>
+                    </div>
                     <div class="col-md-12 form-group has-feedback">
                         <input type="text" name="title" class="form-control has-feedback-left" placeholder="Level Title">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
@@ -130,6 +140,7 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
+                                <th class="column-title">No Level</th>
                                 <th class="column-title">Level Title</th>
                                 <th class="column-title">Subject</th>
                                 <th class="column-title">Action</th>
@@ -152,6 +163,7 @@
         $("#add_subject").on("submit", function(e) {
             e.preventDefault();
             var form = this;
+           
             $.ajax({
                 url: $(form).attr("action"),
                 method: $(form).attr("method"),
@@ -192,6 +204,10 @@
                     name: "id"
                 },
                 {
+                    data: "no_level",
+                    name: "no_level"
+                },
+                {
                     data: "title",
                     name: "title"
                 },
@@ -217,6 +233,7 @@
                 $('.edit_subject_modal').find('input[name="subject_id"]').val(data.details.id);
                 $('.edit_subject_modal').find('input[name="title"]').val(data.details.title);
                 $('.edit_subject_modal').find('select[name="topic_id"]').val(data.details.topic_id);
+                $('.edit_subject_modal').find('select[name="no_level"]').val(data.details.no_level);
                 $('.edit_subject_modal').find('textarea[name="content"]').val(data.details.content);
                 $('.edit_subject_modal').find('input[name="video"]').html(data.details.video);
                 $('.edit_subject_modal').find('input[name="audio"]').html(data.details.audio);

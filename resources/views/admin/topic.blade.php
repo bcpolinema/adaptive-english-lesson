@@ -16,20 +16,23 @@
                 <br>
                 <form id="add_topic" action="{{route('admin.add.topic')}}" method="POST" class="form-label-left input_mask">
                     @csrf
+                    <div class="col-md-6  form-group has-feedback">
+                        <label for="icon">Icon</label>
+                        <input type="file" name="icon" accept="icon/*" class="form-control has-feedback-left">
+                        <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text icon_error"></span>
+                    </div>
                     <div class="col-md-12  form-group has-feedback">
+                        <label for="name">Subject Name</label>  
                         <input type="text" name="name" class="form-control has-feedback-left" placeholder="Subject Name">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="col-md-12  form-group has-feedback">
+                        <label for="description">Subject Description</label>
                         <input type="text" name="description" class="form-control has-feedback-left" placeholder="Subject Description">
                         <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text description_error"></span>
-                    </div>
-                    <div class="col-md-6  form-group has-feedback">
-                        <input type="file" name="icon" accept="icon/*" class="form-control has-feedback-left">
-                        <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text icon_error"></span>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">

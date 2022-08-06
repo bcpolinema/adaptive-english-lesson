@@ -18,7 +18,7 @@
                     @csrf
                     <div class="col-md-3 col-sm-6 form-group">
                         <select class="form-control" name="subject_id">
-                            <option selected disabled> -- Choose Subject --</option>
+                            <option selected disabled> -- Choose Level --</option>
                             @forelse ($subjects as $subject)
                             <option value="{{$subject-> {'id'} }}"> {{$subject-> {'title'} }} </option>
                             @empty

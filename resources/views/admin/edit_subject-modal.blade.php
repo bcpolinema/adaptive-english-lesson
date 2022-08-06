@@ -15,11 +15,6 @@
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="subject_id">
-                    <div class="col-md-6 form-group has-feedback">
-                        <input type="text" name="title" class="form-control has-feedback-left" placeholder="Title">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text title_error"></span>
-                    </div>
                     <div class="col-md-6 col-sm-6 form-group">
                         <select class="form-control" name="topic_id">
                             <option selected disabled> -- Choose Topic --</option>
@@ -30,6 +25,21 @@
                             @endforelse
                         </select>
                         <span class="text-danger error-text topic_id_error"></span>
+                    </div>
+                    <div class="col-md-6 col-sm-6 form-group">
+                        <select class="form-control" name="no_level">
+                            <option selected disabled> -- Choose No Level --</option>
+                            <option value="1">Level 1</option>
+                            <option value="2">Level 2</option>
+                            <option value="3">Level 3</option>
+                            <option value="4">Level 4</option>
+                        </select>
+                        <span class="text-danger error-text no_level_error"></span>
+                    </div>
+                    <div class="col-md-6 form-group has-feedback">
+                        <input type="text" name="title" class="form-control has-feedback-left" placeholder="Title">
+                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text title_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group">
                         <input type="hidden" name="is_pretest" value="0">
