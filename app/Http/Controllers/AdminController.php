@@ -104,25 +104,38 @@ class AdminController extends Controller
 
     public function addTopic(Request $request)
     {
+        $icon_name = "";
+        $icon_upload = false;
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'description' => 'required|string',
+            'icon' => 'mimes:ico',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-            //Create topic
-            $topic = new Topic();
-            $topic->name = $request->name;
-            $topic->description = $request->description;
-            $query = $topic->save();
 
-            if (!$query) {
-                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            if ($request->hasFile('icon')) {
+                $icon_path = 'icon/';
+                $icon = $request->file('icon');
+                $icon_name = $icon->getClientOriginalName();
+                $this->icon_upload = $icon->storeAs($icon_path, $icon_name, 'public');
             } else {
-                return response()->json(['code' => 1, 'msg' => 'New Topic has been successfully saved']);
+                $this->icon_upload = true;
             }
+
+            if ($this->icon_upload) {
+                Topic::insert([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'icon' => $icon_name,
+                ]);
+                return response()->json(['code' => 1, 'msg' => 'BERHASIL menambahkan soal baru.']);
+            } else {
+                return response()->json(['code' => 0, 'msg' => 'GAGAL menambahkan soal baru.']);
+            }       
         }
     }
 
@@ -144,25 +157,43 @@ class AdminController extends Controller
     public function updateTopic(Request $request)
     {
         $topic_id = $request->topic_id;
+        $topic = Topic::find($topic_id);
+
+        $icon_name = $topic->icon;
+        $icon_path = 'icon/';
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|unique:m_topics,name,' . $topic_id,
             'description' => 'required|string',
+            'icon' => 'mimes:ico',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-            //Create topic
-            $topic = Topic::find($topic_id);
-            $topic->name = $request->name;
-            $topic->description = $request->description;
-            $query = $topic->save();
 
-            if (!$query) {
-                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            if ($request->hasFile('icon')) {
+                $icon_path = 'icon/';
+                $file_path = $icon_path . $topic->icon;
+                if ($topic->icon != null && Storage::disk('public')->exists($file_path)) {
+                    Storage::disk('public')->delete($file_path);
+                }
+                $icon = $request->file('icon');
+                $icon_name = $icon->getClientOriginalName();
+                $this->icon_upload = $icon->storeAs($icon_path, $icon_name, 'public');
             } else {
-                return response()->json(['code' => 1, 'msg' => 'Topic has been successfully updated']);
+                $this->icon_upload = true;
+            }
+
+            if ($this->icon_upload) {
+                $topic->update([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'icon' => $icon_name,
+                ]);
+                return response()->json();
+            } else {
+                return response()->json();
             }
         }
     }
@@ -170,7 +201,14 @@ class AdminController extends Controller
     public function deleteTopic(Request $request)
     {
 		$id = $request->id;
-        $query = Topic::find($id)->delete();
+        $query = Topic::find($id);
+
+        // Hapus Icon
+        if (Storage::delete('public/icon/' . $query->icon)) {
+			Topic::destroy($id);
+		}
+
+        $query->delete();
 
         if($query){
             return response()->json(['code'=>1, 'msg'=>'Topic has been deleted from database']);
@@ -220,7 +258,7 @@ class AdminController extends Controller
             if ($request->hasFile('audio')) {
                 $audio_path = 'audio/';
                 $audio = $request->file('audio');
-                $this->audio_name = $audio->getClientOriginalName();
+                $audio_name = $audio->getClientOriginalName();
                 $this->audio_upload = $audio->storeAs($audio_path, $audio_name, 'public');
             } else {
                 $this->audio_upload = true;
@@ -229,7 +267,7 @@ class AdminController extends Controller
             if ($request->hasFile('video')) {
                 $video_path = 'video/';
                 $video = $request->file('video');
-                $this->video_name = $video->getClientOriginalName();
+                $video_name = $video->getClientOriginalName();
                 $this->video_upload = $video->storeAs($video_path, $video_name, 'public');
             } else {
                 $this->video_upload = true;
@@ -238,7 +276,7 @@ class AdminController extends Controller
             if ($request->hasFile('image')) {
                 $image_path = 'image/';
                 $image = $request->file('image');
-                $this->image_name = $image->getClientOriginalName();
+                $image_name = $image->getClientOriginalName();
                 $this->image_upload = $image->storeAs($image_path, $image_name, 'public');
             } else {
                 $this->image_upload = true;
@@ -323,7 +361,7 @@ class AdminController extends Controller
                     Storage::disk('public')->delete($file_path);
                 }
                 $audio = $request->file('audio');
-                $this->audio_name = $audio->getClientOriginalName();
+                $audio_name = $audio->getClientOriginalName();
                 $this->audio_upload = $audio->storeAs($audio_path, $this->audio_name, 'public');
             } else {
                 $this->audio_upload = true;
@@ -336,7 +374,7 @@ class AdminController extends Controller
                     Storage::disk('public')->delete($file_path);
                 }
                 $video = $request->file('video');
-                $this->video_name = $video->getClientOriginalName();
+                $video_name = $video->getClientOriginalName();
                 $this->video_upload = $video->storeAs($video_path, $this->video_name, 'public');
             } else {
                 $this->video_upload = true;
@@ -349,7 +387,7 @@ class AdminController extends Controller
                     Storage::disk('public')->delete($file_path);
                 }
                 $image = $request->file('image');
-                $this->image_name = $image->getClientOriginalName();
+                $image_name = $image->getClientOriginalName();
                 $this->image_upload = $image->storeAs($image_path, $this->image_name, 'public');
             } else {
                 $this->image_upload = true;

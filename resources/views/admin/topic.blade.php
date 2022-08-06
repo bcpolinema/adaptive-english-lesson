@@ -3,9 +3,10 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+        <h1>Subject</h1>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Level Data</h2>
+                <h2>Add Subject Data</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -16,14 +17,19 @@
                 <form id="add_topic" action="{{route('admin.add.topic')}}" method="POST" class="form-label-left input_mask">
                     @csrf
                     <div class="col-md-12  form-group has-feedback">
-                        <input type="text" name="name" class="form-control has-feedback-left" placeholder="Level Name">
+                        <input type="text" name="name" class="form-control has-feedback-left" placeholder="Subject Name">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="col-md-12  form-group has-feedback">
-                        <input type="text" name="description" class="form-control has-feedback-left" placeholder="Level Description">
+                        <input type="text" name="description" class="form-control has-feedback-left" placeholder="Subject Description">
                         <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text description_error"></span>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
+                        <input type="file" name="icon" accept="icon/*" class="form-control has-feedback-left">
+                        <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text icon_error"></span>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">
@@ -42,7 +48,7 @@
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Level</h2>
+                <h2>Subject List</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -54,8 +60,8 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
-                                <th class="column-title">Level Name</th>
-                                <th class="column-title">Level Description</th>
+                                <th class="column-title">Subject Name</th>
+                                <th class="column-title">Subject Description</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -140,6 +146,7 @@
                 $('.edit_topic_modal').find('input[name="topic_id"]').val(data.details.id);
                 $('.edit_topic_modal').find('input[name="name"]').val(data.details.name);
                 $('.edit_topic_modal').find('input[name="description"]').val(data.details.description);
+                $('.edit_topic_modal').find('input[name="icon"]').html(data.details.icon);
                 $('.edit_topic_modal').modal('show');
             }, 'json');
         });

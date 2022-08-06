@@ -8,7 +8,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modalLabel">Update Subject Data</h4>
+                <h4 class="modal-title" id="modalLabel">Update Level Data</h4>
             </div>
             <div class="modal-body">
                 <form id="update_subject_form" action="{{route('admin.update.subject')}}" method="POST"
@@ -67,53 +67,41 @@
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route1">
                             <option selected disabled> -- Route 1 --</option>
-                            @forelse ($subjects as $s)
+                            @foreach ($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0"> -- It Self --</option>
                         </select>
-                        <!-- <input type="number" name="route1" class="form-control has-feedback-left" placeholder="Route 1">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
                         <span class="text-danger error-text route1_error"></span>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route2">
                             <option selected disabled> -- Route 2 --</option>
-                            @forelse ($subjects as $s)
+                            @foreach ($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0"> -- It Self --</option>
                         </select>
-                        <!-- <input type="number" name="route2" class="form-control has-feedback-left" placeholder="Route 2">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
                         <span class="text-danger error-text route2_error"></span>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route3">
                             <option selected disabled> -- Route 3 --</option>
-                            @forelse ($subjects as $s)
+                            @foreach ($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0"> -- It Self --</option>
                         </select>
-                        <!-- <input type="number" name="route3" class="form-control has-feedback-left" placeholder="Route 3">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
                         <span class="text-danger error-text route3_error"></span> 
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route4">
                             <option selected disabled> -- Route 4 --</option>
-                            @forelse ($subjects as $s)
+                            @foreach ($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0"> -- It Self --</option>
                         </select>
-                        <!-- <input type="number" name="route4" class="form-control has-feedback-left" placeholder="Route 4">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span> -->
                         <span class="text-danger error-text route4_error"></span> 
                     </div>
                     <div class="ln_solid"></div>

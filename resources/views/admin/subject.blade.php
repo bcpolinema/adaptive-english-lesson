@@ -3,10 +3,10 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <h1>Subject</h1>
+        <h1>Level</h1>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Subject Data</h2>
+                <h2>Add Level Data</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -17,14 +17,9 @@
                 <form id="add_subject" action="{{route('admin.add.subject')}}" method="POST"
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
-                    <div class="col-md-6 form-group has-feedback">
-                        <input type="text" name="title" class="form-control has-feedback-left" placeholder="Subject Title">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text title_error"></span>
-                    </div>
                     <div class="col-md-6 col-sm-6 form-group">
                         <select class="form-control" name="topic_id">
-                            <option selected disabled> -- Choose Topic --</option>
+                            <option selected disabled> -- Choose Subject --</option>
                             @forelse ($topics as $topic)
                             <option value="{{$topic-> {'id'} }}"> {{$topic-> {'name'} }} </option>
                             @empty
@@ -32,6 +27,11 @@
                             @endforelse
                         </select>
                         <span class="text-danger error-text topic_id_error"></span>
+                    </div>
+                    <div class="col-md-12 form-group has-feedback">
+                        <input type="text" name="title" class="form-control has-feedback-left" placeholder="Level Title">
+                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text title_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group">
                         <input type="checkbox" name="is_pretest" value="1">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
                         <textarea type="text" rows="5" name="content" class="form-control has-feedback-left"
-                            placeholder="Subject Content"></textarea>
+                            placeholder="Level Content"></textarea>
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text content_error"></span>
                     </div>
@@ -68,56 +68,39 @@
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route1">
-                            <option selected disabled> -- Route 1 --</option>
-                            @forelse ($subjects as $s)
+                            <option selected disabled> -- Route 1 --</option>  
+                            @foreach($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0" > -- It Self --</option>
                         </select>
-                        <!-- <span class="text-danger error-text topic_id_error"></span>
-                        <input type="number" name="route1" class="form-control has-feedback-left" placeholder="Route 1">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route1_error"></span> -->
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route2">
                             <option selected disabled> -- Route 2 --</option>
-                            @forelse ($subjects as $s)
+                            @foreach ($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0" > -- It Self --</option>
                         </select>
-                        <!-- <input type="number" name="route2" class="form-control has-feedback-left" placeholder="Route 2">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route2_error"></span> -->
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route3">
                             <option selected disabled> -- Route 3 --</option>
-                            @forelse ($subjects as $s)
+                            @foreach ($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0" > -- It Self --</option>
                         </select>
-                        <!-- <input type="number" name="route3" class="form-control has-feedback-left" placeholder="Route 3">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route3_error"></span> -->
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <select class="form-control" name="route4">
                             <option selected disabled> -- Route 4 --</option>
-                            @forelse ($subjects as $s)
+                            @foreach ($subjects as $s)
                             <option value="{{$s-> {'id'} }}"> {{$s-> {'title'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
+                            <option value="0" > -- It Self --</option>
                         </select>
-                        <!-- <input type="number" name="route4" class="form-control has-feedback-left" placeholder="Route 4">
-                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text route4_error"></span> -->
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">
@@ -135,7 +118,7 @@
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Subject</h2>
+                <h2>Level List</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -147,8 +130,8 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">ID </th>
-                                <th class="column-title">Subject Title</th>
-                                <th class="column-title">Topic</th>
+                                <th class="column-title">Level Title</th>
+                                <th class="column-title">Subject</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -235,11 +218,14 @@
                 $('.edit_subject_modal').find('input[name="title"]').val(data.details.title);
                 $('.edit_subject_modal').find('select[name="topic_id"]').val(data.details.topic_id);
                 $('.edit_subject_modal').find('textarea[name="content"]').val(data.details.content);
+                $('.edit_subject_modal').find('input[name="video"]').html(data.details.video);
+                $('.edit_subject_modal').find('input[name="audio"]').html(data.details.audio);
+                $('.edit_subject_modal').find('input[name="image"]').html(data.details.image);
                 $('.edit_subject_modal').find('input[name="youtube"]').val(data.details.youtube);
-                $('.edit_subject_modal').find('input[name="route1"]').val(data.details.route1);
-                $('.edit_subject_modal').find('input[name="route2"]').val(data.details.route2);
-                $('.edit_subject_modal').find('input[name="route3"]').val(data.details.route3);
-                $('.edit_subject_modal').find('input[name="route4"]').val(data.details.route4);
+                $('.edit_subject_modal').find('select[name="route1"]').val(data.details.route1);
+                $('.edit_subject_modal').find('select[name="route2"]').val(data.details.route2);
+                $('.edit_subject_modal').find('select[name="route3"]').val(data.details.route3);
+                $('.edit_subject_modal').find('select[name="route4"]').val(data.details.route4);
                 $('.edit_subject_modal').modal('show');
             }, 'json');
         });

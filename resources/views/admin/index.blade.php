@@ -1,4 +1,4 @@
 @extends('layout-admin')
 @section('content')
-<h1>home admin</h1>
+<h1>Home Admin</h1>
 @endsection

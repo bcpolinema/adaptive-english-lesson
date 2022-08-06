@@ -85,9 +85,9 @@
                     <li><a href="{{route('admin.std_learning')}}">Learnings</a></li>
                   </ul>
                 </li> -->
-                <li><a href="{{route('admin.subject')}}"><i class="fa fa-table"></i> Subjects </a>
+                <li><a href="{{route('admin.subject')}}"><i class="fa fa-signal"></i> Levels </a>
                 </li>
-                <li><a href="{{route('admin.topic')}}"><i class="fa fa-signal"></i> Level </a>
+                <li><a href="{{route('admin.topic')}}"><i class="fa fa-table"></i> Subjects </a>
                 </li>
               </ul>
             </div>

@@ -20,7 +20,6 @@ class StudentController extends Controller
     {
         // $topics = Topic::where('name', '=', $request->name)->get();
         $subjects = Subject::where('topic_id', '=', $request->id)
-            ->where('is_pretest', '=', 1)
             ->get();
         return view('student.topic', compact('subjects'));
     }

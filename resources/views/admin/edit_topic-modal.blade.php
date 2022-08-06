@@ -24,8 +24,17 @@
                         <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text description_error"></span>
                     </div>
-                    <button class="btn btn-primary" type="reset">Reset</button>
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <div class="col-md-12 form-group">
+                        <input type="file" name="icon" accept="icon/*" class="form-control has-feedback-left">
+                        <span class="fa fa-file-image-o form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text icon_error"></span>
+                    </div>
+                    <div class="mt-2" id="image">
+
+                    <div class="col-md-6 col-sm-6 form-group">
+                        <button class="btn btn-primary" type="reset">Reset</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
                 </form>
             </div>
         </div>
