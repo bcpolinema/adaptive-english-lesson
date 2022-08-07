@@ -18,6 +18,7 @@
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6 col-sm-6 form-group">
+                        <label for="topic_id">Choose Topic</label> 
                         <select class="form-control" name="topic_id">
                             <option selected disabled> -- Choose Subject --</option>
                             @forelse ($topics as $topic)
@@ -29,6 +30,7 @@
                         <span class="text-danger error-text topic_id_error"></span>
                     </div>
                     <div class="col-md-6 col-sm-6 form-group">
+                        <label for="no_level">Choose Level</label> 
                         <select class="form-control" name="no_level">
                             <option selected disabled> -- Choose No Level --</option>
                             <option value="1">Level 1</option>
@@ -39,6 +41,7 @@
                         <span class="text-danger error-text no_level_error"></span>
                     </div>
                     <div class="col-md-12 form-group has-feedback">
+                        <label for="title">Level Title</label> 
                         <input type="text" name="title" class="form-control has-feedback-left" placeholder="Level Title">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text title_error"></span>
@@ -50,33 +53,39 @@
                         <span class="text-danger error-text is_pretest_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
+                        <label for="content">Level Content</label> 
                         <textarea type="text" rows="5" name="content" class="form-control has-feedback-left"
                             placeholder="Level Content"></textarea>
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text content_error"></span>
                     </div>
                     <div class="col-md-6  form-group has-feedback">
+                        <label for="video">Video File</label> 
                         <input type="file" name="video" accept="video/*" class="form-control has-feedback-left">
                         <span class="fa fa-file-video-o form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text video_error"></span>
                     </div>
-                    <div class="col-md-6 col-sm-6 form-group">
+                    <div class="col-md-6 col-sm-6 form-group has-feedback">
+                        <label for="audio">Audio File</label> 
                         <input type="file" name="audio" accept="audio/*" class="form-control has-feedback-left">
                         <span class="fa fa-file-audio-o form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text audio_error"></span>
                     </div>
                     <div class="col-md-6  form-group has-feedback">
+                        <label for="image">Image File</label> 
                         <input type="file" name="image" accept="image/*" class="form-control has-feedback-left">
                         <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text image_error"></span>
                     </div>
-                    <div class="col-md-6 col-sm-6 form-group">
+                    <div class="col-md-6 col-sm-6 form-group has-feedback">
+                        <label for="youtube">Youtube Link</label> 
                         <input type="text" name="youtube" class="form-control has-feedback-left"
                             placeholder="YouTube Link">
                         <span class="fa fa-play form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text youtube_error"></span>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
+                        <label for="">Route 1</label>
                         <select class="form-control" name="route1">
                             <option selected disabled> -- Route 1 --</option>  
                             @foreach($subjects as $s)
@@ -86,6 +95,7 @@
                         </select>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
+                        <label for="">Route 2</label>
                         <select class="form-control" name="route2">
                             <option selected disabled> -- Route 2 --</option>
                             @foreach ($subjects as $s)
@@ -95,6 +105,7 @@
                         </select>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
+                        <label for="">Route 3</label>
                         <select class="form-control" name="route3">
                             <option selected disabled> -- Route 3 --</option>
                             @foreach ($subjects as $s)
@@ -104,6 +115,7 @@
                         </select>
                     </div>
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
+                        <label for="">Route 4</label>
                         <select class="form-control" name="route4">
                             <option selected disabled> -- Route 4 --</option>
                             @foreach ($subjects as $s)
@@ -139,7 +151,7 @@
                     <table id="subject_table" class="table table-striped jambo_table">
                         <thead>
                             <tr class="headings">
-                                <th class="column-title">ID </th>
+                                <th class="column-title">No</th>
                                 <th class="column-title">No Level</th>
                                 <th class="column-title">Level Title</th>
                                 <th class="column-title">Subject</th>
@@ -160,6 +172,7 @@
 @section('script')
 <script>
     $(document).ready(function() {
+        var i = 1;
         $("#add_subject").on("submit", function(e) {
             e.preventDefault();
             var form = this;
@@ -186,7 +199,7 @@
                         $('#subject_table').DataTable().ajax.reload(null, false);
                         Swal.fire(
                             'Added!',
-                            'Subject Data Added Successfully!',
+                            'Level Data Added Successfully!',
                             'success'
                         )
                     }
@@ -201,7 +214,9 @@
             ajax: "{{ route('admin.subject.list') }}",
             columns: [{
                     data: "id",
-                    name: "id"
+                    render: function(data, type, row, meta) {
+                        return i++;
+                    }
                 },
                 {
                     data: "no_level",
@@ -285,7 +300,7 @@
                         $('.edit_subject_modal').modal('hide');
                         Swal.fire(
                             'Updated!',
-                            'Subject Data Updated Successfully!',
+                            'Level Data Updated Successfully!',
                             'success'
                         )
                     }
@@ -324,7 +339,7 @@
                                 $('#subject_table').DataTable().ajax.reload(null, false);
                                 Swal.fire(
                                     'Deleted!',
-                                    'Subject data has been deleted.',
+                                    'Level data has been deleted.',
                                     'success'
                                 )
                             }

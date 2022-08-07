@@ -8,6 +8,7 @@ use App\Exercise;
 use App\User;
 use App\StdExercise;
 use App\StdLearning;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -126,16 +127,12 @@ class AdminController extends Controller
                 $this->icon_upload = true;
             }
 
-            if ($this->icon_upload) {
-                Topic::insert([
-                    'name' => $request->name,
-                    'description' => $request->description,
-                    'icon' => $icon_name,
-                ]);
-                return response()->json(['code' => 1, 'msg' => 'BERHASIL menambahkan soal baru.']);
-            } else {
-                return response()->json(['code' => 0, 'msg' => 'GAGAL menambahkan soal baru.']);
-            }       
+            Topic::insert([
+                'name' => $request->name,
+                'description' => $request->description,
+                'icon' => $icon_name,
+            ]);
+            return response()->json();
         }
     }
 
@@ -171,6 +168,8 @@ class AdminController extends Controller
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
+
+            // Update Icon 
             if ($request->hasFile('icon')) {
                 $icon = $request->file('icon');
                 $icon_name = $icon->getClientOriginalName();
@@ -338,10 +337,10 @@ class AdminController extends Controller
             'audio' => 'mimes:mp3',
             'image' => 'mimes:jpg',
             'youtube' => 'url',
-            'route1' => 'required|numeric',
-            'route2' => 'required|numeric',
-            'route3' => 'required|numeric',
-            'route4' => 'required|numeric',
+            'route1' => 'required',
+            'route2' => 'required',
+            'route3' => 'required',
+            'route4' => 'required',
         ]);
 
         if ($validator->fails()) {

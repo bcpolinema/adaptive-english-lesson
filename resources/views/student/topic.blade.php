@@ -39,6 +39,7 @@
         </div>
     </div>
 </div>
+<img src="{{ url('storage/image/'.$subject->image) }}" class="responsive" alt="">
 @empty
 <code>no lessons available</code>
 @endforelse

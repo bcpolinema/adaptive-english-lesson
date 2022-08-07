@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-6  form-group has-feedback">
                         <label for="icon">Icon Preview</label>
-                        <div class="mt-2" id="image"></div>
+                        <div class="mt-2" id="image_preview"></div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="reset">Reset</button>

@@ -62,7 +62,7 @@
                     <table id="topic_table" class="table table-striped jambo_table">
                         <thead>
                             <tr class="headings">
-                                <th class="column-title">ID </th>
+                                <th class="column-title">No</th>
                                 <th class="column-title">Subject Name</th>
                                 <th class="column-title">Subject Description</th>
                                 <th class="column-title">Action</th>
@@ -83,6 +83,7 @@
 @section('script')
 <script>
     $(document).ready(function() {
+        var i = 1;
         $('#add_topic').on('submit', function(e) {
             e.preventDefault();
             var form = this;
@@ -106,7 +107,7 @@
                         $('#topic_table').DataTable().ajax.reload(null, false);
                         Swal.fire(
                             'Added!',
-                            'Leve Data Added Successfully!',
+                            'Subject Data Added Successfully!',
                             'success'
                         )
                     }
@@ -121,7 +122,10 @@
             ajax: "{{ route('admin.topic.list') }}",
             columns: [{
                     data: "id",
-                    name: "id"
+                    name: "id",
+                    render: function(data, type, row, meta) {
+                        return i++;
+                    }
                 },
                 {
                     data: "name",
@@ -151,7 +155,7 @@
                 $('.edit_topic_modal').find('input[name="topic_id"]').val(data.details.id);
                 $('.edit_topic_modal').find('input[name="name"]').val(data.details.name);
                 $('.edit_topic_modal').find('input[name="description"]').val(data.details.description);
-                $('.edit_topic_modal').find("#image").html(
+                $('.edit_topic_modal').find("#image_preview").html(
                     `<img src="storage/icon/${data.details.icon}" width="200" class="img-fluid img-thumbnail">`);
                 $('.edit_topic_modal').find("#icon_image").val(data.details.icon);
                 $('.edit_topic_modal').modal('show');
@@ -182,7 +186,7 @@
                         $('.edit_topic_modal').modal('hide');
                         Swal.fire(
                             'Updated!',
-                            'Level Data Updated Successfully!',
+                            'Subject Data Updated Successfully!',
                             'success'
                         )
                     }
@@ -221,7 +225,7 @@
                                 $('#topic_table').DataTable().ajax.reload(null, false);
                                 Swal.fire(
                                     'Deleted!',
-                                    'Level data has been deleted.',
+                                    'Subject data has been deleted.',
                                     'success'
                                 )
                             }
