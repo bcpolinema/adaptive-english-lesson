@@ -205,7 +205,11 @@
                 },
                 {
                     data: "no_level",
-                    name: "no_level"
+                    render: function(data, type, row){
+                        if(row.no_level){
+                            return 'Level ' + row.no_level;
+                        }
+                    },
                 },
                 {
                     data: "title",
@@ -236,7 +240,15 @@
                 $('.edit_subject_modal').find('select[name="no_level"]').val(data.details.no_level);
                 $('.edit_subject_modal').find('textarea[name="content"]').val(data.details.content);
                 $('.edit_subject_modal').find("#image").html(
-                    `<img src="storage/image/${data.details.image}" width="200px" class="img-fluid img-thumbnail">`);
+                    `<img src="storage/image/${data.details.image}" width="200">`);
+                $('.edit_subject_modal').find("#video").html(
+                    `<video width="200">
+                        <source src="storage/video/${data.details.video}" type="video/mp4" />
+                    </video>`);
+                $('.edit_subject_modal').find("#audio").html(
+                    `<audio controls="controls">
+                        <source src="storage/audio/${data.details.audio}" type="audio/mp3" />
+                    </audio>`);
                 $('.edit_subject_modal').find("#level_image").val(data.details.image);
                 $('.edit_subject_modal').find("#level_video").val(data.details.video);
                 $('.edit_subject_modal').find("#level_audio").val(data.details.audio);

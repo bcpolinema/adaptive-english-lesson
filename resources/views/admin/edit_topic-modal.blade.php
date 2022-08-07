@@ -33,7 +33,10 @@
                         <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text icon_error"></span>
                     </div>
-                    <div class="mt-2" id="image"></div>
+                    <div class="col-md-6  form-group has-feedback">
+                        <label for="icon">Icon Preview</label>
+                        <div class="mt-2" id="image"></div>
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="reset">Reset</button>
                         <button type="submit" class="btn btn-success">Update</button>
