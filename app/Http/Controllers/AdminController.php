@@ -159,11 +159,11 @@ class AdminController extends Controller
         $topic_id = $request->topic_id;
         $topic = Topic::find($topic_id);
 
-        $icon_name = $topic->icon;
-        $icon_path = 'icon/';
+        $icon_name = '';
+        // $icon_path = 'icon/';
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|unique:m_topics,name,' . $topic_id,
+            'name' => 'required|string',
             'description' => 'required|string',
             'icon' => 'mimes:ico',
         ]);
@@ -171,30 +171,23 @@ class AdminController extends Controller
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-
             if ($request->hasFile('icon')) {
-                $icon_path = 'icon/';
-                $file_path = $icon_path . $topic->icon;
-                if ($topic->icon != null && Storage::disk('public')->exists($file_path)) {
-                    Storage::disk('public')->delete($file_path);
-                }
                 $icon = $request->file('icon');
                 $icon_name = $icon->getClientOriginalName();
-                $this->icon_upload = $icon->storeAs($icon_path, $icon_name, 'public');
+                $icon->storeAs('public/icon', $icon_name);
+                if ($topic->icon) {
+                    Storage::delete('public/icon/' . $topic->icon);
+                }
             } else {
-                $this->icon_upload = true;
+                $icon_name = $request->icon_image;
             }
 
-            if ($this->icon_upload) {
-                $topic->update([
-                    'name' => $request->name,
-                    'description' => $request->description,
-                    'icon' => $icon_name,
-                ]);
-                return response()->json();
-            } else {
-                return response()->json();
-            }
+            $topic->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'icon' => $icon_name,
+            ]);
+            return response()->json();
         }
     }
 
@@ -331,13 +324,9 @@ class AdminController extends Controller
         $subject_id = $request->subject_id;
         $subject = Subject::find($subject_id);
 
-        $audio_name = $subject->audio;
-        $video_name = $subject->video;
-        $image_name = $subject->image;
-
-        $image_path = 'image/';
-        $audio_path = 'audio/';
-        $video_path = 'video/';
+        $audio_name = '';
+        $video_name = '';
+        $image_name = '';
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
@@ -358,66 +347,58 @@ class AdminController extends Controller
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-
+            // Update Audio
             if ($request->hasFile('audio')) {
-                $audio_path = 'audio/';
-                $file_path = $audio_path . $subject->audio;
-                if ($subject->audio != null && Storage::disk('public')->exists($file_path)) {
-                    Storage::disk('public')->delete($file_path);
-                }
                 $audio = $request->file('audio');
                 $audio_name = $audio->getClientOriginalName();
-                $this->audio_upload = $audio->storeAs($audio_path, $this->audio_name, 'public');
+                $audio->storeAs('public/audio', $audio_name);
+                if ($subject->audio) {
+                    Storage::delete('public/audio/' . $subject->audio);
+                }
             } else {
-                $this->audio_upload = true;
+                $audio_name = $request->level_audio;
             }
 
+            // Update Video
             if ($request->hasFile('video')) {
-                $video_path = 'video/';
-                $file_path = $video_path . $subject->video;
-                if ($subject->video != null && Storage::disk('public')->exists($file_path)) {
-                    Storage::disk('public')->delete($file_path);
-                }
                 $video = $request->file('video');
                 $video_name = $video->getClientOriginalName();
-                $this->video_upload = $video->storeAs($video_path, $this->video_name, 'public');
+                $video->storeAs('public/video', $video_name);
+                if ($subject->video) {
+                    Storage::delete('public/video/' . $subject->video);
+                }
             } else {
-                $this->video_upload = true;
+                $video_name = $request->level_video;
             }
 
+            // Update Image
             if ($request->hasFile('image')) {
-                $image_path = 'image/';
-                $file_path = $image_path . $subject->image;
-                if ($subject->image != null && Storage::disk('public')->exists($file_path)) {
-                    Storage::disk('public')->delete($file_path);
-                }
                 $image = $request->file('image');
                 $image_name = $image->getClientOriginalName();
-                $this->image_upload = $image->storeAs($image_path, $this->image_name, 'public');
+                $image->storeAs('public/image', $image_name);
+                if ($subject->image) {
+                    Storage::delete('public/image/' . $subject->image);
+                }
             } else {
-                $this->image_upload = true;
+                $image_name = $request->level_image;
             }
 
-            if ($this->audio_upload and $this->video_upload and $this->image_upload) {
-                $subject->update([
-                    'title' => $request->title,
-                    'topic_id' => $request->topic_id,
-                    'no_level' => $request->no_level,
-                    'is_pretest' => $request->is_pretest,
-                    'content' => $request->content,
-                    'audio' => $audio_name,
-                    'video' => $video_name,
-                    'image' => $image_name,
-                    'youtube' => $request->youtube,
-                    'route1' => $request->route1,
-                    'route2' => $request->route2,
-                    'route3' => $request->route3,
-                    'route4' => $request->route4,
-                ]);
-                return response()->json(['code' => 1, 'msg' => 'BERHASIL update subject.']);
-            } else {
-                return response()->json(['code' => 0, 'msg' => 'GAGAL update subject.']);
-            }
+            $subject->update([
+                'title' => $request->title,
+                'topic_id' => $request->topic_id,
+                'no_level' => $request->no_level,
+                'is_pretest' => $request->is_pretest,
+                'content' => $request->content,
+                'audio' => $audio_name,
+                'video' => $video_name,
+                'image' => $image_name,
+                'youtube' => $request->youtube,
+                'route1' => $request->route1,
+                'route2' => $request->route2,
+                'route3' => $request->route3,
+                'route4' => $request->route4,
+            ]);
+            return response()->json();
         }
     }
 

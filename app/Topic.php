@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {
-    protected $table = 'm_topics';
+    protected $table = 'm_subjects';
     public $timestamps = false;
 
     protected $fillable = [
         'name',
         'description',
+        'icon',
     ];
 
     protected $dates = [

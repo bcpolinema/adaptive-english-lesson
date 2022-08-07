@@ -14,6 +14,7 @@
                 <form id="update_topic_form" action="{{route('admin.update.topic')}}" method="POST" class="form-label-left input_mask">
                     @csrf
                     <input type="hidden" name="topic_id">
+                    <input type="hidden" name="icon_image" id="icon_image">
                     <div class="col-md-12  form-group has-feedback">
                         <label for="name">Subject Name</label>  
                         <input type="text" name="name" class="form-control has-feedback-left" placeholder="Subject Name">
@@ -32,13 +33,14 @@
                         <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text icon_error"></span>
                     </div>
-                    <div class="mt-2" id="image">
-                    <div class="col-md-12 col-sm-6 form-group">
+                    <div class="mt-2" id="image"></div>
+                    <div class="modal-footer">
                         <button class="btn btn-primary" type="reset">Reset</button>
                         <button type="submit" class="btn btn-success">Update</button>
-                    </div>
+                    </div> 
                 </form>
             </div>
+            
         </div>
     </div>
 </div>

@@ -15,6 +15,9 @@
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="subject_id">
+                    <input type="hidden" name="level_audio" id="level_audio">
+                    <input type="hidden" name="level_video" id="level_video">
+                    <input type="hidden" name="level_image" id="level_image">
                     <div class="col-md-6 col-sm-6 form-group">
                         <select class="form-control" name="topic_id">
                             <option selected disabled> -- Choose Topic --</option>
@@ -114,15 +117,15 @@
                         </select>
                         <span class="text-danger error-text route4_error"></span> 
                     </div>
+                    <div class="mt-2" id="image"></div>
                     <div class="ln_solid"></div>
-                    <div class="form-group row">
-                        <div class="col-md-9 col-sm-9 offset-md-3">
-                            <button class="btn btn-primary" type="reset">Reset</button>
-                            <button type="submit" class="btn btn-success">Update</button>
-                        </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="reset">Reset</button>
+                        <button type="submit" class="btn btn-success">Update</button>
                     </div>
                 </form>
             </div>
+            
         </div>
     </div>
 </div>

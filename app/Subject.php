@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    protected $table = 'm_subjects';
+    protected $table = 'm_levels';
     public $timestamps = false;
 
     protected $fillable = [
         'title',
         'topic_id',
+        'no_level',
         'is_pretest',
         'content',
         'video',

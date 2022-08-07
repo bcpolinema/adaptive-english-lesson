@@ -138,6 +138,8 @@
             ]
         });
 
+    
+
 
         $(document).on('click', '#edit_topic_btn', function() {
             const topic_id = $(this).data('id');
@@ -149,7 +151,9 @@
                 $('.edit_topic_modal').find('input[name="topic_id"]').val(data.details.id);
                 $('.edit_topic_modal').find('input[name="name"]').val(data.details.name);
                 $('.edit_topic_modal').find('input[name="description"]').val(data.details.description);
-                $('.edit_topic_modal').find('input[name="icon"]').html(data.details.icon);
+                $('.edit_topic_modal').find("#image").html(
+                    `<img src="storage/icon/${data.details.icon}" width="200" class="img-fluid img-thumbnail">`);
+                $('.edit_topic_modal').find("#icon_image").val(data.details.icon);
                 $('.edit_topic_modal').modal('show');
             }, 'json');
         });

@@ -235,9 +235,11 @@
                 $('.edit_subject_modal').find('select[name="topic_id"]').val(data.details.topic_id);
                 $('.edit_subject_modal').find('select[name="no_level"]').val(data.details.no_level);
                 $('.edit_subject_modal').find('textarea[name="content"]').val(data.details.content);
-                $('.edit_subject_modal').find('input[name="video"]').html(data.details.video);
-                $('.edit_subject_modal').find('input[name="audio"]').html(data.details.audio);
-                $('.edit_subject_modal').find('input[name="image"]').html(data.details.image);
+                $('.edit_subject_modal').find("#image").html(
+                    `<img src="storage/image/${data.details.image}" width="200px" class="img-fluid img-thumbnail">`);
+                $('.edit_subject_modal').find("#level_image").val(data.details.image);
+                $('.edit_subject_modal').find("#level_video").val(data.details.video);
+                $('.edit_subject_modal').find("#level_audio").val(data.details.audio);
                 $('.edit_subject_modal').find('input[name="youtube"]').val(data.details.youtube);
                 $('.edit_subject_modal').find('select[name="route1"]').val(data.details.route1);
                 $('.edit_subject_modal').find('select[name="route2"]').val(data.details.route2);
