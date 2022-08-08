@@ -27,7 +27,8 @@
                                     <a>Judul pembelajaran {{ $subject->{'id'} }}</a>
                                 </h2>
                                 <div class="byline">
-                                    <span>by </span> teacher <a>Jane Smith</a>
+                                    <img src="{{ url('storage/image/'. $subject->{'image'}) }}" width="200px">
+                                    <!-- <span>by </span> teacher <a>Jane Smith</a> -->
                                 </div>
                                 <p class="excerpt">Description</a>
                                 </p>
@@ -39,7 +40,6 @@
         </div>
     </div>
 </div>
-<img src="{{ url('storage/image/'.$subject->image) }}" class="responsive" alt="">
 @empty
 <code>no lessons available</code>
 @endforelse

@@ -26,8 +26,15 @@
                 </div>
             </div>
             <div class="caption">
-                <p><strong>{{ $topic-> {'name'} }}</strong>
-                </p>
+                @if($topic->{'name'} == 'Listening')
+                <strong style="font-size: 17px"><i class="fa fa-headphones"></i>  {{ $topic-> {'name'} }}</strong><br>
+                @elseif($topic->{'name'} == 'Vocabulary')
+                <strong style="font-size: 17px"><i class="fa fa-book"></i>  {{ $topic-> {'name'} }}</strong><br>
+                @elseif($topic->{'name'} == 'Grammar')
+                <strong style="font-size: 17px"><i class="fa fa-font"></i>  {{ $topic-> {'name'} }}</strong><br>
+                @else
+                <strong style="font-size: 17px"><i class="fa fa-book"></i>  {{ $topic-> {'name'} }}</strong><br>
+                @endif
                 <p>{{ $topic-> {'description'} }}</p>
             </div>
         </div>

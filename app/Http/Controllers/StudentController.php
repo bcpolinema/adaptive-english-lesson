@@ -12,7 +12,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $topics = Topic::all('id', 'name');
+        $topics = Topic::all('id', 'name', 'description');
         return view('student.index', compact('topics'));
     }
 
