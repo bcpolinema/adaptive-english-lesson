@@ -9,6 +9,7 @@ use App\User;
 use App\StdExercise;
 use App\StdLearning;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -278,6 +279,7 @@ class AdminController extends Controller
 
 
             if ($this->audio_upload and $this->video_upload and $this->image_upload) {
+
                 Subject::insert([
                     'title' => $request->title,
                     'topic_id' => $request->topic_id,
@@ -293,6 +295,12 @@ class AdminController extends Controller
                     'route3' => $request->route3,
                     'route4' => $request->route4,
                 ]);
+
+                DB::statement('UPDATE m_levels SET route1 = id WHERE route1=0');
+                DB::statement('UPDATE m_levels SET route2 = id WHERE route2=0');
+                DB::statement('UPDATE m_levels SET route3 = id WHERE route3=0');
+                DB::statement('UPDATE m_levels SET route4 = id WHERE route4=0');
+
                 return response()->json(['code' => 1, 'msg' => 'BERHASIL menambahkan soal baru.']);
             } else {
                 return response()->json(['code' => 0, 'msg' => 'GAGAL menambahkan soal baru.']);
@@ -383,6 +391,7 @@ class AdminController extends Controller
             }
 
             $subject->update([
+                'route1' => 'id',
                 'title' => $request->title,
                 'topic_id' => $request->topic_id,
                 'no_level' => $request->no_level,
@@ -397,6 +406,12 @@ class AdminController extends Controller
                 'route3' => $request->route3,
                 'route4' => $request->route4,
             ]);
+
+            DB::statement('UPDATE m_levels SET route1 = id WHERE route1=0');
+            DB::statement('UPDATE m_levels SET route2 = id WHERE route2=0');
+            DB::statement('UPDATE m_levels SET route3 = id WHERE route3=0');
+            DB::statement('UPDATE m_levels SET route4 = id WHERE route4=0');
+
             return response()->json();
         }
     }
