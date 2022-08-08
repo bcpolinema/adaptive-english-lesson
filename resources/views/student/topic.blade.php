@@ -27,7 +27,7 @@
                                     <a>Judul pembelajaran {{ $subject->{'id'} }}</a>
                                 </h2>
                                 <div class="byline">
-                                    <img src="{{ url('storage/image/'. $subject->{'image'}) }}" width="200px">
+                                    <!-- <img src="{{ url('storage/image/'. $subject->{'image'}) }}" width="200px"> -->
                                     <!-- <span>by </span> teacher <a>Jane Smith</a> -->
                                 </div>
                                 <p class="excerpt">Description</a>

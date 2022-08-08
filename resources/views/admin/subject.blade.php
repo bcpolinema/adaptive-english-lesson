@@ -255,9 +255,9 @@
                 $('.edit_subject_modal').find('select[name="no_level"]').val(data.details.no_level);
                 $('.edit_subject_modal').find('textarea[name="content"]').val(data.details.content);
                 $('.edit_subject_modal').find("#image").html(
-                    `<img src="storage/image/${data.details.image}" width="200">`);
+                    `<img src="storage/image/${data.details.image}" width="260" height="120">`);
                 $('.edit_subject_modal').find("#video").html(
-                    `<video width="200">
+                    `<video controls="controls" width="260" height="120">
                         <source src="storage/video/${data.details.video}" type="video/mp4" />
                     </video>`);
                 $('.edit_subject_modal').find("#audio").html(
