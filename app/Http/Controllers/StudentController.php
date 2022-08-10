@@ -24,6 +24,12 @@ class StudentController extends Controller
         return view('student.topic', compact('subjects'));
     }
 
+    public function level(Request $request){
+        $levels = Subject::where('id', '=', $request->id)
+        ->get();
+        return view('student.level', compact('levels'));
+    }
+
     public function exercise(Request $request)
     {
         $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();

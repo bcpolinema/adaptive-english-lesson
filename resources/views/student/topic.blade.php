@@ -18,7 +18,7 @@
                     <li>
                         <div class="block">
                             <div class="tags">
-                                <a href="{{route('student.exercise', ['id'=>$subject->id])}}" class="tag">
+                                <a href="{{route('student.level', ['id'=>$subject->id])}}" class="tag">
                                     <span>Start</span>
                                 </a>
                             </div>
@@ -27,10 +27,7 @@
                                     <a>Judul pembelajaran {{ $subject->{'id'} }}</a>
                                 </h2>
                                 <div class="byline">
-                                    <!-- <img src="{{ url('storage/image/'. $subject->{'image'}) }}" width="200px"> -->
-                                    <!-- <span>by </span> teacher <a>Jane Smith</a> -->
                                 </div>
-                                <p class="excerpt">Description</a>
                                 </p>
                             </div>
                         </div>

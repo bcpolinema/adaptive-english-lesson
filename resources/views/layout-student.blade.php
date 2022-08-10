@@ -34,6 +34,15 @@
   <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
 </head>
 
+  <style>
+    div.polaroid {
+      width: 80%;
+      background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin: auto auto;
+    }
+  </style>
+  
 <body class="nav-md">
   <div class="container body">
     <div class="main_container">

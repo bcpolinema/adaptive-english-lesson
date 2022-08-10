@@ -6,7 +6,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>afds</h2>
+                <h2>Question</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -14,10 +14,10 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="display: block;">
-                <audio controls>
+                <!-- <audio controls>
                     <source src="{{ asset('storage/audio/' . $subject->audio) }}">
                     Your browser does not support the audio element.
-                </audio>
+                </audio> -->
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
                     @csrf
                     <input type="hidden" name="subject_id">
@@ -59,7 +59,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-9 col-sm-9  offset-md-3">
-                            <button type="submit" class="btn btn-success">Take Exercise</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                     </div>
                 </form>
