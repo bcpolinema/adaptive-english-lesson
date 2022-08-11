@@ -19,14 +19,14 @@
                     <img src="{{ url('storage/image/'.$level->image) }}" alt="" style="width:100%; height:auto">
                 </div>
                 @else
-                <code>Image Not Available</code>
+                <code>IMAGE NOT AVAILABLE</code>
                 @endif
                 <hr>
                 <h4>{{ $level->content }}</h4>
-            </div>
-            <div class="col-md-9 col-sm-9  offset-md-3">
-                <a href="{{ route('student.exercise', ['id'=>$level->id]) }}">
-                <button class="btn btn-success">Take Exercise</button></a>
+                <div class="col-md-9 col-sm-9  offset-md-3">
+                    <a href="{{ route('student.exercise', ['id'=>$level->id]) }}">
+                    <button class="btn btn-success">Take Exercise</button></a>
+                </div>
             </div>
         </div>
     </div>

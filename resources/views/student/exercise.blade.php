@@ -20,35 +20,40 @@
                 </audio> -->
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
                     @csrf
-                    <input type="hidden" name="subject_id">
+                    <!-- <input type="hidden" name="subject_id"> -->
+                    <input type="hidden" name="learning_id">
+                    <input type="hidden" name="user_id">
+                    <input type="hidden" name="exercise_id">
+                    <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)
                     <br>
                     <div class="form-group row">
-                        <label>{{ $exercise->{'question'} }} </label>
+                        <label>{{ $number }}. {{ $exercise->{'question'} }} </label>
+                        <?php $number++; ?>
                         <div>
                             <div class="radio">
                                 <label>
-                                    <input data-exercise_id = {{$exercise->{'id'} }} name="answer" type="radio" value="a"> A. {{ $exercise->{'option_a'} }}
+                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="A"> A. {{ $exercise->{'option_a'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="answer" type="radio" value="b"> B. {{ $exercise->{'option_b'} }}
+                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="B"> B. {{ $exercise->{'option_b'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="answer" type="radio" value="c"> C. {{ $exercise->{'option_c'} }}
+                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="C"> C. {{ $exercise->{'option_c'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="answer" type="radio" value="d"> D. {{ $exercise->{'option_d'} }}
+                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="D"> D. {{ $exercise->{'option_d'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="answer" type="radio" value="e"> E. {{ $exercise->{'option_e'} }}
+                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="E"> E. {{ $exercise->{'option_e'} }}
                                 </label>
                             </div>
                         </div>

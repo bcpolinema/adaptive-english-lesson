@@ -3115,7 +3115,7 @@ ul.project_files li a i {
     background: #F7F7F7
 }
 .caption p {
-    margin-bottom: 5px
+    margin: auto auto;
 }
 .thumbnail {
     height: 190px;

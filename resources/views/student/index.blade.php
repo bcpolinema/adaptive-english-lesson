@@ -12,7 +12,6 @@
     </div>
 </div>
 <div class="row">
-
     @forelse ($topics as $topic)
     <div class="col-md-4">
         <div class="thumbnail">
@@ -35,14 +34,12 @@
                 @else
                 <strong style="font-size: 17px"><i class="fa fa-book"></i>  {{ $topic-> {'name'} }}</strong><br>
                 @endif
-                <p>{{ $topic-> {'description'} }}</p>
+                <p style="font-size: 11.5px">{{ $topic-> {'description'} }}</p>
             </div>
         </div>
     </div>
     @empty
     <code>no topic available at the moment</code>
     @endforelse
-
-
 </div>
 @endsection
