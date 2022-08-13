@@ -14,7 +14,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $topics = Topic::all('id', 'name', 'description');
+        $topics = Topic::all('id', 'name', 'description', 'icon', 'thumbnail');
         return view('student.index', compact('topics'));
     }
 

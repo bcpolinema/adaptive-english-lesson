@@ -29,6 +29,12 @@
                         <span class="text-danger error-text description_error"></span>
                     </div>
                     <div class="col-md-6  form-group has-feedback">
+                        <label for="thumbnail">Thumbnail</label>
+                        <input type="file" name="thumbnail" accept="thumbnail/*" class="form-control has-feedback-left">
+                        <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text thumbnail_error"></span>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
                         <label for="icon">Icon</label>
                         <input type="file" name="icon" accept="icon/*" class="form-control has-feedback-left">
                         <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
@@ -155,9 +161,12 @@
                 $('.edit_topic_modal').find('input[name="topic_id"]').val(data.details.id);
                 $('.edit_topic_modal').find('input[name="name"]').val(data.details.name);
                 $('.edit_topic_modal').find('input[name="description"]').val(data.details.description);
-                $('.edit_topic_modal').find("#image_preview").html(
+                $('.edit_topic_modal').find("#icon_preview").html(
                     `<img src="storage/icon/${data.details.icon}" width="200" class="img-fluid img-thumbnail">`);
                 $('.edit_topic_modal').find("#icon_image").val(data.details.icon);
+                $('.edit_topic_modal').find("#thumbnail_preview").html(
+                    `<img src="storage/thumbnail/${data.details.thumbnail}" width="200" class="img-fluid img-thumbnail">`);
+                $('.edit_topic_modal').find("#thumbnail_image").val(data.details.thumbnail);
                 $('.edit_topic_modal').modal('show');
             }, 'json');
         });

@@ -15,6 +15,7 @@
                     @csrf
                     <input type="hidden" name="topic_id">
                     <input type="hidden" name="icon_image" id="icon_image">
+                    <input type="hidden" name="thumbnail_image" id="thumbnail_image">
                     <div class="col-md-12  form-group has-feedback">
                         <label for="name">Subject Name</label>  
                         <input type="text" name="name" class="form-control has-feedback-left" placeholder="Subject Name">
@@ -28,14 +29,24 @@
                         <span class="text-danger error-text description_error"></span>
                     </div>
                     <div class="col-md-6  form-group has-feedback">
+                        <label for="thumbnail">Thumbnail</label>
+                        <input type="file" name="thumbnail" accept="thumbnail/*" class="form-control has-feedback-left">
+                        <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text thumbnail_error"></span>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
                         <label for="icon">Icon</label>
                         <input type="file" name="icon" accept="icon/*" class="form-control has-feedback-left">
                         <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text icon_error"></span>
                     </div>
                     <div class="col-md-6  form-group has-feedback">
+                        <label for="thumbnail">Thumbnail Preview</label>
+                        <div class="mt-2" id="thumbnail_preview"></div>
+                    </div>
+                    <div class="col-md-6  form-group has-feedback">
                         <label for="icon">Icon Preview</label>
-                        <div class="mt-2" id="image_preview"></div>
+                        <div class="mt-2" id="icon_preview"></div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="reset">Reset</button>

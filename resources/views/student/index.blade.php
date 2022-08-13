@@ -13,10 +13,10 @@
 </div>
 <div class="row">
     @forelse ($topics as $topic)
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="thumbnail">
             <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="images/topik/listening.jpg" alt="image">
+                <img style="width: 100%; display: block;" src="{{ url('storage/thumbnail/'.$topic->{'thumbnail'}) }}" alt="image">
                 <div class="mask">
                     <p>Start Lesson</p>
                     <div class="tools tools-bottom">
@@ -25,16 +25,9 @@
                 </div>
             </div>
             <div class="caption">
-                @if($topic->{'name'} == 'Listening')
-                <strong style="font-size: 17px"><i class="fa fa-headphones"></i>  {{ $topic-> {'name'} }}</strong><br>
-                @elseif($topic->{'name'} == 'Vocabulary')
-                <strong style="font-size: 17px"><i class="fa fa-book"></i>  {{ $topic-> {'name'} }}</strong><br>
-                @elseif($topic->{'name'} == 'Grammar')
-                <strong style="font-size: 17px"><i class="fa fa-font"></i>  {{ $topic-> {'name'} }}</strong><br>
-                @else
-                <strong style="font-size: 17px"><i class="fa fa-book"></i>  {{ $topic-> {'name'} }}</strong><br>
-                @endif
-                <p style="font-size: 11.5px">{{ $topic-> {'description'} }}</p>
+                <img src="{{ url('storage/icon/'.$topic->{'icon'}) }}" height="40" width="40">
+                <strong style="font-size: 17px">  {{ $topic-> {'name'} }}</strong><br>
+                <p style="font-size: 11.5px">{{ $topic->description }}</p>
             </div>
         </div>
     </div>

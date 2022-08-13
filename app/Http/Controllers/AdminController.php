@@ -109,16 +109,20 @@ class AdminController extends Controller
         $icon_name = "";
         $icon_upload = false;
 
+        $thumbnail_name = "";
+        $thumbnail_upload = false;
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'description' => 'required|string',
-            'icon' => 'mimes:ico',
+            'icon' => 'mimes:ico,png,jpg,jpeg',
+            'thumbnail' => 'mimes:jpg,png,jpeg',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-
+            // Tambah Icon
             if ($request->hasFile('icon')) {
                 $icon_path = 'icon/';
                 $icon = $request->file('icon');
@@ -127,11 +131,21 @@ class AdminController extends Controller
             } else {
                 $this->icon_upload = true;
             }
+            // Tambah Thumbnail
+            if ($request->hasFile('thumbnail')) {
+                $thumbnail_path = 'thumbnail/';
+                $thumbnail = $request->file('thumbnail');
+                $thumbnail_name = $thumbnail->getClientOriginalName();
+                $this->thumbnail_upload = $thumbnail->storeAs($thumbnail_path, $thumbnail_name, 'public');
+            } else {
+                $this->thumbnail_upload = true;
+            }
 
             Topic::insert([
                 'name' => $request->name,
                 'description' => $request->description,
                 'icon' => $icon_name,
+                'thumbnail' => $thumbnail_name,
             ]);
             return response()->json();
         }
@@ -158,19 +172,20 @@ class AdminController extends Controller
         $topic = Topic::find($topic_id);
 
         $icon_name = '';
-        // $icon_path = 'icon/';
+        $thumbnail_name = '';
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'description' => 'required|string',
-            'icon' => 'mimes:ico',
+            'icon' => 'mimes:ico,png,jpg,jpeg',
+            'thumbnail' => 'mimes:jpg,png,jpeg',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
 
-            // Update Icon 
+          
             if ($request->hasFile('icon')) {
                 $icon = $request->file('icon');
                 $icon_name = $icon->getClientOriginalName();
@@ -182,10 +197,23 @@ class AdminController extends Controller
                 $icon_name = $request->icon_image;
             }
 
+         
+            if ($request->hasFile('thumbnail')) {
+                $thumbnail = $request->file('thumbnail');
+                $thumbnail_name = $thumbnail->getClientOriginalName();
+                $thumbnail->storeAs('public/thumbnail', $thumbnail_name);
+                if ($topic->thumbnail) {
+                    Storage::delete('public/thumbnail/' . $topic->thumbnail);
+                }
+            } else {
+                $thumbnail_name = $request->thumbnail_image;
+            }
+
             $topic->update([
                 'name' => $request->name,
                 'description' => $request->description,
                 'icon' => $icon_name,
+                'thumbnail' => $thumbnail_name,        
             ]);
             return response()->json();
         }
@@ -198,6 +226,11 @@ class AdminController extends Controller
 
         // Hapus Icon
         if (Storage::delete('public/icon/' . $query->icon)) {
+			Topic::destroy($id);
+		}
+
+        // Hapus Thumbnail
+        if (Storage::delete('public/thumbnail/' . $query->thumbnail)) {
 			Topic::destroy($id);
 		}
 
@@ -391,7 +424,6 @@ class AdminController extends Controller
             }
 
             $subject->update([
-                'route1' => 'id',
                 'title' => $request->title,
                 'topic_id' => $request->topic_id,
                 'no_level' => $request->no_level,

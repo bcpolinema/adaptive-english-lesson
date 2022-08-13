@@ -13,6 +13,7 @@ class Topic extends Model
         'name',
         'description',
         'icon',
+        'thumbnail',
     ];
 
     protected $dates = [

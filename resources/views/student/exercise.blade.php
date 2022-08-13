@@ -33,27 +33,27 @@
                         <div>
                             <div class="radio">
                                 <label>
-                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="A"> A. {{ $exercise->{'option_a'} }}
+                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="A"> A. {{ $exercise->{'option_a'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="B"> B. {{ $exercise->{'option_b'} }}
+                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="B"> B. {{ $exercise->{'option_b'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="C"> C. {{ $exercise->{'option_c'} }}
+                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="C"> C. {{ $exercise->{'option_c'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="D"> D. {{ $exercise->{'option_d'} }}
+                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="D"> D. {{ $exercise->{'option_d'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input data-exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="E"> E. {{ $exercise->{'option_e'} }}
+                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="E"> E. {{ $exercise->{'option_e'} }}
                                 </label>
                             </div>
                         </div>
@@ -83,29 +83,34 @@
         $('#exercise_form').on('submit', function(e) {
             e.preventDefault();
             var form = this;
-            alert("submited");
-            // $.ajax({
-            //     url: $(form).attr('action'),
-            //     method: $(form).attr('method'),
-            //     data: new FormData(form),
-            //     processData: false,
-            //     dataType: 'json',
-            //     contentType: false,
-            //     beforeSend: function() {
-            //         $(this).find('span.error-text').text('');
-            //     },
-            //     success: function(data) {
-            //         if (data.code == 0) {
-            //             $.each(data.error, function(prefix, val) {
-            //                 $(form).find('span.' + prefix + '_error').text(val[0]);
-            //             });
-            //         } else {
-            //             $(form)[0].reset();
-            //             $('#topic_table').DataTable().ajax.reload(null, false);
-            //             alert(data.msg);
-            //         }
-            //     }
-            // });
+            let answer = $(this).prop('checked') === true ? 1 : 0;
+            let exercise_id = $(this).data('id');
+            // alert('submitted');
+            $.ajax({
+                 url: $(form).attr('action'),
+                 method: $(form).attr('method'),
+                 data: {
+                    'exercise_id': exercise_id, 
+                    'answer': answer, 
+                    'user_id': user_id
+                    },
+                 processData: false,
+                 dataType: 'json',
+                 contentType: false,
+                 beforeSend: function() {
+                     $(this).find('span.error-text').text('');
+                 },
+                 success: function(data) {
+                     if (data.code == 0) {
+                         $.each(data.error, function(prefix, val) {
+                             $(form).find('span.' + prefix + '_error').text(val[0]);
+                         });
+                     } else {
+                         $(form)[0].reset();
+                         alert(data.msg);
+                     }
+                 }
+             });
         });
     });
 </script>
