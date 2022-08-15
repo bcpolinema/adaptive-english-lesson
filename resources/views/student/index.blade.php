@@ -26,8 +26,8 @@
             </div>
             <div class="caption">
                 <img src="{{ url('storage/icon/'.$topic->{'icon'}) }}" height="40" width="40">
-                <strong style="font-size: 17px">  {{ $topic-> {'name'} }}</strong><br>
-                <p style="font-size: 11.5px">{{ $topic->description }}</p>
+                <strong style="font-size: 20px">   {{ $topic-> {'name'} }}</strong><br>
+                <p style="font-size: 12px">{{ $topic->description }}</p>
             </div>
         </div>
     </div>

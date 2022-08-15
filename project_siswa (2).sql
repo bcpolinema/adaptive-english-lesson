@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2022 at 06:24 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Aug 15, 2022 at 03:15 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -84,8 +84,43 @@ CREATE TABLE `m_exercises` (
 --
 
 INSERT INTO `m_exercises` (`id`, `subject_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `option_e`, `answer_key`, `weight`, `ts_entri`) VALUES
-(1, 2, 'Cum exercitation et', 'Asperiores nesciunt', 'Molestiae sed harum', 'Accusamus in Nam non', 'Possimus quo culpa', 'Dolores veniam dign', 'e', 2, '2022-07-13 10:14:02'),
-(2, 2, 'Qui consequuntur do', 'Ipsum consequuntur', 'Ratione voluptatem', 'Quam quos ea autem e', 'Amet omnis consecte', 'Eius molestiae ea du', 'a', 4, '2022-07-13 10:14:06');
+(1, 2, 'Cum exercitation et', 'Asperiores nesciunt', 'Molestiae sed harum', 'Accusamus in Nam non', 'Possimus quo culpa', 'Dolores veniam dign', 'E', 2, '2022-08-04 13:26:12'),
+(2, 1, 'Qui consequuntur do', 'Ipsum consequuntur', 'Ratione voluptatem', 'Quam quos ea autem e', 'Amet omnis consecte', 'Eius molestiae ea du', 'A', 4, '2022-08-07 15:55:41'),
+(5, 20, 'Apakah Singa itu Mamalia?', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'B', 2, '2022-08-10 01:10:06'),
+(6, 20, 'Apakah Coki Pardede akan bebas dari penjara?', 'Tentu Saja Chakkkssss', 'Tidaaaaaakkkk', 'Astaghfirullah', 'Aku sangat menunggu dark jokes dark jokes nyaaa chakkss', 'Tidak Peduli', 'A', 2, '2022-08-10 01:11:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `m_levels`
+--
+
+CREATE TABLE `m_levels` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `no_level` int(11) DEFAULT NULL,
+  `is_pretest` tinyint(1) DEFAULT NULL,
+  `content` varchar(200) DEFAULT NULL,
+  `video` varchar(200) DEFAULT NULL,
+  `audio` varchar(200) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  `youtube` varchar(200) DEFAULT NULL,
+  `route1` int(11) NOT NULL,
+  `route2` int(11) NOT NULL,
+  `route3` int(11) NOT NULL,
+  `route4` int(11) NOT NULL,
+  `ts_entri` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `m_levels`
+--
+
+INSERT INTO `m_levels` (`id`, `title`, `topic_id`, `no_level`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
+(1, 'Maiores consequat A', 1, 1, 0, 'Provident exercitat', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 1, 1, 1, '2022-08-08 05:29:47'),
+(2, 'Listening TOEIC 1', 1, 2, 0, 'Listening TOEIC 1', NULL, NULL, 'joran-quinten-jbuGpAMvKXg-unsplash.jpg', 'https://www.youtube.com/watch?v=vXeirwIW5N0&ab_channel=AvengedSevenfold-Topic', 2, 2, 2, 1, '2022-08-08 06:47:58'),
+(20, '茅原実里', 1, 3, 0, 'あなたの声が道しるべ あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ', 'Violet Evergarden ED - \'Michishirube\' (Piano _ Orchestral).mp4', '[Ada2Ajh]~Minori Chihara - Michishirube.mp3', 'wallpaperflare.com_wallpaper (1).jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 20, 20, 20, 20, '2022-08-11 06:18:58');
 
 -- --------------------------------------------------------
 
@@ -113,7 +148,7 @@ CREATE TABLE `m_std_exercises` (
 CREATE TABLE `m_std_learnings` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
+  `level_id` int(11) NOT NULL,
   `ts_start` datetime NOT NULL,
   `is_validated` tinyint(1) NOT NULL DEFAULT 0,
   `ts_exercise` datetime DEFAULT NULL,
@@ -132,18 +167,10 @@ CREATE TABLE `m_std_learnings` (
 
 CREATE TABLE `m_subjects` (
   `id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `topic_id` int(11) NOT NULL,
-  `is_pretest` tinyint(1) DEFAULT NULL,
-  `content` varchar(200) DEFAULT NULL,
-  `video` varchar(200) DEFAULT NULL,
-  `audio` varchar(200) DEFAULT NULL,
-  `image` varchar(200) DEFAULT NULL,
-  `youtube` varchar(200) DEFAULT NULL,
-  `route1` int(11) NOT NULL,
-  `route2` int(11) NOT NULL,
-  `route3` int(11) NOT NULL,
-  `route4` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `thumbnail` varchar(255) DEFAULT NULL,
   `ts_entri` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -151,32 +178,11 @@ CREATE TABLE `m_subjects` (
 -- Dumping data for table `m_subjects`
 --
 
-INSERT INTO `m_subjects` (`id`, `title`, `topic_id`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
-(1, 'Maiores consequat A', 1, 1, 'Provident exercitat', NULL, NULL, NULL, 'Labore voluptatem N', 23, 11, 62, 46, '2022-07-08 10:19:22'),
-(2, 'Listening TOEIC 1', 1, 1, 'Listening TOEIC 1', '', '', '', 'https://www.youtube.com/watch?v=vXeirwIW5N0&ab_channel=AvengedSevenfold-Topic', 94, 41, 71, 58, '2022-07-13 10:17:14');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `m_topics`
---
-
-CREATE TABLE `m_topics` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `description` text NOT NULL,
-  `ts_entri` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `m_topics`
---
-
-INSERT INTO `m_topics` (`id`, `name`, `description`, `ts_entri`) VALUES
-(1, 'Listening', 'Pembelajaran listening', '2022-07-11 07:00:58'),
-(2, 'Vocabulary', 'Pembelajaran vocabulary', '2022-07-11 07:01:17'),
-(3, 'Grammar', 'Pembelajaran Grammar', '2022-07-11 08:14:54'),
-(10, 'Clinton George', 'Rerum facilis veniam', '2022-07-20 01:20:13');
+INSERT INTO `m_subjects` (`id`, `name`, `description`, `icon`, `thumbnail`, `ts_entri`) VALUES
+(1, 'Listening', 'Listening section is designed to measure your ability to understand conversations and lectures in English', 'headphones-listening-svgrepo-com.ico', 'listening.jpg', '2022-08-13 11:50:59'),
+(2, 'Vocabulary', '​Vocabulary is an important focus of literacy teaching and refers to the knowledge or words', '987811.ico', 'vocabulary.jpg', '2022-08-13 11:51:13'),
+(3, 'Grammar', 'Grammar is the breaking down of the building blocks, or parts of speech, in language, and the use of those pieces to form complete sentences.', '2463150.png', 'wp11021892-grammar-wallpapers.jpg', '2022-08-13 11:54:46'),
+(10, 'Reading', 'Reading is defined as a cognitive process that involves decoding symbols to arrive at meaning', '201612.png', 'wallpaperflare.com_wallpaper (2).jpg', '2022-08-13 11:55:47');
 
 -- --------------------------------------------------------
 
@@ -232,7 +238,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `roles`, `remember_token`, `created_at`, `updated_at`) VALUES
 (2, 'Administrator', 'admin@mail.com', NULL, '$2y$10$dp/EIXyLSnw0yM6nHB4P0eXpNSKqVYjXd6lA25WD6wR7SxefaxUJe', 'admin', NULL, '2022-07-06 01:58:07', '2022-07-06 01:58:07'),
-(3, 'Student 1', 'student@mail.com', NULL, '$2y$10$z.xakYmC5Qs6WPp9.rdelugKEZXNkLeVrnTVnIF/uq06T4di7uSwG', 'student', NULL, '2022-07-13 10:15:10', '2022-07-13 10:15:10');
+(3, 'Student 1', 'student@mail.com', NULL, '$2y$10$z.xakYmC5Qs6WPp9.rdelugKEZXNkLeVrnTVnIF/uq06T4di7uSwG', 'student', NULL, '2022-07-13 10:15:10', '2022-07-13 10:15:10'),
+(9, 'yusuf', 'mchyush@gmail.com', NULL, '$2y$10$lMuS0dP8Hi2C/J4E058b0ObXOHzR6jRDI9VjRzdMoD2i.wYGCQmb2', 'student', NULL, '2022-08-04 14:37:22', '2022-08-04 14:37:22');
 
 --
 -- Indexes for dumped tables
@@ -259,6 +266,13 @@ ALTER TABLE `m_exercises`
   ADD KEY `const_study` (`subject_id`);
 
 --
+-- Indexes for table `m_levels`
+--
+ALTER TABLE `m_levels`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `study_to_topic` (`topic_id`);
+
+--
 -- Indexes for table `m_std_exercises`
 --
 ALTER TABLE `m_std_exercises`
@@ -272,7 +286,7 @@ ALTER TABLE `m_std_exercises`
 --
 ALTER TABLE `m_std_learnings`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `std_learning_to_sbj` (`subject_id`),
+  ADD KEY `std_learning_to_sbj` (`level_id`),
   ADD KEY `std_learning_to_user` (`user_id`),
   ADD KEY `route_study` (`next_learning`);
 
@@ -280,13 +294,6 @@ ALTER TABLE `m_std_learnings`
 -- Indexes for table `m_subjects`
 --
 ALTER TABLE `m_subjects`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `study_to_topic` (`topic_id`);
-
---
--- Indexes for table `m_topics`
---
-ALTER TABLE `m_topics`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -330,7 +337,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `m_exercises`
 --
 ALTER TABLE `m_exercises`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `m_levels`
+--
+ALTER TABLE `m_levels`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `m_std_exercises`
@@ -348,13 +361,7 @@ ALTER TABLE `m_std_learnings`
 -- AUTO_INCREMENT for table `m_subjects`
 --
 ALTER TABLE `m_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `m_topics`
---
-ALTER TABLE `m_topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -366,7 +373,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -376,7 +383,13 @@ ALTER TABLE `users`
 -- Constraints for table `m_exercises`
 --
 ALTER TABLE `m_exercises`
-  ADD CONSTRAINT `const_study` FOREIGN KEY (`subject_id`) REFERENCES `m_subjects` (`id`);
+  ADD CONSTRAINT `const_study` FOREIGN KEY (`subject_id`) REFERENCES `m_levels` (`id`);
+
+--
+-- Constraints for table `m_levels`
+--
+ALTER TABLE `m_levels`
+  ADD CONSTRAINT `study_to_topic` FOREIGN KEY (`topic_id`) REFERENCES `m_subjects` (`id`);
 
 --
 -- Constraints for table `m_std_exercises`
@@ -391,14 +404,8 @@ ALTER TABLE `m_std_exercises`
 --
 ALTER TABLE `m_std_learnings`
   ADD CONSTRAINT `m_std_learnings_ibfk_1` FOREIGN KEY (`next_learning`) REFERENCES `m_std_learnings` (`id`),
-  ADD CONSTRAINT `std_learning_to_sbj` FOREIGN KEY (`subject_id`) REFERENCES `m_subjects` (`id`),
+  ADD CONSTRAINT `std_learning_to_sbj` FOREIGN KEY (`level_id`) REFERENCES `m_levels` (`id`),
   ADD CONSTRAINT `std_learning_to_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `m_subjects`
---
-ALTER TABLE `m_subjects`
-  ADD CONSTRAINT `study_to_topic` FOREIGN KEY (`topic_id`) REFERENCES `m_topics` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
