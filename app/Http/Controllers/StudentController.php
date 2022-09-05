@@ -42,30 +42,24 @@ class StudentController extends Controller
 
     public function submitAnswer(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'answer' => 'required|max:1',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        } else {
-
-            $stdexr = new StdExercise();
-            $stdexr->learning_id = $request->learning_id;
-            $stdexr->user_id = $request->user_id;
-            $stdexr->exercise_id = $request->exercise_id;
-            $stdexr->answer = $request->answer;
-            $stdexr->is_correct = $request->is_correct;
-            $stdexr->score = $request->score;
-            $query = $stdexr->save();
-
+            return $request;
+            foreach ($request->soal as $soal) {
+                $stdexr = new StdExercise();
+                $stdexr->learning_id = $request->learning_id;
+                $stdexr->user_id = $request->user_id;
+                $stdexr->exercise_id = $request->exercise_id;
+                $stdexr->answer = $request->soal[1];
+                $stdexr->is_correct = $request->is_correct;
+                $stdexr->score = $request->score;
+                $query = $stdexr->save();
+            }
+           
             if (!$query) {
                 return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
             } else {
                 return response()->json(['code' => 1, 'msg' => 'New Std Exercise has been successfully saved']);
             }
-        }
+        
     }
 
     /*

@@ -23,9 +23,9 @@
                     <!-- <input type="hidden" name="subject_id"> -->
                     <input type="hidden" name="learning_id">
                     <input type="hidden" name="user_id">
-                    <input type="hidden" name="exercise_id">
                     <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)
+                    <input type="hidden" name="exercise_id">
                     <br>
                     <div class="form-group row">
                         <label>{{ $number }}. {{ $exercise->{'question'} }} </label>
@@ -33,27 +33,27 @@
                         <div>
                             <div class="radio">
                                 <label>
-                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="A"> A. {{ $exercise->{'option_a'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="A"> A. {{ $exercise->{'option_a'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="B"> B. {{ $exercise->{'option_b'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="B"> B. {{ $exercise->{'option_b'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="C"> C. {{ $exercise->{'option_c'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="C"> C. {{ $exercise->{'option_c'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="D"> D. {{ $exercise->{'option_d'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="D"> D. {{ $exercise->{'option_d'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input exercise_id ="{{ $exercise->{'id'} }}" name="answer" type="radio" value="E"> E. {{ $exercise->{'option_e'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="E"> E. {{ $exercise->{'option_e'} }}
                                 </label>
                             </div>
                         </div>
@@ -79,21 +79,16 @@
 
 @section('script')
 <script>
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $('#exercise_form').on('submit', function(e) {
             e.preventDefault();
             var form = this;
             let answer = $(this).prop('checked') === true ? 1 : 0;
             let exercise_id = $(this).data('id');
-            // alert('submitted');
+            alert('submitted');
             $.ajax({
                  url: $(form).attr('action'),
                  method: $(form).attr('method'),
-                 data: {
-                    'exercise_id': exercise_id, 
-                    'answer': answer, 
-                    'user_id': user_id
-                    },
                  processData: false,
                  dataType: 'json',
                  contentType: false,
@@ -112,6 +107,6 @@
                  }
              });
         });
-    });
+    });*/
 </script>
 @endsection
