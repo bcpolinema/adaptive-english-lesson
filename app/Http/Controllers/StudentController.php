@@ -9,6 +9,7 @@ use App\StdExercise;
 use App\StdLearning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -36,22 +37,39 @@ class StudentController extends Controller
     {
         $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
         $exercises = Exercise::where('subject_id', '=', $request->id)->get();
+        $subject_id = $request->id;
 
-        return view('student.exercise', compact('subjects', 'exercises'));
+        return view('student.exercise', compact('subjects', 'exercises', 'subject_id'));
+    }
+
+    public function exerciseAnswer($exercise_id){
+        $answer = Exercise::where('id',$exercise_id)->first();
+        return $answer;
     }
 
     public function submitAnswer(Request $request)
     {
-            return $request;
+            $answers = array_values($request->soal);
+            $questions = array_keys($request->soal);
+            $i=0;
             foreach ($request->soal as $soal) {
                 $stdexr = new StdExercise();
-                $stdexr->learning_id = $request->learning_id;
-                $stdexr->user_id = $request->user_id;
-                $stdexr->exercise_id = $request->exercise_id;
-                $stdexr->answer = $request->soal[1];
-                $stdexr->is_correct = $request->is_correct;
-                $stdexr->score = $request->score;
+                $stdexr->subject_id = $request->subject_id;
+                $stdexr->user_id = Auth::id();
+                $stdexr->exercise_id = $questions[$i];
+                $stdexr->answer = $answers[$i];
+                
+                $answer = $this->exerciseAnswer($questions[$i]);
+
+                if($answer->answer_key == $answers[$i]){
+                    $stdexr->is_correct = 1;
+                    $stdexr->score = $answer->weight;
+                }else{
+                    $stdexr->is_correct = 0;
+                    $stdexr->score = 0;
+                }
                 $query = $stdexr->save();
+                $i++;
             }
            
             if (!$query) {
