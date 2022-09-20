@@ -49,35 +49,34 @@ class StudentController extends Controller
 
     public function submitAnswer(Request $request)
     {
-            $answers = array_values($request->soal);
-            $questions = array_keys($request->soal);
-            $i=0;
-            foreach ($request->soal as $soal) {
-                $stdexr = new StdExercise();
-                $stdexr->subject_id = $request->subject_id;
-                $stdexr->user_id = Auth::id();
-                $stdexr->exercise_id = $questions[$i];
-                $stdexr->answer = $answers[$i];
-                
-                $answer = $this->exerciseAnswer($questions[$i]);
+        $answers = array_values($request->soal);
+        $questions = array_keys($request->soal);
+        $i=0;
+        foreach ($request->soal as $soal) {
+            $stdexr = new StdExercise();
+            $stdexr->subject_id = $request->subject_id;
+            $stdexr->user_id = Auth::id();
+            $stdexr->exercise_id = $questions[$i];
+            $stdexr->answer = $answers[$i];
+            
+            $answer = $this->exerciseAnswer($questions[$i]);
 
-                if($answer->answer_key == $answers[$i]){
-                    $stdexr->is_correct = 1;
-                    $stdexr->score = $answer->weight;
-                }else{
-                    $stdexr->is_correct = 0;
-                    $stdexr->score = 0;
-                }
-                $query = $stdexr->save();
-                $i++;
+            if($answer->answer_key == $answers[$i]){
+                $stdexr->is_correct = 1;
+                $stdexr->score = $answer->weight;
+            }else{
+                $stdexr->is_correct = 0;
+                $stdexr->score = 0;
             }
-           
-            if (!$query) {
-                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
-            } else {
-                return response()->json(['code' => 1, 'msg' => 'New Std Exercise has been successfully saved']);
-            }
-        
+            $query = $stdexr->save();
+            $i++;
+        }
+       
+        if (!$query) {
+            return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+        } else {
+            return response()->json(['code' => 1, 'msg' => 'New Std Exercise has been successfully saved']);
+        }     
     }
 
     /*

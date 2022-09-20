@@ -111,7 +111,7 @@
                                     'Your answer has submitted!',
                                     'success'
                                 )
-                                return redirect()->back();
+                                window.location.href = "{{ route('student.home') }}";
                             }
                         }
                     });
