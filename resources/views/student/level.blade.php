@@ -14,6 +14,12 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="display: block;">
+                @if(!empty($sum_score))
+                    <div>
+                        <p><strong style="font-size: 14px;">Your Latest Score : </strong>{{ $sum_score }}</p>
+                    </div>  
+                @else
+                @endif      
                 @if(!empty($level->image))
                 <div class="polaroid">
                     <img src="{{ url('storage/image/'.$level->image) }}" alt="" style="width:100%; height:auto">
@@ -38,11 +44,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>   
 </div>
 @empty
 <code>no exercise available</code>
-@endforelse
+@endforelse                                                                                                                                 
 @endsection
 
 @section('script')

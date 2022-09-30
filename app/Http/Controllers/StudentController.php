@@ -14,23 +14,24 @@ use Illuminate\Support\Facades\Auth;
 class StudentController extends Controller
 {
     public function index()
-    {
+    {   
         $topics = Topic::all('id', 'name', 'description', 'icon', 'thumbnail');
-        return view('student.index', compact('topics'));
+        return view('student.index', compact('topics', 'sum_score'));
     }
 
     public function topic(Request $request)
     {
         // $topics = Topic::where('name', '=', $request->name)->get();
-        $subjects = Subject::where('topic_id', '=', $request->id)
-            ->get();
+        $subjects = Subject::where('topic_id', '=', $request->id)->get();
         return view('student.topic', compact('subjects'));
     }
 
     public function level(Request $request){
-        $levels = Subject::where('id', '=', $request->id)
-        ->get();
-        return view('student.level', compact('levels'));
+        $levels = Subject::where('id', '=', $request->id)->get();
+        $sum_score = StdExercise::latest()->where('user_id', Auth::user()->id)
+                                          ->where('subject_id', $request->id)
+                                          ->sum('score');
+        return view('student.level', compact('levels', 'sum_score'));
     }
 
     public function exercise(Request $request)
