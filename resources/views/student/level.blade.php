@@ -16,7 +16,16 @@
             <div class="x_content" style="display: block;">
                 @if(!empty($sum_score))
                     <div>
-                        <p><strong style="font-size: 14px;">Your Latest Score : </strong>{{ $sum_score }}</p>
+                        <p><strong style="font-size: 14px;">Latest Score : </strong>{{ $sum_score }}</p>
+                        @if($sum_score >= 75 && $sum_score <= 100)
+                            <p><strong style="font-size: 14px;">Grade : </strong>A</p>
+                        @elseif($sum_score >= 50 && $sum_score < 75)
+                            <p><strong style="font-size: 14px;">Grade : </strong>B</p>
+                        @elseif($sum_score >= 25 && $sum_score < 50)
+                            <p><strong style="font-size: 14px;">Grade : </strong>C</p>
+                        @elseif($sum_score >= 0 && $sum_score < 25)
+                            <p><strong style="font-size: 14px;">Grade : </strong>D</p>
+                        @endif
                     </div>  
                 @else
                 @endif      
@@ -38,6 +47,7 @@
                     <source src="{{ url('storage/video/'.$level->video) }}" type="video/mp4" />
                 </video>
                 @endif -->
+
                 <div class="col-md-9 col-sm-9  offset-md-3">
                     <a href="{{ route('student.exercise', ['id'=>$level->id]) }}">
                     <button class="btn btn-success">Take Exercise</button></a>
