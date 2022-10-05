@@ -16,24 +16,27 @@
             <div class="x_content" style="display: block;">
                 @if(!empty($sum_score))
                     <div>
-                        <p><strong style="font-size: 14px;">Latest Score : </strong>{{ $sum_score }}</p>
+                        <strong style="font-size: 16px;">Your Score: {{ $sum_score }}</strong>
                         @if($sum_score >= 75 && $sum_score <= 100)
-                            <p><strong style="font-size: 14px;">Grade : </strong>A</p>
+                            <strong style="font-size: 16px; margin-left: 80%;">Grade : A</strong>
                         @elseif($sum_score >= 50 && $sum_score < 75)
-                            <p><strong style="font-size: 14px;">Grade : </strong>B</p>
+                            <strong style="font-size: 16px; margin-left: 80%;">Grade : B</strong>
                         @elseif($sum_score >= 25 && $sum_score < 50)
-                            <p><strong style="font-size: 14px;">Grade : </strong>C</p>
+                            <strong style="font-size: 16px; margin-left: 80%;">Grade : C</strong>
                         @elseif($sum_score >= 0 && $sum_score < 25)
-                            <p><strong style="font-size: 14px;">Grade : </strong>D</p>
+                            <strong style="font-size: 16px; margin-left: 80%;">Grade : D</strong>
                         @endif
                     </div>  
                 @else
-                @endif      
+                @endif
+                <hr>      
                 @if(!empty($level->image))
                 <div class="polaroid">
                     <img src="{{ url('storage/image/'.$level->image) }}" alt="" style="width:100%; height:auto">
                 </div>
+                @else
                 @endif
+                <br>
                 <!-- @if(!empty($level->audio))
                 <div class="polaroid">
                     <audio controls="controls">
@@ -47,11 +50,20 @@
                     <source src="{{ url('storage/video/'.$level->video) }}" type="video/mp4" />
                 </video>
                 @endif -->
-
-                <div class="col-md-9 col-sm-9  offset-md-3">
+                <hr>
+                @if(empty($sum_score))
+                <div class="col-md-9 col-sm-9  offset-md-3" style="margin-left: 88%">
                     <a href="{{ route('student.exercise', ['id'=>$level->id]) }}">
                     <button class="btn btn-success">Take Exercise</button></a>
                 </div>
+                @else
+                <div class="col-md-9 col-sm-9  offset-md-3" style="margin-left: 80%">
+                    <a href="{{ route('student.history', ['id'=>$level->id]) }}">
+                    <button class="btn btn-success">History</button></a>
+                    <a >
+                    <button class="btn btn-success">Next Learning</button></a>
+                </div>
+                @endif
             </div>
         </div>
     </div>   

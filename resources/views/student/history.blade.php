@@ -1,12 +1,11 @@
 @extends('layout-student')
 @section('content')
-<h1>Exercise</h1>
-@forelse ($subjects as $subject)
+<h1>History</h1>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Question</h2>
+                <h2>Your Answer</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -14,11 +13,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="display: block;">
-                <!-- <audio controls>
-                    <source src="{{ asset('storage/audio/' . $subject->audio) }}">
-                    Your browser does not support the audio element.
-                </audio> -->
-                <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
+                <form id="exercise_form" action="" method="POST">
                     @csrf
                     <input type="hidden" name="subject_id" value="{{$subject_id}}">
                     <?php $number = 1; ?>
@@ -59,19 +54,11 @@
                     <code>no exercise available</code>
                     @endforelse
                     <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9  offset-md-3">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-@empty
-<code>no exercise available</code>
-@endforelse
 @endsection
 
 @section('script')

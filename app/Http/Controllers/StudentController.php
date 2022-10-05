@@ -16,14 +16,17 @@ class StudentController extends Controller
     public function index()
     {   
         $topics = Topic::all('id', 'name', 'description', 'icon', 'thumbnail');
-        return view('student.index', compact('topics', 'sum_score'));
+        return view('student.index', compact('topics'));
     }
 
     public function topic(Request $request)
     {
         // $topics = Topic::where('name', '=', $request->name)->get();
+        $sum_score = StdExercise::latest()->where('user_id', Auth::user()->id)
+                                          ->where('subject_id', $request->id)
+                                          ->sum('score');
         $subjects = Subject::where('topic_id', '=', $request->id)->get();
-        return view('student.topic', compact('subjects'));
+        return view('student.topic', compact('subjects', 'sum_score'));
     }
 
     public function level(Request $request){
@@ -41,6 +44,15 @@ class StudentController extends Controller
         $subject_id = $request->id;
 
         return view('student.exercise', compact('subjects', 'exercises', 'subject_id'));
+    }
+
+    public function historyAnswer(Request $request)
+    {
+        $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
+        $exercises = Exercise::where('subject_id', '=', $request->id)->get();
+        $subject_id = $request->id;
+
+        return view('student.history', compact('subjects', 'exercises', 'subject_id'));
     }
 
     public function exerciseAnswer($exercise_id){
