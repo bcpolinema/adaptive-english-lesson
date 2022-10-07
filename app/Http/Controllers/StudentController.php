@@ -10,6 +10,7 @@ use App\StdLearning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class StudentController extends Controller
 {
@@ -22,33 +23,30 @@ class StudentController extends Controller
     public function topic(Request $request)
     {
         // $topics = Topic::where('name', '=', $request->name)->get();
-        $sum_score = StdExercise::latest()->where('user_id', Auth::user()->id)
+        /*$sum_score = StdExercise::latest()->where('user_id', Auth::user()->id)
                                           ->where('subject_id', $request->id)
-                                          ->sum('score');
-        $subjects = Subject::where('topic_id', '=', $request->id)->get();
-        return view('student.topic', compact('subjects', 'sum_score'));
+                                          ->sum('score');*/
+        $levels = Subject::where('subject_id', '=', $request->id)->get();
+        return view('student.topic', compact('levels'));
     }
 
     public function level(Request $request){
         $levels = Subject::where('id', '=', $request->id)->get();
-        $sum_score = StdExercise::latest()->where('user_id', Auth::user()->id)
-                                          ->where('subject_id', $request->id)
-                                          ->sum('score');
-        return view('student.level', compact('levels', 'sum_score'));
+        return view('student.level', compact('levels'));
     }
 
     public function exercise(Request $request)
     {
-        $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
-        $exercises = Exercise::where('subject_id', '=', $request->id)->get();
-        $subject_id = $request->id;
+        // $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
+        $exercises = Exercise::where('level_id', '=', $request->id)->get();
+        $level_id = $request->id;
 
-        return view('student.exercise', compact('subjects', 'exercises', 'subject_id'));
+        return view('student.exercise', compact('exercises', 'level_id'));
     }
 
     public function historyAnswer(Request $request)
     {
-        $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
+        // $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
         $exercises = Exercise::where('subject_id', '=', $request->id)->get();
         $subject_id = $request->id;
 
@@ -60,15 +58,24 @@ class StudentController extends Controller
         return $answer;
     }
 
+    public function stdStart(){
+        $stdlrn = new StdLearning();
+        $stdlrn->ts_start = Carbon::now()->format('Y/m/d H:i:s');
+        $stdlrn->insert();
+    }
+
     public function submitAnswer(Request $request)
     {
+        // Insert & Update Std Learning
+
+
+
+        // Insert Std Exercise
         $answers = array_values($request->soal);
         $questions = array_keys($request->soal);
         $i=0;
         foreach ($request->soal as $soal) {
             $stdexr = new StdExercise();
-            $stdexr->subject_id = $request->subject_id;
-            $stdexr->user_id = Auth::id();
             $stdexr->exercise_id = $questions[$i];
             $stdexr->answer = $answers[$i];
             

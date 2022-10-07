@@ -1,7 +1,6 @@
 @extends('layout-student')
 @section('content')
 <h1>Exercise</h1>
-@forelse ($subjects as $subject)
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -14,13 +13,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="display: block;">
-                <!-- <audio controls>
-                    <source src="{{ asset('storage/audio/' . $subject->audio) }}">
-                    Your browser does not support the audio element.
-                </audio> -->
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
                     @csrf
-                    <input type="hidden" name="subject_id" value="{{$subject_id}}">
                     <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)
                     <br>
@@ -69,9 +63,6 @@
         </div>
     </div>
 </div>
-@empty
-<code>no exercise available</code>
-@endforelse
 @endsection
 
 @section('script')
