@@ -16,16 +16,16 @@
                     @csrf
                     <input type="hidden" name="exercise_id">
                     <div class="col-md-3 col-sm-6 form-group">
-                        <label for="">Choose Levels</label>
-                        <select class="form-control" name="subject_id">
+                        <label for="level_id">Choose Levels</label>
+                        <select class="form-control" name="level_id">
                             <option selected disabled> -- Choose Levels --</option>
-                            @forelse ($subjects as $subject)
-                            <option value="{{$subject-> {'id'} }}"> {{$subject-> {'title'} }} </option>
+                            @forelse ($subjects as $level)
+                            <option value="{{$level-> {'id'} }}"> {{$level-> {'title'} }} </option>
                             @empty
-                            <option value="0">-- No Subject Available -- </option>
+                            <option value="0">-- No Levels Available -- </option>
                             @endforelse
                         </select>
-                        <span class="text-danger error-text subject_id_error"></span>
+                        <span class="text-danger error-text level_id_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
                         <label for="">Question</label>
@@ -95,7 +95,7 @@
                                 Reset
                             </button>
                             <button type="submit" class="btn btn-success">
-                                Add
+                                Update
                             </button>
                         </div>
                     </div>

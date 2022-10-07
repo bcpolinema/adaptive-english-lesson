@@ -47,8 +47,8 @@ class AdminController extends Controller
 
     public function subject_detail(Request $request)
     {
-        $subject_id = $request->subject_id;
-        $subject_details = Subject::find($subject_id);
+        $level_id = $request->level_id;
+        $subject_details = Subject::find($level_id);
         return response()->json(['details' => $subject_details]);
     }
 
@@ -264,7 +264,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
-            'topic_id' => 'required|string',
+            'subject_id' => 'required|string',
             'no_level' => 'required|string',
             'is_pretest' => 'string',
             'content' => 'required|string',
@@ -315,7 +315,7 @@ class AdminController extends Controller
 
                 Subject::insert([
                     'title' => $request->title,
-                    'topic_id' => $request->topic_id,
+                    'subject_id' => $request->subject_id,
                     'no_level' => $request->no_level,
                     'is_pretest' => $request->is_pretest,
                     'content' => $request->content,
@@ -343,8 +343,8 @@ class AdminController extends Controller
 
     public function subject_list()
     {
-        $subjects = Subject::with('topic');
-            return DataTables::of($subjects)
+        $levels = Subject::with('subject');
+            return DataTables::of($levels)
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
@@ -352,8 +352,8 @@ class AdminController extends Controller
                 <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
                 </div>';
             })
-            ->addColumn('topic_name', function (Subject $subject) {
-                return $subject->topic->name;
+            ->addColumn('subject_name', function (Subject $level) {
+                return $level->subject->name;
             })
             ->rawColumns(['actions'])
             ->make(true);
@@ -361,8 +361,8 @@ class AdminController extends Controller
 
     public function updateSubject(Request $request)
     {
-        $subject_id = $request->subject_id;
-        $subject = Subject::find($subject_id);
+        $level_id = $request->level_id;
+        $subject = Subject::find($level_id);
 
         $audio_name = '';
         $video_name = '';
@@ -370,7 +370,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
-            'topic_id' => 'required|string',
+            'subject_id' => 'required|string',
             'no_level' => 'required|string',
             'is_pretest' => 'numeric',
             'content' => 'required|string',
@@ -425,7 +425,7 @@ class AdminController extends Controller
 
             $subject->update([
                 'title' => $request->title,
-                'topic_id' => $request->topic_id,
+                'subject_id' => $request->subject_id,
                 'no_level' => $request->no_level,
                 'is_pretest' => $request->is_pretest,
                 'content' => $request->content,
@@ -487,7 +487,7 @@ class AdminController extends Controller
     public function addExercise(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'subject_id' => 'required|integer',
+            'level_id' => 'required|integer',
             'question' => 'required|string',
             'option_a' => 'required|string',
             'option_b' => 'required|string',
@@ -503,7 +503,7 @@ class AdminController extends Controller
         } else {
             //Create exercise
             $exercise = new Exercise();
-            $exercise->subject_id = $request->subject_id;
+            $exercise->level_id = $request->level_id;
             $exercise->question = $request->question;
             $exercise->option_a = $request->option_a;
             $exercise->option_b = $request->option_b;
@@ -525,7 +525,7 @@ class AdminController extends Controller
 
     public function exercise_list()
     {
-        $exercises = Exercise::with('subject');
+        $exercises = Exercise::with('level');
         return DataTables::of($exercises)
             ->addColumn('actions', function ($row) {
                 return
@@ -534,8 +534,8 @@ class AdminController extends Controller
                 <button id="delete_exercise_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
                 </div>';
             })
-            ->addColumn('subject_title', function (Exercise $exercise) {
-                return $exercise->subject->title;
+            ->addColumn('level_title', function (Exercise $exercise) {
+                return $exercise->level->title;
             })
             ->rawColumns(['actions'])
             ->make(true);
@@ -546,7 +546,7 @@ class AdminController extends Controller
         $exercise_id = $request->exercise_id;
 
         $validator = Validator::make($request->all(), [
-            'subject_id' => 'required|integer',
+            'level_id' => 'required|integer',
             'question' => 'required|string',
             'option_a' => 'required|string',
             'option_b' => 'required|string',
@@ -562,7 +562,7 @@ class AdminController extends Controller
         } else {
             //Update exercise
             $exercise = Exercise::find($exercise_id);
-            $exercise->subject_id = $request->subject_id;
+            $exercise->level_id = $request->level_id;
             $exercise->question = $request->question;
             $exercise->option_a = $request->option_a;
             $exercise->option_b = $request->option_b;

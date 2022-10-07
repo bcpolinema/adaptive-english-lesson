@@ -14,21 +14,21 @@
                 <form id="update_subject_form" action="{{route('admin.update.subject')}}" method="POST"
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="subject_id">
+                    <input type="hidden" name="level_id">
                     <input type="hidden" name="level_audio" id="level_audio">
                     <input type="hidden" name="level_video" id="level_video">
                     <input type="hidden" name="level_image" id="level_image">
                     <div class="col-md-6 col-sm-6 form-group">
-                        <label for="topic_id">Choose Topic</label> 
-                        <select class="form-control" name="topic_id">
-                            <option selected disabled> -- Choose Topic --</option>
+                        <label for="subject_id">Choose Subject</label> 
+                        <select class="form-control" name="subject_id">
+                            <option selected disabled> -- Choose Subject --</option>
                             @forelse ($topics as $topic)
                             <option value="{{$topic-> {'id'} }}"> {{$topic-> {'name'} }} </option>
                             @empty
                             <option value="1">1</option>
                             @endforelse
                         </select>
-                        <span class="text-danger error-text topic_id_error"></span>
+                        <span class="text-danger error-text subject_id_error"></span>
                     </div>
                     <div class="col-md-6 col-sm-6 form-group">
                         <label for="no_level">Choose Level</label> 

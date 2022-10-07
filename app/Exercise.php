@@ -10,7 +10,7 @@ class Exercise extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'subject_id',
+        'level_id',
         'question',
         'option_a',
         'option_b',
@@ -25,7 +25,7 @@ class Exercise extends Model
         'ts_entri',
     ];
 
-    public function subject()
+    public function level()
     {
         return $this->belongsTo(Subject::class);
     }

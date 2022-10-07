@@ -11,7 +11,7 @@ class StdLearning extends Model
 
     protected $fillable = [
         'user_id',
-        'subject_id',
+        'level_id',
         'ts_start',
         'is_validated',
         'ts_exercise',

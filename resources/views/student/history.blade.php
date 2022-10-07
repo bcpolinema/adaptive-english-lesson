@@ -25,27 +25,27 @@
                         <div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="A"> A. {{ $exercise->{'option_a'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="{{ $exercise->{'answer'} }}"> A. {{ $exercise->{'option_a'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="B"> B. {{ $exercise->{'option_b'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="{{ $exercise->{'answer'} }}"> B. {{ $exercise->{'option_b'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="C"> C. {{ $exercise->{'option_c'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="{{ $exercise->{'answer'} }}"> C. {{ $exercise->{'option_c'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="D"> D. {{ $exercise->{'option_d'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="{{ $exercise->{'answer'} }}"> D. {{ $exercise->{'option_d'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="E"> E. {{ $exercise->{'option_e'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="{{ $exercise->{'answer'} }}"> E. {{ $exercise->{'option_e'} }}
                                 </label>
                             </div>
                         </div>

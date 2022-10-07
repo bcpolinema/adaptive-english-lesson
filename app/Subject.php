@@ -11,7 +11,7 @@ class Subject extends Model
 
     protected $fillable = [
         'title',
-        'topic_id',
+        'subject_id',
         'no_level',
         'is_pretest',
         'content',
@@ -29,12 +29,12 @@ class Subject extends Model
         'ts_entri',
     ];
 
-    public function exercises()
+    public function exercise()
     {
         return $this->hasMany(Exercise::class);
     }
 
-    public function topic()
+    public function subject()
     {
         return $this->belongsTo(Topic::class);
     }

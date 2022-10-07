@@ -10,8 +10,7 @@ class StdExercise extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'learning_id',
-        'user_id',
+        'std_learning_id',
         'exercise_id',
         'answer',
         'is_correct',

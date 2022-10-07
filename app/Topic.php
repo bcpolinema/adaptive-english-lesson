@@ -20,7 +20,7 @@ class Topic extends Model
         'ts_entri',
     ];
 
-    public function subjects()
+    public function levels()
     {
         return $this->hasMany(Subject::class);
     }

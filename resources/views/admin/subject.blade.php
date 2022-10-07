@@ -18,8 +18,8 @@
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6 col-sm-6 form-group">
-                        <label for="topic_id">Choose Topic</label> 
-                        <select class="form-control" name="topic_id">
+                        <label for="subject_id">Choose Topic</label> 
+                        <select class="form-control" name="subject_id">
                             <option selected disabled> -- Choose Subject --</option>
                             @forelse ($topics as $topic)
                             <option value="{{$topic-> {'id'} }}"> {{$topic-> {'name'} }} </option>
@@ -152,9 +152,9 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">No</th>
+                                <th class="column-title">Subject</th>
                                 <th class="column-title">No Level</th>
                                 <th class="column-title">Level Title</th>
-                                <th class="column-title">Subject</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -219,6 +219,10 @@
                     }
                 },
                 {
+                    data: "subject_name",
+                    name: "subject.name"
+                },
+                {
                     data: "no_level",
                     render: function(data, type, row){
                         if(row.no_level){
@@ -231,10 +235,6 @@
                     name: "title"
                 },
                 {
-                    data: "topic_name",
-                    name: "topic.name"
-                },
-                {
                     data: "actions",
                     name: "actions"
                 },
@@ -243,15 +243,15 @@
 
         
         $(document).on('click', '#edit_subject_btn', function() {
-            const subject_id = $(this).data('id');
+            const level_id = $(this).data('id');
             const url = '{{ route("admin.subject.detail") }}';
             $('.edit_subject_modal').find('form')[0].reset();
             $.post(url, {
-                subject_id: subject_id
+                level_id: level_id
             }, function(data) {
-                $('.edit_subject_modal').find('input[name="subject_id"]').val(data.details.id);
+                $('.edit_subject_modal').find('input[name="level_id"]').val(data.details.id);
                 $('.edit_subject_modal').find('input[name="title"]').val(data.details.title);
-                $('.edit_subject_modal').find('select[name="topic_id"]').val(data.details.topic_id);
+                $('.edit_subject_modal').find('select[name="subject_id"]').val(data.details.subject_id);
                 $('.edit_subject_modal').find('select[name="no_level"]').val(data.details.no_level);
                 $('.edit_subject_modal').find('textarea[name="content"]').val(data.details.content);
                 $('.edit_subject_modal').find("#image").html(

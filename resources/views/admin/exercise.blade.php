@@ -17,16 +17,16 @@
                     class="form-label-left input_mask">
                     @csrf
                     <div class="col-md-3 col-sm-6 form-group">
-                        <label for="">Choose Levels</label>
-                        <select class="form-control" name="subject_id">
+                        <label for="level_id">Choose Levels</label>
+                        <select class="form-control" name="level_id">
                             <option selected disabled> -- Choose Levels --</option>
-                            @forelse ($subjects as $subject)
-                            <option value="{{$subject-> {'id'} }}"> {{$subject-> {'title'} }} </option>
+                            @forelse ($subjects as $level)
+                            <option value="{{$level-> {'id'} }}"> {{$level-> {'title'} }} </option>
                             @empty
-                            <option value="0">-- No Subject Available -- </option>
+                            <option value="0">-- No Levels Available -- </option>
                             @endforelse
                         </select>
-                        <span class="text-danger error-text subject_id_error"></span>
+                        <span class="text-danger error-text level_id_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
                         <label for="">Question</label>
@@ -121,8 +121,8 @@
                     <table id="exercise_table" class="table table-striped jambo_table">
                         <thead>
                             <tr class="headings">
-                                <th class="column-title">ID </th>
-                                <th class="column-title">Subject</th>
+                                <th class="column-title">No</th>
+                                <th class="column-title">Levels</th>
                                 <th class="column-title">Question</th>
                                 <th class="column-title">Answer Key</th>
                                 <th class="column-title">Action</th>
@@ -186,8 +186,8 @@
                     }
                 },
                 {
-                    data: "subject_title",
-                    name: "subject.title"
+                    data: "level_title",
+                    name: "level.title"
                 },
                 {
                     data: "question",
@@ -226,7 +226,7 @@
                 exercise_id: exercise_id
             }, function(data) {
                 $('.edit_exercise_modal').find('input[name="exercise_id"]').val(data.details.id);
-                $('.edit_exercise_modal').find('select[name="subject_id"]').val(data.details.subject_id);
+                $('.edit_exercise_modal').find('select[name="level_id"]').val(data.details.level_id);
                 $('.edit_exercise_modal').find('textarea[name="question"]').val(data.details.question);
                 $('.edit_exercise_modal').find('input[name="option_a"]').val(data.details.option_a);
                 $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
