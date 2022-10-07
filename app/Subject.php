@@ -6,42 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    protected $table = 'm_levels';
+    protected $table = 'm_subjects';
     public $timestamps = false;
 
     protected $fillable = [
-        'title',
-        'subject_id',
-        'no_level',
-        'is_pretest',
-        'content',
-        'video',
-        'audio',
-        'image',
-        'youtube',
-        'route1',
-        'route2',
-        'route3',
-        'route4',
+        'name',
+        'description',
+        'icon',
+        'thumbnail',
     ];
 
     protected $dates = [
         'ts_entri',
     ];
 
-    public function exercise()
+    public function levels()
     {
-        return $this->hasMany(Exercise::class);
+        return $this->hasMany(Level::class);
     }
-
-    public function subject()
-    {
-        return $this->belongsTo(Topic::class);
-    }
-
-    public function stdlearnings()
-    {
-        return $this->hasMany(StdLearning::class);
-    }
-
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Subject;
-use App\Topic;
+use App\Level;
 use App\Exercise;
 use App\User;
 use App\StdExercise;
@@ -34,27 +34,27 @@ class AdminController extends Controller
     public function topic_detail(Request $request)
     {
         $topic_id = $request->topic_id;
-        $topic_details = Topic::find($topic_id);
+        $topic_details = Subject::find($topic_id);
         return response()->json(['details' => $topic_details]);
     }
 
     public function subject()
     {
-        $topics = Topic::all('id', 'name');
-        $subjects = Subject::all('id', 'title', 'no_level');
+        $topics = Subject::all('id', 'name');
+        $subjects = Level::all('id', 'title', 'no_level');
         return view('admin.subject', compact('topics', 'subjects'));
     }
 
     public function subject_detail(Request $request)
     {
         $level_id = $request->level_id;
-        $subject_details = Subject::find($level_id);
+        $subject_details = Level::find($level_id);
         return response()->json(['details' => $subject_details]);
     }
 
     public function exercise()
     {
-        $subjects = Subject::all('id', 'title');
+        $subjects = Level::all('id', 'title');
         return view('admin.exercise', compact('subjects'));
     }
 
@@ -65,43 +65,13 @@ class AdminController extends Controller
         return response()->json(['details' => $exercise_details]);
     }
 
-    public function std_exercise()
-    {
-        $stdlrn = StdLearning::all('id', 'subject_id');
-        $user = User::all()->where('roles', 'student');
-        $exrcs = Exercise::all('id', 'question');
-        return view('admin.std_exercise', compact('stdlrn', 'user', 'exrcs'));
-    }
-
-    public function std_exercise_detail(Request $request)
-    {
-        $std_exercise_id = $request->std_exercise_id;
-        $std_exercise_details = StdExercise::find($std_exercise_id);
-        return response()->json(['details' => $std_exercise_details]);
-    }
-
-    public function std_learning()
-    {
-        $subject = Subject::all('id', 'title');
-        $user = User::all()->where('roles', 'student');
-        return view('admin.std_learning', compact('subject', 'user'));
-    }
-
-    public function std_learning_detail(Request $request)
-    {
-        $std_learning_id = $request->std_learning_id;
-        $std_learning_details = StdLearning::find($std_learning_id);
-        return response()->json(['details' => $std_learning_details]);
-    }
-
-
     /*
         End of Pages
     */
 
 
     /*
-        Start of Topic
+        Start of Subject
     */
 
     public function addTopic(Request $request)
@@ -141,7 +111,7 @@ class AdminController extends Controller
                 $this->thumbnail_upload = true;
             }
 
-            Topic::insert([
+            Subject::insert([
                 'name' => $request->name,
                 'description' => $request->description,
                 'icon' => $icon_name,
@@ -153,7 +123,7 @@ class AdminController extends Controller
 
     public function topic_list()
     {
-        $topics = Topic::all();
+        $topics = Subject::all();
         return DataTables::of($topics)
             ->addColumn('actions', function ($row) {
                 return
@@ -169,7 +139,7 @@ class AdminController extends Controller
     public function updateTopic(Request $request)
     {
         $topic_id = $request->topic_id;
-        $topic = Topic::find($topic_id);
+        $topic = Subject::find($topic_id);
 
         $icon_name = '';
         $thumbnail_name = '';
@@ -222,16 +192,16 @@ class AdminController extends Controller
     public function deleteTopic(Request $request)
     {
 		$id = $request->id;
-        $query = Topic::find($id);
+        $query = Subject::find($id);
 
         // Hapus Icon
         if (Storage::delete('public/icon/' . $query->icon)) {
-			Topic::destroy($id);
+			Subject::destroy($id);
 		}
 
         // Hapus Thumbnail
         if (Storage::delete('public/thumbnail/' . $query->thumbnail)) {
-			Topic::destroy($id);
+			Subject::destroy($id);
 		}
 
         $query->delete();
@@ -244,11 +214,11 @@ class AdminController extends Controller
     }
 
     /*
-        End of Topic
+        End of Subject
     */
 
     /*
-        Start of Subject
+        Start of Level
     */
 
 
@@ -313,7 +283,7 @@ class AdminController extends Controller
 
             if ($this->audio_upload and $this->video_upload and $this->image_upload) {
 
-                Subject::insert([
+                Level::insert([
                     'title' => $request->title,
                     'subject_id' => $request->subject_id,
                     'no_level' => $request->no_level,
@@ -343,7 +313,7 @@ class AdminController extends Controller
 
     public function subject_list()
     {
-        $levels = Subject::with('subject');
+        $levels = Level::with('subject');
             return DataTables::of($levels)
             ->addColumn('actions', function ($row) {
                 return
@@ -352,7 +322,7 @@ class AdminController extends Controller
                 <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
                 </div>';
             })
-            ->addColumn('subject_name', function (Subject $level) {
+            ->addColumn('subject_name', function (Level $level) {
                 return $level->subject->name;
             })
             ->rawColumns(['actions'])
@@ -362,7 +332,7 @@ class AdminController extends Controller
     public function updateSubject(Request $request)
     {
         $level_id = $request->level_id;
-        $subject = Subject::find($level_id);
+        $subject = Level::find($level_id);
 
         $audio_name = '';
         $video_name = '';
@@ -451,19 +421,19 @@ class AdminController extends Controller
     public function deleteSubject(Request $request)
     {
         $id = $request->id;
-        $query = Subject::find($id);
+        $query = Level::find($id);
 
         // Hapus Image
         if (Storage::delete('public/images/' . $query->image)) {
-			Subject::destroy($id);
+			Level::destroy($id);
 		}
         // Hapus Video
         if (Storage::delete('public/video/' . $query->video)) {
-			Subject::destroy($id);
+			Level::destroy($id);
 		}
         // Hapus Audio
         if (Storage::delete('public/audio/' . $query->audio)) {
-			Subject::destroy($id);
+			Level::destroy($id);
 		}
 
         $query->delete();
@@ -477,7 +447,7 @@ class AdminController extends Controller
 
 
     /*
-        End of Subject
+        End of Level
     */
 
     /*

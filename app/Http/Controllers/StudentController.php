@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exercise;
 use App\Subject;
-use App\Topic;
+use App\Level;
 use App\StdExercise;
 use App\StdLearning;
 use Illuminate\Http\Request;
@@ -16,22 +16,18 @@ class StudentController extends Controller
 {
     public function index()
     {   
-        $topics = Topic::all('id', 'name', 'description', 'icon', 'thumbnail');
-        return view('student.index', compact('topics'));
+        $subjects = Subject::all('id', 'name', 'description', 'icon', 'thumbnail');
+        return view('student.index', compact('subjects'));
     }
 
-    public function topic(Request $request)
+    public function subject(Request $request)
     {
-        // $topics = Topic::where('name', '=', $request->name)->get();
-        /*$sum_score = StdExercise::latest()->where('user_id', Auth::user()->id)
-                                          ->where('subject_id', $request->id)
-                                          ->sum('score');*/
-        $levels = Subject::where('subject_id', '=', $request->id)->get();
+        $levels = Level::where('subject_id', '=', $request->id)->get();
         return view('student.topic', compact('levels'));
     }
 
     public function level(Request $request){
-        $levels = Subject::where('id', '=', $request->id)->get();
+        $levels = Level::where('id', '=', $request->id)->get();
         return view('student.level', compact('levels'));
     }
 

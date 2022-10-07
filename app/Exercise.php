@@ -27,7 +27,7 @@ class Exercise extends Model
 
     public function level()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Level::class);
     }
 
     public function stdexercises()

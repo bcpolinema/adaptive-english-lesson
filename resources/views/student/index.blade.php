@@ -12,22 +12,22 @@
     </div>
 </div>
 <div class="row">
-    @forelse ($topics as $topic)
+    @forelse ($subjects as $s)
     <div class="col-md-6">
         <div class="thumbnail">
             <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="{{ url('storage/thumbnail/'.$topic->{'thumbnail'}) }}" alt="image">
+                <img style="width: 100%; display: block;" src="{{ url('storage/thumbnail/'.$s->{'thumbnail'}) }}" alt="image">
                 <div class="mask">
                     <p>Start Lesson</p>
                     <div class="tools tools-bottom">
-                        <a href="{{ route('student.topic', ['id' => $topic->{'id'} ] ) }}"><i class="fa fa-info-circle"></i></a>
+                        <a href="{{ route('student.subject', ['id' => $s->{'id'} ] ) }}"><i class="fa fa-info-circle"></i></a>
                     </div>
                 </div>
             </div>
             <div class="caption">
-                <img src="{{ url('storage/icon/'.$topic->{'icon'}) }}" height="40" width="40">
-                <strong style="font-size: 20px">   {{ $topic-> {'name'} }}</strong><br>
-                <p style="font-size: 12px">{{ $topic->description }}</p>
+                <img src="{{ url('storage/icon/'.$s->{'icon'}) }}" height="40" width="40">
+                <strong style="font-size: 20px">   {{ $s-> {'name'} }}</strong><br>
+                <p style="font-size: 12px">{{ $s->description }}</p>
             </div>
         </div>
     </div>

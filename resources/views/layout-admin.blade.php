@@ -79,12 +79,6 @@
                 </li>
                 <li><a href="{{route('admin.exercise')}}"><i class="fa fa-edit"></i> Exercises </span></a>
                 </li>
-                <!-- <li><a><i class="fa fa-user"></i> Student <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="{{route('admin.std_exercise')}}">Exercises</a></li>
-                    <li><a href="{{route('admin.std_learning')}}">Learnings</a></li>
-                  </ul>
-                </li> -->
                 <li><a href="{{route('admin.subject')}}"><i class="fa fa-signal"></i> Levels </a>
                 </li>
                 <li><a href="{{route('admin.topic')}}"><i class="fa fa-table"></i> Subjects </a>
