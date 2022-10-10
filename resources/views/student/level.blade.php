@@ -14,22 +14,6 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="display: block;">
-                @if(!empty($sum_score))
-                    <div>
-                        <strong style="font-size: 16px;">Your Score: {{ $sum_score }}</strong>
-                        @if($sum_score >= 75 && $sum_score <= 100)
-                            <strong style="font-size: 16px; margin-left: 80%;">Grade : A</strong>
-                        @elseif($sum_score >= 50 && $sum_score < 75)
-                            <strong style="font-size: 16px; margin-left: 80%;">Grade : B</strong>
-                        @elseif($sum_score >= 25 && $sum_score < 50)
-                            <strong style="font-size: 16px; margin-left: 80%;">Grade : C</strong>
-                        @elseif($sum_score >= 0 && $sum_score < 25)
-                            <strong style="font-size: 16px; margin-left: 80%;">Grade : D</strong>
-                        @endif
-                    </div>  
-                @else
-                @endif
-                <hr>      
                 @if(!empty($level->image))
                 <div class="polaroid">
                     <img src="{{ url('storage/image/'.$level->image) }}" alt="" style="width:100%; height:auto">
@@ -69,9 +53,6 @@
     </div>   
 </div>
 @empty
-<code>no exercise available</code>
+<code>no level available</code>
 @endforelse                                                                                                                                 
-@endsection
-
-@section('script')
 @endsection

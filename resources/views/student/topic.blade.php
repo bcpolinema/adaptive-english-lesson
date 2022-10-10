@@ -6,7 +6,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>{{ $level->{'title'} }}</h2>
+                <h2>{{ $level->title }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -18,17 +18,21 @@
                     <li>
                         <div class="block">
                             <div class="tags">
-                                <a href="{{route('student.level', ['id'=>$level->id])}}" class="tag">
+                                @if(empty($level->stdlearnings->isEmpty() ? '0': $level->stdlearnings[0]->score))
+                                <a href="{{ route('student.level', ['id'=>$level->id] )}}" class="tag">
                                     <span>Start</span>
                                 </a>
+                                @else
+                                <a href="#" class="tag">
+                                    <span>Next</span>
+                                </a>
+                                @endif
                             </div>
                             <div class="block_content">
                                 <h2 class="title">
-                                    <a>Judul pembelajaran {{ $level->{'id'} }}</a>
+                                    <p>Score : {{ $level->stdlearnings->isEmpty() ? '0': $level->stdlearnings[0]->score }}</p>
                                 </h2>
-                                <div class="byline">
-                                </div>
-                                </p>
+                                <div class="byline"></div>
                             </div>
                         </div>
                     </li>

@@ -44,4 +44,8 @@ class Level extends Model
         return $this->hasMany(StdLearning::class);
     }
 
+    public function topStdLearnings(){
+        return $this->hasMany(StdLearning::class)->orderBy('score','DESC')->take(1);
+    }
+
 }
