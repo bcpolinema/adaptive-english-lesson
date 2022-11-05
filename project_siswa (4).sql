@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2022 at 03:15 AM
+-- Generation Time: Nov 06, 2022 at 12:40 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -67,7 +67,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `m_exercises` (
   `id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
+  `level_id` int(11) NOT NULL,
   `question` text NOT NULL,
   `option_a` varchar(200) NOT NULL,
   `option_b` varchar(200) NOT NULL,
@@ -83,11 +83,12 @@ CREATE TABLE `m_exercises` (
 -- Dumping data for table `m_exercises`
 --
 
-INSERT INTO `m_exercises` (`id`, `subject_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `option_e`, `answer_key`, `weight`, `ts_entri`) VALUES
+INSERT INTO `m_exercises` (`id`, `level_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `option_e`, `answer_key`, `weight`, `ts_entri`) VALUES
 (1, 2, 'Cum exercitation et', 'Asperiores nesciunt', 'Molestiae sed harum', 'Accusamus in Nam non', 'Possimus quo culpa', 'Dolores veniam dign', 'E', 2, '2022-08-04 13:26:12'),
 (2, 1, 'Qui consequuntur do', 'Ipsum consequuntur', 'Ratione voluptatem', 'Quam quos ea autem e', 'Amet omnis consecte', 'Eius molestiae ea du', 'A', 4, '2022-08-07 15:55:41'),
 (5, 20, 'Apakah Singa itu Mamalia?', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'B', 2, '2022-08-10 01:10:06'),
-(6, 20, 'Apakah Coki Pardede akan bebas dari penjara?', 'Tentu Saja Chakkkssss', 'Tidaaaaaakkkk', 'Astaghfirullah', 'Aku sangat menunggu dark jokes dark jokes nyaaa chakkss', 'Tidak Peduli', 'A', 2, '2022-08-10 01:11:36');
+(6, 20, 'Apakah Coki Pardede akan bebas dari penjara?', 'Tentu Saja Chakkkssss', 'Tidaaaaaakkkk', 'Astaghfirullah', 'Aku sangat menunggu dark jokes dark jokes nyaaa chakkss', 'Tidak Peduli', 'A', 2, '2022-08-10 01:11:36'),
+(7, 20, 'apakah ini soal?', 'ya', 'tidak', 'ya', 'ya', 'ya', 'A', 2, '2022-09-05 13:00:36');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,7 @@ INSERT INTO `m_exercises` (`id`, `subject_id`, `question`, `option_a`, `option_b
 CREATE TABLE `m_levels` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `topic_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
   `no_level` int(11) DEFAULT NULL,
   `is_pretest` tinyint(1) DEFAULT NULL,
   `content` varchar(200) DEFAULT NULL,
@@ -117,9 +118,9 @@ CREATE TABLE `m_levels` (
 -- Dumping data for table `m_levels`
 --
 
-INSERT INTO `m_levels` (`id`, `title`, `topic_id`, `no_level`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
-(1, 'Maiores consequat A', 1, 1, 0, 'Provident exercitat', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 1, 1, 1, '2022-08-08 05:29:47'),
-(2, 'Listening TOEIC 1', 1, 2, 0, 'Listening TOEIC 1', NULL, NULL, 'joran-quinten-jbuGpAMvKXg-unsplash.jpg', 'https://www.youtube.com/watch?v=vXeirwIW5N0&ab_channel=AvengedSevenfold-Topic', 2, 2, 2, 1, '2022-08-08 06:47:58'),
+INSERT INTO `m_levels` (`id`, `title`, `subject_id`, `no_level`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
+(1, 'PECT', 1, 1, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-10-07 12:42:55'),
+(2, 'Listening TOEIC', 1, 2, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-10-07 12:43:11'),
 (20, '茅原実里', 1, 3, 0, 'あなたの声が道しるべ あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ', 'Violet Evergarden ED - \'Michishirube\' (Piano _ Orchestral).mp4', '[Ada2Ajh]~Minori Chihara - Michishirube.mp3', 'wallpaperflare.com_wallpaper (1).jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 20, 20, 20, 20, '2022-08-11 06:18:58');
 
 -- --------------------------------------------------------
@@ -130,8 +131,7 @@ INSERT INTO `m_levels` (`id`, `title`, `topic_id`, `no_level`, `is_pretest`, `co
 
 CREATE TABLE `m_std_exercises` (
   `id` bigint(20) NOT NULL,
-  `learning_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `std_learning_id` bigint(20) DEFAULT NULL,
   `exercise_id` int(11) NOT NULL,
   `answer` char(1) NOT NULL,
   `is_correct` tinyint(1) NOT NULL,
@@ -158,6 +158,13 @@ CREATE TABLE `m_std_learnings` (
   `is_termination` tinyint(1) NOT NULL DEFAULT 0,
   `ts_entri` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `m_std_learnings`
+--
+
+INSERT INTO `m_std_learnings` (`id`, `user_id`, `level_id`, `ts_start`, `is_validated`, `ts_exercise`, `score`, `next_learning`, `comment`, `is_termination`, `ts_entri`) VALUES
+(87, 9, 1, '2022-10-20 07:31:39', 0, '2022-10-20 07:32:15', NULL, NULL, NULL, 0, '2022-10-20 00:32:15');
 
 -- --------------------------------------------------------
 
@@ -263,23 +270,22 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `m_exercises`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `const_study` (`subject_id`);
+  ADD KEY `const_study` (`level_id`);
 
 --
 -- Indexes for table `m_levels`
 --
 ALTER TABLE `m_levels`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `study_to_topic` (`topic_id`);
+  ADD KEY `study_to_topic` (`subject_id`);
 
 --
 -- Indexes for table `m_std_exercises`
 --
 ALTER TABLE `m_std_exercises`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `std_exc_to_learning` (`learning_id`),
   ADD KEY `std_exc_to_exercise` (`exercise_id`),
-  ADD KEY `std_exc_to_user` (`user_id`);
+  ADD KEY `std_exc_to_user` (`std_learning_id`);
 
 --
 -- Indexes for table `m_std_learnings`
@@ -337,31 +343,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `m_exercises`
 --
 ALTER TABLE `m_exercises`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `m_levels`
 --
 ALTER TABLE `m_levels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `m_std_exercises`
 --
 ALTER TABLE `m_std_exercises`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `m_std_learnings`
 --
 ALTER TABLE `m_std_learnings`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `m_subjects`
 --
 ALTER TABLE `m_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -383,21 +389,20 @@ ALTER TABLE `users`
 -- Constraints for table `m_exercises`
 --
 ALTER TABLE `m_exercises`
-  ADD CONSTRAINT `const_study` FOREIGN KEY (`subject_id`) REFERENCES `m_levels` (`id`);
+  ADD CONSTRAINT `const_study` FOREIGN KEY (`level_id`) REFERENCES `m_levels` (`id`);
 
 --
 -- Constraints for table `m_levels`
 --
 ALTER TABLE `m_levels`
-  ADD CONSTRAINT `study_to_topic` FOREIGN KEY (`topic_id`) REFERENCES `m_subjects` (`id`);
+  ADD CONSTRAINT `study_to_topic` FOREIGN KEY (`subject_id`) REFERENCES `m_subjects` (`id`);
 
 --
 -- Constraints for table `m_std_exercises`
 --
 ALTER TABLE `m_std_exercises`
   ADD CONSTRAINT `std_exc_to_exercise` FOREIGN KEY (`exercise_id`) REFERENCES `m_exercises` (`id`),
-  ADD CONSTRAINT `std_exc_to_learning` FOREIGN KEY (`learning_id`) REFERENCES `m_std_learnings` (`id`),
-  ADD CONSTRAINT `std_exc_to_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `std_exc_to_std_learning` FOREIGN KEY (`std_learning_id`) REFERENCES `m_std_learnings` (`id`);
 
 --
 -- Constraints for table `m_std_learnings`

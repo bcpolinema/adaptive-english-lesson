@@ -14,7 +14,7 @@
             </div>
             <div class="x_content" style="display: block;">
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
-                    <input type="hidden" name="learn_id" value="{{ $learn->id }}">
+                    <input type="hidden" name="take_exercise_id" value="{{ $take_exercise_id }}">
                     @csrf
                     <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)

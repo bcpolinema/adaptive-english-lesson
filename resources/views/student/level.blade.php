@@ -35,19 +35,15 @@
                 </video>
                 @endif -->
                 <hr>
-                @if(empty($sum_score))
+                
                 <div class="col-md-9 col-sm-9  offset-md-3" style="margin-left: 88%">
-                    <a href="{{ route('student.exercise', ['id'=>$level->id]) }}">
-                    <button class="btn btn-success">Take Exercise</button></a>
+                    <form action="{{ route('student.exercise', ['id'=>$level->id]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="take_exercise_id" value="{{ $start->id }}">
+                        <button class="btn btn-success">Take Exercise</button></a>
+                    </form>
+                    <!-- <a href="{{ route('student.exercise', ['id'=>$level->id]) }}"> -->
                 </div>
-                @else
-                <div class="col-md-9 col-sm-9  offset-md-3" style="margin-left: 80%">
-                    <a href="{{ route('student.history', ['id'=>$level->id]) }}">
-                    <button class="btn btn-success">History</button></a>
-                    <a >
-                    <button class="btn btn-success">Next Learning</button></a>
-                </div>
-                @endif
             </div>
         </div>
     </div>   

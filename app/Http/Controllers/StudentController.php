@@ -22,42 +22,36 @@ class StudentController extends Controller
 
     public function subject(Request $request)
     {
+        $level_1 = Level::where('subject_id', '=', $request->id)
+                        ->where('no_level', '1')->get();
         $levels = Level::where('subject_id', '=', $request->id)       
                         ->with('topStdLearnings')
                         ->get();
         // return $levels;
-        return view('student.topic', compact('levels'));
+        return view('student.topic', compact('levels', 'level_1'));
     }
 
     public function level(Request $request){
         $levels = Level::where('id', '=', $request->id)->get();
-        return view('student.level', compact('levels'));
+        $start = $this->stdStart($request->id);
+        
+        return view('student.level', compact('levels', 'start'));
     }
 
-    public function exercise(Request $request)
+    public function exercise(Request $request, $id)
     {
-        // $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
-        $learn = $this->stdStart($request->id);
-        $exercises = Exercise::where('level_id', '=', $request->id)->get();
-        $level_id = $request->id;
-        $learn_id = $learn->id;
-        // return $learn_id;
-
-        return view('student.exercise', compact('exercises', 'level_id', 'learn'));
+        // return $id;
+        $exercises = Exercise::where('level_id', '=', $id)->get();
+        $take_exercise = $this->stdTakeExercise($request->take_exercise_id);
+        $take_exercise_id = $take_exercise->id;
+        return view('student.exercise', compact('exercises', 'take_exercise', 'take_exercise_id'));
     }
 
-    public function historyAnswer(Request $request)
-    {
-        // $subjects = Subject::select('audio')->where('id', '=', $request->id)->get();
-        $exercises = Exercise::where('subject_id', '=', $request->id)->get();
-        $subject_id = $request->id;
-
-        return view('student.history', compact('subjects', 'exercises', 'subject_id'));
-    }
-
-    public function exerciseAnswer($exercise_id){
-        $answer = Exercise::where('id',$exercise_id)->first();
-        return $answer;
+    public function stdTakeExercise($id){
+        $stdlrn = StdLearning::find($id);
+        $stdlrn->ts_exercise = Carbon::now()->format('Y/m/d H:i:s');
+        $stdlrn->update();
+        return $stdlrn;
     }
 
     public function stdStart($level_id){
@@ -69,10 +63,16 @@ class StudentController extends Controller
         return $stdlrn;
     }
 
+
+    public function exerciseAnswer($exercise_id){
+        $answer = Exercise::where('id',$exercise_id)->first();
+        return $answer;
+    }
+   
     public function submitAnswer(Request $request)
     {
         // Insert & Update Std Learning
-        $stdlrn = StdLearning::find($request->learn_id);
+        $stdlrn = StdLearning::find($request->take_exercise_id);
 
         // Insert Std Exercise
         $answers = array_values($request->soal);
@@ -97,7 +97,6 @@ class StudentController extends Controller
             $query = $stdexr->save();
             $i++;
         }
-        $stdlrn->ts_exercise =  Carbon::now()->format('Y/m/d H:i:s');
         $stdlrn->score = $total_score;
         $stdlrn->update();
        
