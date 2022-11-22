@@ -1,4 +1,3 @@
-</button>
 
 <!-- The modal -->
 <div class="modal fade edit_exercise_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

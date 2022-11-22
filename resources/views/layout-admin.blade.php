@@ -75,13 +75,14 @@
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a href="/"><i class="fa fa-home"></i> Home </a>
-
                 </li>
                 <li><a href="{{route('admin.exercise')}}"><i class="fa fa-edit"></i> Exercises </span></a>
                 </li>
-                <li><a href="{{route('admin.subject')}}"><i class="fa fa-signal"></i> Levels </a>
+                <li><a href="{{route('admin.level')}}"><i class="fa fa-signal"></i> Levels </a>
                 </li>
-                <li><a href="{{route('admin.topic')}}"><i class="fa fa-table"></i> Subjects </a>
+                <li><a href="{{route('admin.topic')}}"><i class="fa fa-tasks"></i> Topics </a>
+                </li>
+                <li><a href="{{route('admin.subject')}}"><i class="fa fa-table"></i> Subjects </a>
                 </li>
               </ul>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Subject;
 use App\Level;
+use App\Topic;
 use App\Exercise;
 use App\User;
 use App\StdExercise;
@@ -26,30 +27,43 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function subject()
+    {
+        return view('admin.subject');
+    }
+
+    public function subject_detail(Request $request)
+    {
+        $subject_id = $request->subject_id;
+        $subject_details = Subject::find($subject_id);
+        return response()->json(['details' => $subject_details]);
+    }
+
     public function topic()
     {
-        return view('admin.topic');
+        $subjects = Subject::all('id', 'name');
+        return view('admin.topic', compact('subjects'));
     }
 
     public function topic_detail(Request $request)
     {
         $topic_id = $request->topic_id;
-        $topic_details = Subject::find($topic_id);
+        $topic_details = Topic::find($topic_id);
         return response()->json(['details' => $topic_details]);
     }
 
-    public function subject()
+    public function level()
     {
-        $topics = Subject::all('id', 'name');
-        $subjects = Level::all('id', 'title', 'no_level');
-        return view('admin.subject', compact('topics', 'subjects'));
+        $subjects = Subject::all('id', 'name');
+        $levels = Level::all('id', 'title', 'no_level');
+        return view('admin.level', compact('levels', 'subjects'));
     }
 
-    public function subject_detail(Request $request)
+    public function level_detail(Request $request)
     {
         $level_id = $request->level_id;
-        $subject_details = Level::find($level_id);
-        return response()->json(['details' => $subject_details]);
+        $level_details = Level::find($level_id);
+        return response()->json(['details' => $level_details]);
     }
 
     public function exercise()
@@ -74,7 +88,7 @@ class AdminController extends Controller
         Start of Subject
     */
 
-    public function addTopic(Request $request)
+    public function addSubject(Request $request)
     {
         $icon_name = "";
         $icon_upload = false;
@@ -121,25 +135,25 @@ class AdminController extends Controller
         }
     }
 
-    public function topic_list()
+    public function subject_list()
     {
-        $topics = Subject::all();
-        return DataTables::of($topics)
+        $subjects = Subject::all();
+        return DataTables::of($subjects)
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
-                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                <button id="edit_subject_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
               </div>';
             })
             ->rawColumns(['actions'])
             ->make(true);
     }
 
-    public function updateTopic(Request $request)
+    public function updateSubject(Request $request)
     {
-        $topic_id = $request->topic_id;
-        $topic = Subject::find($topic_id);
+        $subject_id = $request->subject_id;
+        $subject = Subject::find($subject_id);
 
         $icon_name = '';
         $thumbnail_name = '';
@@ -160,8 +174,8 @@ class AdminController extends Controller
                 $icon = $request->file('icon');
                 $icon_name = $icon->getClientOriginalName();
                 $icon->storeAs('public/icon', $icon_name);
-                if ($topic->icon) {
-                    Storage::delete('public/icon/' . $topic->icon);
+                if ($subject->icon) {
+                    Storage::delete('public/icon/' . $subject->icon);
                 }
             } else {
                 $icon_name = $request->icon_image;
@@ -172,14 +186,14 @@ class AdminController extends Controller
                 $thumbnail = $request->file('thumbnail');
                 $thumbnail_name = $thumbnail->getClientOriginalName();
                 $thumbnail->storeAs('public/thumbnail', $thumbnail_name);
-                if ($topic->thumbnail) {
-                    Storage::delete('public/thumbnail/' . $topic->thumbnail);
+                if ($subject->thumbnail) {
+                    Storage::delete('public/thumbnail/' . $subject->thumbnail);
                 }
             } else {
                 $thumbnail_name = $request->thumbnail_image;
             }
 
-            $topic->update([
+            $subject->update([
                 'name' => $request->name,
                 'description' => $request->description,
                 'icon' => $icon_name,
@@ -189,7 +203,7 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteTopic(Request $request)
+    public function deleteSubject(Request $request)
     {
 		$id = $request->id;
         $query = Subject::find($id);
@@ -206,10 +220,10 @@ class AdminController extends Controller
 
         $query->delete();
 
-        if($query){
-            return response()->json(['code'=>1, 'msg'=>'Topic has been deleted from database']);
-        }else{
-            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        if (!$query) {
+            return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+        } else {
+            return response()->json(['code' => 1, 'msg' => 'Subject has been successfully updated']);
         }
     }
 
@@ -218,11 +232,95 @@ class AdminController extends Controller
     */
 
     /*
+        Start of Topic
+    */
+
+    public function addTopic(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'subject_id' => 'required|string',
+            'title' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            Topic::insert([
+                'subject_id' => $request->subject_id,
+                'title' => $request->title,
+            ]);
+            return response()->json();
+        }
+    }
+
+    public function topic_list()
+    {
+        $topics = Topic::with('subject');
+        return DataTables::of($topics)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+              </div>';
+            })
+            ->addColumn('subject_name', function (Topic $topic) {
+                return $topic->subject->name;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
+    public function updateTopic(Request $request)
+    {
+        $topic_id = $request->topic_id;
+
+        $validator = Validator::make($request->all(), [
+            'subject_id' => 'required|string',
+            'title' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            $topic = Topic::find($topic_id);
+            $topic->subject_id = $request->subject_id;
+            $topic->title = $request->title;
+            $query = $topic->update();
+
+            if (!$query) {
+                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['code' => 1, 'msg' => 'Topic has been successfully updated']);
+            }
+        }
+    }
+
+    public function deleteTopic(Request $request)
+    {
+        $id = $request->id;
+        $query = Topic::find($id);
+        $query->delete();
+
+        if (!$query) {
+            return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+        } else {
+            return response()->json(['code' => 1, 'msg' => 'Topic has been successfully updated']);
+        }
+    }
+
+
+    /*
+        End of Topic
+    */
+
+
+    /*
         Start of Level
     */
 
 
-    public function addSubject(Request $request)
+    public function addLevel(Request $request)
     {
         $audio_name = "";
         $video_name = "";
@@ -311,15 +409,15 @@ class AdminController extends Controller
         }
     }
 
-    public function subject_list()
+    public function level_list()
     {
         $levels = Level::with('subject');
             return DataTables::of($levels)
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
-                <button id="edit_subject_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                <button id="edit_level_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
+                <button id="delete_level_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
                 </div>';
             })
             ->addColumn('subject_name', function (Level $level) {
@@ -329,10 +427,10 @@ class AdminController extends Controller
             ->make(true);
     }
 
-    public function updateSubject(Request $request)
+    public function updateLevel(Request $request)
     {
         $level_id = $request->level_id;
-        $subject = Level::find($level_id);
+        $level = Level::find($level_id);
 
         $audio_name = '';
         $video_name = '';
@@ -362,8 +460,8 @@ class AdminController extends Controller
                 $audio = $request->file('audio');
                 $audio_name = $audio->getClientOriginalName();
                 $audio->storeAs('public/audio', $audio_name);
-                if ($subject->audio) {
-                    Storage::delete('public/audio/' . $subject->audio);
+                if ($level->audio) {
+                    Storage::delete('public/audio/' . $level->audio);
                 }
             } else {
                 $audio_name = $request->level_audio;
@@ -374,8 +472,8 @@ class AdminController extends Controller
                 $video = $request->file('video');
                 $video_name = $video->getClientOriginalName();
                 $video->storeAs('public/video', $video_name);
-                if ($subject->video) {
-                    Storage::delete('public/video/' . $subject->video);
+                if ($level->video) {
+                    Storage::delete('public/video/' . $level->video);
                 }
             } else {
                 $video_name = $request->level_video;
@@ -386,14 +484,14 @@ class AdminController extends Controller
                 $image = $request->file('image');
                 $image_name = $image->getClientOriginalName();
                 $image->storeAs('public/image', $image_name);
-                if ($subject->image) {
-                    Storage::delete('public/image/' . $subject->image);
+                if ($level->image) {
+                    Storage::delete('public/image/' . $level->image);
                 }
             } else {
                 $image_name = $request->level_image;
             }
 
-            $subject->update([
+            $level->update([
                 'title' => $request->title,
                 'subject_id' => $request->subject_id,
                 'no_level' => $request->no_level,
@@ -418,7 +516,7 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteSubject(Request $request)
+    public function deleteLevel(Request $request)
     {
         $id = $request->id;
         $query = Level::find($id);
@@ -438,11 +536,11 @@ class AdminController extends Controller
 
         $query->delete();
 
-        if($query){
-            return response()->json(['code'=>1, 'msg'=>'Subject has been deleted from database']);
-        }else{
-            return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
-        }  
+        if (!$query) {
+            return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+        } else {
+            return response()->json(['code' => 1, 'msg' => 'Level has been successfully updated']);
+        }
     }
 
 

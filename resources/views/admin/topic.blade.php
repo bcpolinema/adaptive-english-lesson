@@ -1,12 +1,11 @@
 @extends('layout-admin')
 @section('content')
-
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <h1>Subject</h1>
+        <h1>Topic</h1>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Subject Data</h2>
+                <h2>Add Topic Data</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -16,29 +15,23 @@
                 <br>
                 <form id="add_topic" action="{{route('admin.add.topic')}}" method="POST" class="form-label-left input_mask">
                     @csrf
+                    <div class="col-md-6 col-sm-6 form-group">
+                        <label for="subject_id">Choose Subject</label> 
+                        <select class="form-control" name="subject_id">
+                            <option selected disabled> -- Choose Subject --</option>
+                            @forelse ($subjects as $subject)
+                            <option value="{{ $subject-> {'id'} }}"> {{ $subject-> {'name'} }} </option>
+                            @empty
+                            <option value="1">1</option>
+                            @endforelse
+                        </select>
+                        <span class="text-danger error-text subject_id_error"></span>
+                    </div>
                     <div class="col-md-12  form-group has-feedback">
-                        <label for="name">Subject Name</label>  
-                        <input type="text" name="name" class="form-control has-feedback-left" placeholder="Subject Name">
+                        <label for="title">Topic Name</label>  
+                        <input type="text" name="title" class="form-control has-feedback-left" placeholder="Topic Name">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text name_error"></span>
-                    </div>
-                    <div class="col-md-12  form-group has-feedback">
-                        <label for="description">Subject Description</label>
-                        <input type="text" name="description" class="form-control has-feedback-left" placeholder="Subject Description">
-                        <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text description_error"></span>
-                    </div>
-                    <div class="col-md-6  form-group has-feedback">
-                        <label for="thumbnail">Thumbnail</label>
-                        <input type="file" name="thumbnail" accept="thumbnail/*" class="form-control has-feedback-left">
-                        <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text thumbnail_error"></span>
-                    </div>
-                    <div class="col-md-6  form-group has-feedback">
-                        <label for="icon">Icon</label>
-                        <input type="file" name="icon" accept="icon/*" class="form-control has-feedback-left">
-                        <span class="fa fa-image form-control-feedback left" aria-hidden="true"></span>
-                        <span class="text-danger error-text icon_error"></span>
+                        <span class="text-danger error-text title_error"></span>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">
@@ -57,7 +50,7 @@
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Subject List</h2>
+                <h2>Topic List</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -69,8 +62,8 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">No</th>
-                                <th class="column-title">Subject Name</th>
-                                <th class="column-title">Subject Description</th>
+                                <th class="column-title">Section</th>
+                                <th class="column-title">Topic</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -82,7 +75,6 @@
         </div>
     </div>
 </div>
-
 @include('admin.edit_topic-modal')
 @endsection
 
@@ -113,7 +105,7 @@
                         $('#topic_table').DataTable().ajax.reload(null, false);
                         Swal.fire(
                             'Added!',
-                            'Subject Data Added Successfully!',
+                            'Topic Data Added Successfully!',
                             'success'
                         )
                     }
@@ -134,12 +126,12 @@
                     }
                 },
                 {
-                    data: "name",
-                    name: "name"
+                    data: "subject_name",
+                    name: "subject.name"
                 },
                 {
-                    data: "description",
-                    name: "description"
+                    data: "title",
+                    name: "title"
                 },
                 {
                     data: "actions",
@@ -147,9 +139,6 @@
                 },
             ]
         });
-
-    
-
 
         $(document).on('click', '#edit_topic_btn', function() {
             const topic_id = $(this).data('id');
@@ -159,14 +148,8 @@
                 topic_id: topic_id
             }, function(data) {
                 $('.edit_topic_modal').find('input[name="topic_id"]').val(data.details.id);
-                $('.edit_topic_modal').find('input[name="name"]').val(data.details.name);
-                $('.edit_topic_modal').find('input[name="description"]').val(data.details.description);
-                $('.edit_topic_modal').find("#icon_preview").html(
-                    `<img src="storage/icon/${data.details.icon}" width="200" class="img-fluid img-thumbnail">`);
-                $('.edit_topic_modal').find("#icon_image").val(data.details.icon);
-                $('.edit_topic_modal').find("#thumbnail_preview").html(
-                    `<img src="storage/thumbnail/${data.details.thumbnail}" width="200" class="img-fluid img-thumbnail">`);
-                $('.edit_topic_modal').find("#thumbnail_image").val(data.details.thumbnail);
+                $('.edit_topic_modal').find('select[name="subject_id"]').val(data.details.subject_id);
+                $('.edit_topic_modal').find('input[name="title"]').val(data.details.title);
                 $('.edit_topic_modal').modal('show');
             }, 'json');
         });
@@ -195,7 +178,7 @@
                         $('.edit_topic_modal').modal('hide');
                         Swal.fire(
                             'Updated!',
-                            'Subject Data Updated Successfully!',
+                            'Topic Data Updated Successfully!',
                             'success'
                         )
                     }
@@ -234,7 +217,7 @@
                                 $('#topic_table').DataTable().ajax.reload(null, false);
                                 Swal.fire(
                                     'Deleted!',
-                                    'Subject data has been deleted.',
+                                    'Topic data has been deleted.',
                                     'success'
                                 )
                             }
