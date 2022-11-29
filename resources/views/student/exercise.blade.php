@@ -14,7 +14,7 @@
             </div>
             <div class="x_content" style="display: block;">
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
-                    <input type="hidden" name="take_exercise_id" value="{{ $take_exercise_id }}">
+                    <input type="hidden" name="take_id" value="{{ $take_exercise->id }}">
                     @csrf
                     <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)
@@ -67,12 +67,12 @@
 @endsection
 
 @section('script')
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#exercise_form').on('submit', function(e) {
             e.preventDefault();
             var form = this;
-            const subject_id = $(this).data('id');
+            const take_id = $(this).data('id');
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -112,5 +112,5 @@
             })
         });
     });
-</script>
+</script> -->
 @endsection

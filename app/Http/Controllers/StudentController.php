@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exercise;
 use App\Subject;
 use App\Level;
+use App\Topic;
 use App\StdExercise;
 use App\StdLearning;
 use Illuminate\Http\Request;
@@ -23,44 +24,53 @@ class StudentController extends Controller
     public function subject(Request $request)
     {
         $level_1 = Level::where('subject_id', '=', $request->id)
-                        ->where('no_level', '1')->get();
+                        ->where('no_level', '3')->get();
         $levels = Level::where('subject_id', '=', $request->id)       
                         ->with('topStdLearnings')
                         ->get();
+        $topic = Topic::where('subject_id', '=', $request->id)->get();
         // return $levels;
-        return view('student.topic', compact('levels', 'level_1'));
+        return view('student.topic', compact('levels', 'level_1', 'topic'));
     }
 
     public function level(Request $request){
+        $level_id = $request->level_id;
+        $levels_id = Level::find($level_id);
         $levels = Level::where('id', '=', $request->id)->get();
-        $start = $this->stdStart($request->id);
-        
-        return view('student.level', compact('levels', 'start'));
+        return view('student.level', compact('levels', 'levels_id'));
     }
 
-    public function exercise(Request $request, $id)
+    public function exercise(Request $request)
     {
-        // return $id;
-        $exercises = Exercise::where('level_id', '=', $id)->get();
-        $take_exercise = $this->stdTakeExercise($request->take_exercise_id);
-        $take_exercise_id = $take_exercise->id;
-        return view('student.exercise', compact('exercises', 'take_exercise', 'take_exercise_id'));
+        $exercises = Exercise::where('level_id', '=', $request->id)->get();
+        return view('student.exercise', compact('exercises'));
     }
 
-    public function stdTakeExercise($id){
-        $stdlrn = StdLearning::find($id);
+    public function stdTakeExercise(Request $request){
+        $level_id = $request->level_id;
+        $stdlrn = StdLearning::find($level_id);
         $stdlrn->ts_exercise = Carbon::now()->format('Y/m/d H:i:s');
         $stdlrn->update();
-        return $stdlrn;
+
+        if (!$stdlrn) {
+            return response()->json(['code' => 0]);
+        } else {
+            return response()->json(['code' => 1]);
+        }
     }
 
-    public function stdStart($level_id){
+    public function stdStart(Request $request){
         $stdlrn = new StdLearning();
         $stdlrn->user_id = Auth::user()->id;
-        $stdlrn->level_id = $level_id;
+        $stdlrn->level_id = $request->level_id;
         $stdlrn->ts_start = Carbon::now()->format('Y/m/d H:i:s');
         $stdlrn->save();
-        return $stdlrn;
+
+        if (!$stdlrn) {
+            return response()->json(['code' => 0]);
+        } else {
+            return response()->json(['code' => 1]);
+        }
     }
 
 
@@ -72,7 +82,7 @@ class StudentController extends Controller
     public function submitAnswer(Request $request)
     {
         // Insert & Update Std Learning
-        $stdlrn = StdLearning::find($request->take_exercise_id);
+        $stdlrn = StdLearning::find($request->take_id);
 
         // Insert Std Exercise
         $answers = array_values($request->soal);
@@ -101,9 +111,9 @@ class StudentController extends Controller
         $stdlrn->update();
        
         if (!$query) {
-            return response()->json();
+            return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
         } else {
-            return response()->json();
-        }     
+            return response()->json(['code' => 1, 'msg' => 'New Std Exercise has been successfully saved']);
+        }        
     }
 }

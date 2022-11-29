@@ -37,12 +37,43 @@
                 <hr>
                 
                 <div class="col-md-9 col-sm-9  offset-md-3" style="margin-left: 88%">
-                    <form action="{{ route('student.exercise', ['id'=>$level->id]) }}" method="POST">
+                    <form id="take_exc_form" action="{{ route('student.take.exercise') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="take_exercise_id" value="{{ $start->id }}">
+                        <input type="hidden" name="level_id" value="{{ $levels_id }}">
+                        @section('script')
+                        <script>
+                            $(document).ready(function() {
+                                $('#take_exc_form').on('submit', function(e){
+                                    e.preventDefault();
+                                    var form = this;
+                                    $.ajax({
+                                        url: $(form).attr('action'),
+                                        method: $(form).attr('method'),
+                                        data: new FormData(form),
+                                        processData: false,
+                                        dataType: 'json',
+                                        contentType: false,
+                                        beforeSend: function () {
+                                            $(this).find('span.error-text').text('');
+                                        },
+                                        success: function (data) {
+                                            if (data.code == 0) {
+                                                Swal.fire(
+                                                    'Oops!',
+                                                    'Something went wrong!.',
+                                                    'error'
+                                                )
+                                            } else {
+                                                window.location.href = "{{ route('student.exercise', ['id'=>$level->id]) }}"
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+                        @endsection
                         <button class="btn btn-success">Take Exercise</button></a>
                     </form>
-                    <!-- <a href="{{ route('student.exercise', ['id'=>$level->id]) }}"> -->
                 </div>
             </div>
         </div>

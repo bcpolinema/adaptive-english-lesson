@@ -72,22 +72,54 @@
 </style>
 
 <div>
-    <h1>Lesson</h1>
+    <h1>Topics</h1>
     @forelse($level_1 as $level_one)
     <form id="start_form" action="{{route('student.start')}}" method="POST">
-        <button class="button-65" role="button" type="submit">
-            <a href="{{ route('student.level', ['id'=>$level_one->id] )}}" class="start">Start Lesson</a>
-        </button>
+        @csrf
+        <input type="hidden" name="level_id" value="{{ $level_one->id }}">
+        @section('script')
+        <script>
+                $(document).ready(function() {
+                    $('#start_form').on('submit', function(e){
+                        e.preventDefault();
+                        var form = this;
+                        $.ajax({
+                            url: $(form).attr('action'),
+                            method: $(form).attr('method'),
+                            data: new FormData(form),
+                            processData: false,
+                            dataType: 'json',
+                            contentType: false,
+                            beforeSend: function () {
+                                $(this).find('span.error-text').text('');
+                            },
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    Swal.fire(
+                                        'Oops!',
+                                        'Something went wrong!.',
+                                        'error'
+                                    )
+                                } else {
+                                    window.location.href = "{{ route('student.level', ['id'=>$level_one->id] )}}"
+                                }
+                            }
+                        });
+                    });
+                });
+        </script>           
+        @endsection
+        <button class="button-65" role="button" type="submit">Start Lesson</button>
     </form>
     @empty
-    <code>No Lessons Available</code>
+    <code>No Topics Available</code>
     @endforelse
-    <!-- @forelse ($levels as $level)
+    <!-- @forelse ($topic as $t)
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>{{ $level->title }}</h2>
+                    <h2>{{ $t->title }}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -99,19 +131,13 @@
                         <li>
                             <div class="block">
                                 <div class="tags">
-                                    @if(empty($level->stdlearnings->isEmpty() ? '0': $level->stdlearnings[0]->score))
-                                    <a href="{{ route('student.level', ['id'=>$level->id] )}}" class="tag">
+                                    <a href="#" class="tag">
                                         <span>Start</span>
                                     </a>
-                                    @else
-                                    <a href="#" class="tag">
-                                        <span>Next</span>
-                                    </a>
-                                    @endif
                                 </div>
                                 <div class="block_content">
                                     <h2 class="title">
-                                        <p>Score : {{ $level->stdlearnings->isEmpty() ? '0': $level->stdlearnings[0]->score }}</p>
+                                        <p></p>
                                     </h2>
                                     <div class="byline"></div>
                                 </div>
@@ -123,55 +149,8 @@
         </div>
     </div>
     @empty
-    <code>no lessons available</code>
+    <code>no topics available</code>
     @endforelse -->
 </div>
 @endsection
 
-@section('script')
-<script>
-    $(document).ready(function() {
-        $('#start_form').on('submit', function(e) {
-            e.preventDefault();
-            var form = this;
-            const level_id = $(this).data('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Start it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: $(form).attr('action'),
-                        method: $(form).attr('method'),
-                        processData: false,
-                        data: new FormData(form),
-                        dataType: 'json',
-                        contentType: false,
-                        success: function(response) {
-                            if (response.code == 0) {
-                                Swal.fire(
-                                    'Oops!',
-                                    'Something went wrong!.',
-                                    'error'
-                                )
-                            } else {
-                                $(form)[0].reset();
-                                Swal.fire(
-                                    'Added!',
-                                    'Your answer has submitted!',
-                                    'success'
-                                )
-                            }
-                        }
-                    });
-                }       
-            })
-        });
-    });
-</script>
-@endsection
