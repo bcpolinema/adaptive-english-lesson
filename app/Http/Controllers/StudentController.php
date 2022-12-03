@@ -22,13 +22,15 @@ class StudentController extends Controller
 
     public function subject(Request $request){
         $level_1 = Level::where('subject_id', '=', $request->id)
-                        ->where('no_level', '3')->get();
-        $levels = Level::where('subject_id', '=', $request->id)       
+                        ->where('title', '3')->get();
+        /*$levels = Level::where('subject_id', '=', $request->id)       
                         ->with('topStdLearnings')
+                        ->get();*/
+        $levels = Level::where('subject_id', '=', $request->id)
+                        ->with('topic')
                         ->get();
-        $topic = Topic::where('subject_id', '=', $request->id)->get();
         // return $levels;
-        return view('student.topic', compact('levels', 'level_1', 'topic'));
+        return view('student.topic', compact('levels', 'level_1'));
     }
 
     public function level($std_id, $id){

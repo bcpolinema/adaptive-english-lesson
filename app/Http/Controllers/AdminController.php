@@ -56,7 +56,7 @@ class AdminController extends Controller
     {
         $subjects = Subject::all('id', 'name');
         $topics = Topic::with('subject')->get();
-        $levels = Level::all('id', 'title', 'no_level');
+        $levels = Level::all('id', 'title');
         return view('admin.level', compact('levels', 'subjects', 'topics'));
     }
 

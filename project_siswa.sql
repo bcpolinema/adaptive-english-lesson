@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2022 at 12:40 AM
+-- Generation Time: Dec 03, 2022 at 03:35 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -87,7 +87,6 @@ INSERT INTO `m_exercises` (`id`, `level_id`, `question`, `option_a`, `option_b`,
 (1, 2, 'Cum exercitation et', 'Asperiores nesciunt', 'Molestiae sed harum', 'Accusamus in Nam non', 'Possimus quo culpa', 'Dolores veniam dign', 'E', 2, '2022-08-04 13:26:12'),
 (2, 1, 'Qui consequuntur do', 'Ipsum consequuntur', 'Ratione voluptatem', 'Quam quos ea autem e', 'Amet omnis consecte', 'Eius molestiae ea du', 'A', 4, '2022-08-07 15:55:41'),
 (5, 20, 'Apakah Singa itu Mamalia?', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'B', 2, '2022-08-10 01:10:06'),
-(6, 20, 'Apakah Coki Pardede akan bebas dari penjara?', 'Tentu Saja Chakkkssss', 'Tidaaaaaakkkk', 'Astaghfirullah', 'Aku sangat menunggu dark jokes dark jokes nyaaa chakkss', 'Tidak Peduli', 'A', 2, '2022-08-10 01:11:36'),
 (7, 20, 'apakah ini soal?', 'ya', 'tidak', 'ya', 'ya', 'ya', 'A', 2, '2022-09-05 13:00:36');
 
 -- --------------------------------------------------------
@@ -100,7 +99,7 @@ CREATE TABLE `m_levels` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `subject_id` int(11) NOT NULL,
-  `no_level` int(11) DEFAULT NULL,
+  `topic_id` int(11) DEFAULT NULL,
   `is_pretest` tinyint(1) DEFAULT NULL,
   `content` varchar(200) DEFAULT NULL,
   `video` varchar(200) DEFAULT NULL,
@@ -118,10 +117,11 @@ CREATE TABLE `m_levels` (
 -- Dumping data for table `m_levels`
 --
 
-INSERT INTO `m_levels` (`id`, `title`, `subject_id`, `no_level`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
-(1, 'PECT', 1, 1, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-10-07 12:42:55'),
-(2, 'Listening TOEIC', 1, 2, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-10-07 12:43:11'),
-(20, '茅原実里', 1, 3, 0, 'あなたの声が道しるべ あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ', 'Violet Evergarden ED - \'Michishirube\' (Piano _ Orchestral).mp4', '[Ada2Ajh]~Minori Chihara - Michishirube.mp3', 'wallpaperflare.com_wallpaper (1).jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 20, 20, 20, 20, '2022-08-11 06:18:58');
+INSERT INTO `m_levels` (`id`, `title`, `subject_id`, `topic_id`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
+(1, '1', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-12-03 13:53:43'),
+(2, '2', 1, 13, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-12-03 13:53:49'),
+(20, '3', 1, 14, 0, 'あなたの声が道しるべ あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ', 'Violet Evergarden ED - \'Michishirube\' (Piano _ Orchestral).mp4', '[Ada2Ajh]~Minori Chihara - Michishirube.mp3', 'wallpaperflare.com_wallpaper (1).jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 20, 20, 20, 20, '2022-12-03 13:53:56'),
+(38, '4', 1, 15, 0, 'tes', '', '', '', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 20, 38, '2022-12-03 14:28:40');
 
 -- --------------------------------------------------------
 
@@ -138,6 +138,14 @@ CREATE TABLE `m_std_exercises` (
   `score` smallint(11) NOT NULL,
   `ts_entri` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `m_std_exercises`
+--
+
+INSERT INTO `m_std_exercises` (`id`, `std_learning_id`, `exercise_id`, `answer`, `is_correct`, `score`, `ts_entri`) VALUES
+(95, 171, 5, 'B', 1, 2, '2022-12-03 14:21:41'),
+(96, 171, 7, 'A', 1, 2, '2022-12-03 14:21:41');
 
 -- --------------------------------------------------------
 
@@ -164,7 +172,7 @@ CREATE TABLE `m_std_learnings` (
 --
 
 INSERT INTO `m_std_learnings` (`id`, `user_id`, `level_id`, `ts_start`, `is_validated`, `ts_exercise`, `score`, `next_learning`, `comment`, `is_termination`, `ts_entri`) VALUES
-(87, 9, 1, '2022-10-20 07:31:39', 0, '2022-10-20 07:32:15', NULL, NULL, NULL, 0, '2022-10-20 00:32:15');
+(171, 9, 20, '2022-12-03 21:20:58', 0, '2022-12-03 21:21:25', 4, NULL, NULL, 0, '2022-12-03 14:21:41');
 
 -- --------------------------------------------------------
 
@@ -190,6 +198,70 @@ INSERT INTO `m_subjects` (`id`, `name`, `description`, `icon`, `thumbnail`, `ts_
 (2, 'Vocabulary', '​Vocabulary is an important focus of literacy teaching and refers to the knowledge or words', '987811.ico', 'vocabulary.jpg', '2022-08-13 11:51:13'),
 (3, 'Grammar', 'Grammar is the breaking down of the building blocks, or parts of speech, in language, and the use of those pieces to form complete sentences.', '2463150.png', 'wp11021892-grammar-wallpapers.jpg', '2022-08-13 11:54:46'),
 (10, 'Reading', 'Reading is defined as a cognitive process that involves decoding symbols to arrive at meaning', '201612.png', 'wallpaperflare.com_wallpaper (2).jpg', '2022-08-13 11:55:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `m_topics`
+--
+
+CREATE TABLE `m_topics` (
+  `id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `ts_entri` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `m_topics`
+--
+
+INSERT INTO `m_topics` (`id`, `subject_id`, `title`, `ts_entri`) VALUES
+(1, 10, 'Talking about Self (emails)', '2022-11-22 04:13:55'),
+(2, 10, 'Congratulating & Complimenting Others', '2022-11-22 04:19:06'),
+(3, 10, 'Talking About Intentions', '2022-11-22 04:19:25'),
+(4, 10, 'Presenting Information', '2022-11-22 04:19:49'),
+(5, 10, 'Describing a Place', '2022-11-22 04:19:58'),
+(6, 10, 'Giving Information to Public', '2022-11-22 04:21:29'),
+(7, 10, 'Retelling Past Events', '2022-11-22 04:21:41'),
+(8, 10, 'Entertaining', '2022-11-22 04:22:21'),
+(9, 10, 'Introducing Moral Values', '2022-11-22 04:22:35'),
+(10, 10, 'Developing Interactional Communication', '2022-11-22 04:22:56'),
+(11, 10, 'Appreciating Cultural Values', '2022-11-22 04:23:15'),
+(12, 1, 'Talking about Self', '2022-11-22 04:24:46'),
+(13, 1, 'Congratulating & Complimenting Others', '2022-11-22 04:25:01'),
+(14, 1, 'Talking About Intentions', '2022-11-22 04:25:13'),
+(15, 1, 'Presenting Information', '2022-11-22 04:25:20'),
+(16, 1, 'Describing a Place', '2022-11-22 04:59:33'),
+(17, 1, 'Giving Information to Public', '2022-11-22 05:00:20'),
+(18, 1, 'Retelling Past Events', '2022-11-22 05:00:30'),
+(19, 1, 'Entertaining', '2022-11-22 05:00:39'),
+(20, 1, 'Introducing Moral Values', '2022-11-22 05:00:49'),
+(21, 1, 'Developing Interactional Communication', '2022-11-22 05:01:05'),
+(22, 1, 'Appreciating Cultural Values', '2022-11-22 05:01:19'),
+(23, 2, 'Talking about Self', '2022-11-22 05:03:42'),
+(24, 2, 'Congratulating & Complimenting Others', '2022-11-22 05:03:54'),
+(25, 2, 'Recreation; Holidays', '2022-11-22 05:04:05'),
+(26, 2, 'Ecotourism, Historical Buildings', '2022-11-22 05:04:25'),
+(27, 2, 'Recreational Places', '2022-11-22 05:04:40'),
+(28, 2, 'Public Places', '2022-11-22 05:04:53'),
+(29, 2, 'Idol', '2022-11-22 05:04:58'),
+(30, 2, 'Past Events', '2022-11-22 05:05:07'),
+(31, 2, 'Prominent Figures', '2022-11-22 05:05:20'),
+(32, 2, 'Folktales', '2022-11-22 05:05:31'),
+(33, 2, 'Life of Famous People', '2022-11-22 05:05:46'),
+(34, 2, 'Characters', '2022-11-22 05:05:54'),
+(35, 2, 'Friendship', '2022-11-22 05:06:01'),
+(36, 3, 'Pronouns', '2022-11-22 05:06:37'),
+(37, 3, 'Noun Phrases', '2022-11-22 05:06:52'),
+(38, 3, 'Derivatives: Nouns from Verbs', '2022-11-22 05:07:20'),
+(39, 3, 'Adjectives and Adverbs', '2022-11-22 05:07:36'),
+(40, 3, 'Adverbial Clauses; Adverbial Phrases', '2022-11-22 05:08:04'),
+(41, 3, 'Adverb of Time Clauses', '2022-11-22 05:08:17'),
+(42, 3, 'Would Like; Be going to', '2022-11-22 05:08:29'),
+(43, 3, 'Simple Past; Adjectives', '2022-11-22 05:08:42'),
+(44, 3, 'Simple Past, Present Perfect', '2022-11-22 05:08:57'),
+(45, 3, 'Reported Speech vs. Direct Speech', '2022-11-22 05:09:13');
 
 -- --------------------------------------------------------
 
@@ -246,7 +318,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `roles`, `remember_token`, `created_at`, `updated_at`) VALUES
 (2, 'Administrator', 'admin@mail.com', NULL, '$2y$10$dp/EIXyLSnw0yM6nHB4P0eXpNSKqVYjXd6lA25WD6wR7SxefaxUJe', 'admin', NULL, '2022-07-06 01:58:07', '2022-07-06 01:58:07'),
 (3, 'Student 1', 'student@mail.com', NULL, '$2y$10$z.xakYmC5Qs6WPp9.rdelugKEZXNkLeVrnTVnIF/uq06T4di7uSwG', 'student', NULL, '2022-07-13 10:15:10', '2022-07-13 10:15:10'),
-(9, 'yusuf', 'mchyush@gmail.com', NULL, '$2y$10$lMuS0dP8Hi2C/J4E058b0ObXOHzR6jRDI9VjRzdMoD2i.wYGCQmb2', 'student', NULL, '2022-08-04 14:37:22', '2022-08-04 14:37:22');
+(9, 'yusuf', 'mchyush@gmail.com', NULL, '$2y$10$lMuS0dP8Hi2C/J4E058b0ObXOHzR6jRDI9VjRzdMoD2i.wYGCQmb2', 'student', NULL, '2022-08-04 14:37:22', '2022-08-04 14:37:22'),
+(10, 'tes', 'tes@mail.com', NULL, '$2y$10$pid1hBAaQ4Ln4Km7ZeyEZ.S6jex8zLPPsIbk.CHy10kRcMh2MT3/C', 'student', NULL, '2022-11-29 01:33:42', '2022-11-29 01:33:42');
 
 --
 -- Indexes for dumped tables
@@ -277,7 +350,8 @@ ALTER TABLE `m_exercises`
 --
 ALTER TABLE `m_levels`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `study_to_topic` (`subject_id`);
+  ADD KEY `study_to_topic` (`subject_id`),
+  ADD KEY `topic_id` (`topic_id`);
 
 --
 -- Indexes for table `m_std_exercises`
@@ -301,6 +375,13 @@ ALTER TABLE `m_std_learnings`
 --
 ALTER TABLE `m_subjects`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `m_topics`
+--
+ALTER TABLE `m_topics`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subject_id` (`subject_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -349,25 +430,31 @@ ALTER TABLE `m_exercises`
 -- AUTO_INCREMENT for table `m_levels`
 --
 ALTER TABLE `m_levels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `m_std_exercises`
 --
 ALTER TABLE `m_std_exercises`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `m_std_learnings`
 --
 ALTER TABLE `m_std_learnings`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
 
 --
 -- AUTO_INCREMENT for table `m_subjects`
 --
 ALTER TABLE `m_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+
+--
+-- AUTO_INCREMENT for table `m_topics`
+--
+ALTER TABLE `m_topics`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -379,7 +466,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -395,6 +482,7 @@ ALTER TABLE `m_exercises`
 -- Constraints for table `m_levels`
 --
 ALTER TABLE `m_levels`
+  ADD CONSTRAINT `level_to_topic` FOREIGN KEY (`topic_id`) REFERENCES `m_topics` (`id`),
   ADD CONSTRAINT `study_to_topic` FOREIGN KEY (`subject_id`) REFERENCES `m_subjects` (`id`);
 
 --
@@ -411,6 +499,12 @@ ALTER TABLE `m_std_learnings`
   ADD CONSTRAINT `m_std_learnings_ibfk_1` FOREIGN KEY (`next_learning`) REFERENCES `m_std_learnings` (`id`),
   ADD CONSTRAINT `std_learning_to_sbj` FOREIGN KEY (`level_id`) REFERENCES `m_levels` (`id`),
   ADD CONSTRAINT `std_learning_to_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `m_topics`
+--
+ALTER TABLE `m_topics`
+  ADD CONSTRAINT `topics_to_subjects` FOREIGN KEY (`subject_id`) REFERENCES `m_subjects` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

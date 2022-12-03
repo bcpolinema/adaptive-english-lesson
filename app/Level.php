@@ -13,7 +13,6 @@ class Level extends Model
         'title',
         'subject_id',
         'topic_id',
-        'no_level',
         'is_pretest',
         'content',
         'video',
