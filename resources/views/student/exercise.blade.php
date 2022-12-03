@@ -1,6 +1,7 @@
 @extends('layout-student')
 @section('content')
 <h1>Exercise</h1>
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -14,7 +15,7 @@
             </div>
             <div class="x_content" style="display: block;">
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
-                    <input type="hidden" name="take_id" value="{{ $take_exercise->id }}">
+                    <input type="hidden" name="stdlrn_id" value="{{ $stdlrn->id }}">
                     @csrf
                     <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)
@@ -67,7 +68,7 @@
 @endsection
 
 @section('script')
-<!-- <script>
+<script>
     $(document).ready(function() {
         $('#exercise_form').on('submit', function(e) {
             e.preventDefault();
@@ -112,5 +113,5 @@
             })
         });
     });
-</script> -->
+</script>
 @endsection

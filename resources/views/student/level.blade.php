@@ -1,6 +1,7 @@
 @extends('layout-student')
 @section('content')
 <h1>Content</h1>
+
 @forelse ($levels as $level)
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -35,11 +36,10 @@
                 </video>
                 @endif -->
                 <hr>
-                
                 <div class="col-md-9 col-sm-9  offset-md-3" style="margin-left: 88%">
                     <form id="take_exc_form" action="{{ route('student.take.exercise') }}" method="POST">
+                        <input type="hidden" name="stdlrn_id" value="{{ $stdlrn->id }}">
                         @csrf
-                        <input type="hidden" name="level_id" value="{{ $levels_id }}">
                         @section('script')
                         <script>
                             $(document).ready(function() {
@@ -64,7 +64,7 @@
                                                     'error'
                                                 )
                                             } else {
-                                                window.location.href = "{{ route('student.exercise', ['id'=>$level->id]) }}"
+                                                window.location.href = '/s/'+ {{ $stdlrn->id }}+'/exercise/'+ {{ $level->id }}
                                             }
                                         }
                                     });
@@ -72,7 +72,7 @@
                             });
                         </script>
                         @endsection
-                        <button class="btn btn-success">Take Exercise</button></a>
+                        <button class="btn btn-success" role="button" type="submit">Take Exercise</button>
                     </form>
                 </div>
             </div>
@@ -81,5 +81,6 @@
 </div>
 @empty
 <code>no level available</code>
-@endforelse                                                                                                                                 
+@endforelse
+
 @endsection

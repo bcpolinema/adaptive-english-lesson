@@ -15,14 +15,12 @@ use Illuminate\Support\Carbon;
 
 class StudentController extends Controller
 {
-    public function index()
-    {   
+    public function index(){   
         $subjects = Subject::all('id', 'name', 'description', 'icon', 'thumbnail');
         return view('student.index', compact('subjects'));
     }
 
-    public function subject(Request $request)
-    {
+    public function subject(Request $request){
         $level_1 = Level::where('subject_id', '=', $request->id)
                         ->where('no_level', '3')->get();
         $levels = Level::where('subject_id', '=', $request->id)       
@@ -33,22 +31,20 @@ class StudentController extends Controller
         return view('student.topic', compact('levels', 'level_1', 'topic'));
     }
 
-    public function level(Request $request){
-        $level_id = $request->level_id;
-        $levels_id = Level::find($level_id);
-        $levels = Level::where('id', '=', $request->id)->get();
-        return view('student.level', compact('levels', 'levels_id'));
+    public function level($std_id, $id){
+        $stdlrn = StdLearning::find($std_id);
+        $levels = Level::where('id', '=', $id)->get();
+        return view('student.level', compact('levels', 'stdlrn'));
     }
 
-    public function exercise(Request $request)
-    {
-        $exercises = Exercise::where('level_id', '=', $request->id)->get();
-        return view('student.exercise', compact('exercises'));
+    public function exercise($std_id, $id){
+        $stdlrn = StdLearning::find($std_id);
+        $exercises = Exercise::where('level_id', '=', $id)->get();
+        return view('student.exercise', compact('exercises', 'stdlrn'));
     }
 
     public function stdTakeExercise(Request $request){
-        $level_id = $request->level_id;
-        $stdlrn = StdLearning::find($level_id);
+        $stdlrn = StdLearning::find($request->stdlrn_id);
         $stdlrn->ts_exercise = Carbon::now()->format('Y/m/d H:i:s');
         $stdlrn->update();
 
@@ -69,7 +65,7 @@ class StudentController extends Controller
         if (!$stdlrn) {
             return response()->json(['code' => 0]);
         } else {
-            return response()->json(['code' => 1]);
+            return response()->json(['code' => 1, 'stdlrn' => $stdlrn]);
         }
     }
 
@@ -81,8 +77,7 @@ class StudentController extends Controller
    
     public function submitAnswer(Request $request)
     {
-        // Insert & Update Std Learning
-        $stdlrn = StdLearning::find($request->take_id);
+        $stdlrn = StdLearning::find($request->stdlrn_id);
 
         // Insert Std Exercise
         $answers = array_values($request->soal);
@@ -91,6 +86,7 @@ class StudentController extends Controller
         $total_score = 0;
         foreach ($request->soal as $soal) {
             $stdexr = new StdExercise();
+            $stdexr->std_learning_id = $request->stdlrn_id;
             $stdexr->exercise_id = $questions[$i];
             $stdexr->answer = $answers[$i];
             

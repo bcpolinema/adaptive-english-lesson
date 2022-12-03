@@ -74,7 +74,7 @@
 <div>
     <h1>Topics</h1>
     @forelse($level_1 as $level_one)
-    <form id="start_form" action="{{route('student.start')}}" method="POST">
+    <form id="start_form" action="{{ route('student.start') }}" method="POST">
         @csrf
         <input type="hidden" name="level_id" value="{{ $level_one->id }}">
         @section('script')
@@ -101,7 +101,7 @@
                                         'error'
                                     )
                                 } else {
-                                    window.location.href = "{{ route('student.level', ['id'=>$level_one->id] )}}"
+                                    window.location.href = '/s/'+ data.stdlrn.id +'/level/'+ {{ $level_one->id }}
                                 }
                             }
                         });
