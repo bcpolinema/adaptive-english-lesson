@@ -21,27 +21,24 @@
                         <label for="subject_id">Choose Subject</label> 
                         <select class="form-control" name="subject_id">
                             <option selected disabled> -- Choose Subject --</option>
-                            @forelse ($subjects as $subject)
+                            @foreach ($subjects as $subject)
                             <option value="{{ $subject-> {'id'} }}"> {{ $subject-> {'name'} }} </option>
-                            @empty
-                            <option value="1">1</option>
-                            @endforelse
+                            @endforeach
                         </select>
                         <span class="text-danger error-text subject_id_error"></span>
                     </div>
                     <div class="col-md-6 col-sm-6 form-group">
-                        <label for="no_level">Choose Level</label> 
-                        <select class="form-control" name="no_level">
-                            <option selected disabled> -- Choose No Level --</option>
-                            <option value="1">Level 1</option>
-                            <option value="2">Level 2</option>
-                            <option value="3">Level 3</option>
-                            <option value="4">Level 4</option>
+                        <label for="topic_id">Choose Topic</label> 
+                        <select class="form-control" name="topic_id">
+                            <option selected disabled> -- Choose Topic --</option>
+                            @foreach ($topics as $topic)
+                            <option value="{{ $topic->id }}">( {{ $topic->subject->name }} ) {{ $topic->title }}</option>
+                            @endforeach
                         </select>
-                        <span class="text-danger error-text no_level_error"></span>
+                        <span class="text-danger error-text topic_id_error"></span>
                     </div>
                     <div class="col-md-12 form-group has-feedback">
-                        <label for="title">Level Title</label> 
+                        <label for="title">Level</label> 
                         <input type="text" name="title" class="form-control has-feedback-left" placeholder="Title">
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text title_error"></span>

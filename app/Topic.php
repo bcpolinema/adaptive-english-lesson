@@ -22,4 +22,9 @@ class Topic extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function level()
+    {
+        return $this->hasMany(Level::class);
+    }
 }

@@ -55,8 +55,9 @@ class AdminController extends Controller
     public function level()
     {
         $subjects = Subject::all('id', 'name');
+        $topics = Topic::with('subject')->get();
         $levels = Level::all('id', 'title', 'no_level');
-        return view('admin.level', compact('levels', 'subjects'));
+        return view('admin.level', compact('levels', 'subjects', 'topics'));
     }
 
     public function level_detail(Request $request)
@@ -333,7 +334,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'subject_id' => 'required|string',
-            'no_level' => 'required|string',
+            'topic_id' => 'required|string',
             'is_pretest' => 'string',
             'content' => 'required|string',
             'video' => 'mimes:mp4',
@@ -384,7 +385,7 @@ class AdminController extends Controller
                 Level::insert([
                     'title' => $request->title,
                     'subject_id' => $request->subject_id,
-                    'no_level' => $request->no_level,
+                    'topic_id' => $request->topic_id,
                     'is_pretest' => $request->is_pretest,
                     'content' => $request->content,
                     'audio' => $audio_name,
@@ -411,7 +412,7 @@ class AdminController extends Controller
 
     public function level_list()
     {
-        $levels = Level::with('subject');
+        $levels = Level::with(['subject', 'topic']);
             return DataTables::of($levels)
             ->addColumn('actions', function ($row) {
                 return
@@ -422,6 +423,9 @@ class AdminController extends Controller
             })
             ->addColumn('subject_name', function (Level $level) {
                 return $level->subject->name;
+            })
+            ->addColumn('topic_title', function (Level $level) {
+                return $level->topic->title;
             })
             ->rawColumns(['actions'])
             ->make(true);
@@ -439,7 +443,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'subject_id' => 'required|string',
-            'no_level' => 'required|string',
+            'topic_id' => 'required|string',
             'is_pretest' => 'numeric',
             'content' => 'required|string',
             'video' => 'mimes:mp4',
@@ -494,7 +498,7 @@ class AdminController extends Controller
             $level->update([
                 'title' => $request->title,
                 'subject_id' => $request->subject_id,
-                'no_level' => $request->no_level,
+                'topic_id' => $request->topic_id,
                 'is_pretest' => $request->is_pretest,
                 'content' => $request->content,
                 'audio' => $audio_name,

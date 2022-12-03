@@ -12,6 +12,7 @@ class Level extends Model
     protected $fillable = [
         'title',
         'subject_id',
+        'topic_id',
         'no_level',
         'is_pretest',
         'content',
@@ -37,6 +38,11 @@ class Level extends Model
     public function subject()
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
     }
 
     public function stdlearnings()
