@@ -18,8 +18,8 @@
                         <label for="level_id">Choose Levels</label>
                         <select class="form-control" name="level_id">
                             <option selected disabled> -- Choose Levels --</option>
-                            @forelse ($subjects as $level)
-                            <option value="{{$level-> {'id'} }}"> {{$level-> {'title'} }} </option>
+                            @forelse ($levels as $level)
+                            <option value="{{$level-> {'id'} }}"> ( {{$level->subject->name}} ) Level {{$level-> {'title'} }} {{$level->topic->title}} </option>
                             @empty
                             <option value="0">-- No Levels Available -- </option>
                             @endforelse

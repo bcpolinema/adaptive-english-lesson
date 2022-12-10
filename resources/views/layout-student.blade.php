@@ -73,8 +73,6 @@
     vertical-align: top;
     white-space: nowrap;
     margin-left: 40%;
-    margin-top: 2%;
-    margin-bottom: 5%;
     }
 
     .button-65:hover {

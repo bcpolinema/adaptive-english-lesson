@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2022 at 03:35 PM
+-- Generation Time: Dec 10, 2022 at 05:45 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -119,9 +119,13 @@ CREATE TABLE `m_levels` (
 
 INSERT INTO `m_levels` (`id`, `title`, `subject_id`, `topic_id`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
 (1, '1', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-12-03 13:53:43'),
-(2, '2', 1, 13, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-12-03 13:53:49'),
-(20, '3', 1, 14, 0, 'あなたの声が道しるべ あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ', 'Violet Evergarden ED - \'Michishirube\' (Piano _ Orchestral).mp4', '[Ada2Ajh]~Minori Chihara - Michishirube.mp3', 'wallpaperflare.com_wallpaper (1).jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 20, 20, 20, 20, '2022-12-03 13:53:56'),
-(38, '4', 1, 15, 0, 'tes', '', '', '', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 20, 38, '2022-12-03 14:28:40');
+(2, '1', 1, 13, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-12-07 01:29:36'),
+(20, '1', 1, 14, 0, 'あなたの声が道しるべ あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ', 'Violet Evergarden ED - \'Michishirube\' (Piano _ Orchestral).mp4', '[Ada2Ajh]~Minori Chihara - Michishirube.mp3', 'wallpaperflare.com_wallpaper (1).jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 20, 20, 20, 20, '2022-12-07 01:29:44'),
+(38, '1', 1, 15, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 20, 38, '2022-12-07 01:29:51'),
+(39, '2', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 1, 1, 1, '2022-12-08 02:01:21'),
+(40, '3', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 1, 39, '2022-12-08 02:01:25'),
+(41, '4', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 40, 1, '2022-12-08 02:01:33'),
+(42, '5', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 40, 41, '2022-12-08 02:01:40');
 
 -- --------------------------------------------------------
 
@@ -145,7 +149,11 @@ CREATE TABLE `m_std_exercises` (
 
 INSERT INTO `m_std_exercises` (`id`, `std_learning_id`, `exercise_id`, `answer`, `is_correct`, `score`, `ts_entri`) VALUES
 (95, 171, 5, 'B', 1, 2, '2022-12-03 14:21:41'),
-(96, 171, 7, 'A', 1, 2, '2022-12-03 14:21:41');
+(96, 171, 7, 'A', 1, 2, '2022-12-03 14:21:41'),
+(97, 174, 2, 'B', 0, 0, '2022-12-06 10:29:27'),
+(98, 178, 2, 'B', 0, 0, '2022-12-07 01:25:06'),
+(99, 180, 2, 'B', 0, 0, '2022-12-08 01:41:15'),
+(100, 207, 2, 'B', 0, 0, '2022-12-08 02:22:22');
 
 -- --------------------------------------------------------
 
@@ -172,7 +180,15 @@ CREATE TABLE `m_std_learnings` (
 --
 
 INSERT INTO `m_std_learnings` (`id`, `user_id`, `level_id`, `ts_start`, `is_validated`, `ts_exercise`, `score`, `next_learning`, `comment`, `is_termination`, `ts_entri`) VALUES
-(171, 9, 20, '2022-12-03 21:20:58', 0, '2022-12-03 21:21:25', 4, NULL, NULL, 0, '2022-12-03 14:21:41');
+(171, 9, 20, '2022-12-03 21:20:58', 0, '2022-12-03 21:21:25', 4, NULL, NULL, 0, '2022-12-03 14:21:41'),
+(174, 9, 1, '2022-12-06 17:29:19', 0, '2022-12-06 17:29:22', 0, NULL, NULL, 0, '2022-12-06 10:29:27'),
+(178, 9, 1, '2022-12-07 08:24:54', 0, '2022-12-07 08:25:02', 0, NULL, NULL, 0, '2022-12-07 01:25:06'),
+(180, 9, 1, '2022-12-08 08:34:57', 0, '2022-12-08 08:35:00', 0, NULL, 'ini komen', 0, '2022-12-08 01:41:15'),
+(207, 9, 1, '2022-12-08 09:22:15', 0, '2022-12-08 09:22:17', 0, NULL, 'tes', 0, '2022-12-08 02:22:22'),
+(211, 9, 1, '2022-12-09 17:40:22', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:40:22'),
+(212, 9, 39, '2022-12-09 17:40:26', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:40:26'),
+(213, 9, 1, '2022-12-09 17:41:17', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:41:17'),
+(214, 9, 39, '2022-12-09 17:41:25', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:41:25');
 
 -- --------------------------------------------------------
 
@@ -321,6 +337,104 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (9, 'yusuf', 'mchyush@gmail.com', NULL, '$2y$10$lMuS0dP8Hi2C/J4E058b0ObXOHzR6jRDI9VjRzdMoD2i.wYGCQmb2', 'student', NULL, '2022-08-04 14:37:22', '2022-08-04 14:37:22'),
 (10, 'tes', 'tes@mail.com', NULL, '$2y$10$pid1hBAaQ4Ln4Km7ZeyEZ.S6jex8zLPPsIbk.CHy10kRcMh2MT3/C', 'student', NULL, '2022-11-29 01:33:42', '2022-11-29 01:33:42');
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view1`
+-- (See below for the actual view)
+--
+CREATE TABLE `view1` (
+`id` int(11)
+,`level_id` int(11)
+,`question` text
+,`option_a` varchar(200)
+,`option_b` varchar(200)
+,`option_c` varchar(200)
+,`option_d` varchar(200)
+,`option_e` varchar(200)
+,`answer_key` varchar(5)
+,`weight` smallint(6)
+,`ts_entri` timestamp
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_std_exercises`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_std_exercises` (
+`id` bigint(20)
+,`std_learning_id` bigint(20)
+,`exercise_id` int(11)
+,`answer` char(1)
+,`is_correct` tinyint(1)
+,`score` smallint(11)
+,`answer_key` varchar(5)
+,`weight` smallint(6)
+,`question` text
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_std_exercises_route`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_std_exercises_route` (
+`std_learning_id` bigint(20)
+,`score_exercise` decimal(39,4)
+,`level_id` int(11)
+,`ROUTE` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_std_exercises_score`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_std_exercises_score` (
+`std_learning_id` bigint(20)
+,`score_exercise` decimal(39,4)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view1`
+--
+DROP TABLE IF EXISTS `view1`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view1`  AS SELECT `m_exercises`.`id` AS `id`, `m_exercises`.`level_id` AS `level_id`, `m_exercises`.`question` AS `question`, `m_exercises`.`option_a` AS `option_a`, `m_exercises`.`option_b` AS `option_b`, `m_exercises`.`option_c` AS `option_c`, `m_exercises`.`option_d` AS `option_d`, `m_exercises`.`option_e` AS `option_e`, `m_exercises`.`answer_key` AS `answer_key`, `m_exercises`.`weight` AS `weight`, `m_exercises`.`ts_entri` AS `ts_entri` FROM `m_exercises` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_std_exercises`
+--
+DROP TABLE IF EXISTS `v_std_exercises`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_std_exercises`  AS SELECT `a`.`id` AS `id`, `a`.`std_learning_id` AS `std_learning_id`, `a`.`exercise_id` AS `exercise_id`, `a`.`answer` AS `answer`, `a`.`is_correct` AS `is_correct`, `a`.`score` AS `score`, `b`.`answer_key` AS `answer_key`, `b`.`weight` AS `weight`, `b`.`question` AS `question` FROM (`m_std_exercises` `a` join `m_exercises` `b` on(`a`.`exercise_id` = `b`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_std_exercises_route`
+--
+DROP TABLE IF EXISTS `v_std_exercises_route`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_std_exercises_route`  AS SELECT `a`.`std_learning_id` AS `std_learning_id`, `a`.`score_exercise` AS `score_exercise`, `b`.`level_id` AS `level_id`, if(`a`.`score_exercise` < 26,`c`.`route1`,if(`a`.`score_exercise` < 51,`c`.`route2`,if(`a`.`score_exercise` < 76,`c`.`route3`,`c`.`route4`))) AS `ROUTE` FROM ((`v_std_exercises_score` `a` join `m_std_learnings` `b` on(`a`.`std_learning_id` = `b`.`id`)) join `m_levels` `c` on(`b`.`level_id` = `c`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_std_exercises_score`
+--
+DROP TABLE IF EXISTS `v_std_exercises_score`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_std_exercises_score`  AS SELECT `v_std_exercises`.`std_learning_id` AS `std_learning_id`, sum(`v_std_exercises`.`score`) / sum(`v_std_exercises`.`weight`) * 100 AS `score_exercise` FROM `v_std_exercises` GROUP BY `v_std_exercises`.`std_learning_id` ;
+
 --
 -- Indexes for dumped tables
 --
@@ -430,19 +544,19 @@ ALTER TABLE `m_exercises`
 -- AUTO_INCREMENT for table `m_levels`
 --
 ALTER TABLE `m_levels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `m_std_exercises`
 --
 ALTER TABLE `m_std_exercises`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `m_std_learnings`
 --
 ALTER TABLE `m_std_learnings`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
 
 --
 -- AUTO_INCREMENT for table `m_subjects`

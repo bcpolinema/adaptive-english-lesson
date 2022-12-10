@@ -86,7 +86,7 @@
                         <select class="form-control" name="route1">
                             <option selected disabled> -- Route 1 --</option>  
                             @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> {{ $level-> {'title'} }} </option>
+                            <option value="{{ $level-> {'id'} }}">  Level {{ $level-> {'title'} }} ( {{ $level->topic->title }} ) </option>
                             @endforeach
                             <option value="0" > -- It Self --</option>
                         </select>
@@ -96,7 +96,7 @@
                         <select class="form-control" name="route2">
                             <option selected disabled> -- Route 2 --</option>
                             @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> {{ $level-> {'title'} }} </option>
+                            <option value="{{ $level-> {'id'} }}">  Level {{ $level-> {'title'} }} ( {{ $level->topic->title }} ) </option>
                             @endforeach
                             <option value="0" > -- It Self --</option>
                         </select>
@@ -106,7 +106,7 @@
                         <select class="form-control" name="route3">
                             <option selected disabled> -- Route 3 --</option>
                             @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> {{ $level-> {'title'} }} </option>
+                            <option value="{{ $level-> {'id'} }}"> Level {{ $level-> {'title'} }} ( {{ $level->topic->title }} )</option>
                             @endforeach
                             <option value="0" > -- It Self --</option>
                         </select>
@@ -116,7 +116,7 @@
                         <select class="form-control" name="route4">
                             <option selected disabled> -- Route 4 --</option>
                             @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> {{ $level-> {'title'} }} </option>
+                            <option value="{{ $level-> {'id'} }}">  Level {{ $level-> {'title'} }} ( {{ $level->topic->title }} ) </option>
                             @endforeach
                             <option value="0" > -- It Self --</option>
                         </select>
@@ -152,6 +152,10 @@
                                 <th class="column-title">Section</th>
                                 <th class="column-title">Level</th>
                                 <th class="column-title">Topic</th>
+                                <th class="column-title">Route 1</th>
+                                <th class="column-title">Route 2</th>
+                                <th class="column-title">Route 3</th>
+                                <th class="column-title">Route 4</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -226,6 +230,22 @@
                 {
                     data: "topic_title",
                     name: "topic.title"
+                },
+                {
+                    data: "route1",
+                    name: "route1"
+                },
+                {
+                    data: "route2",
+                    name: "route2"
+                },
+                {
+                    data: "route3",
+                    name: "route3"
+                },
+                {
+                    data: "route4",
+                    name: "route4"
                 },
                 {
                     data: "actions",

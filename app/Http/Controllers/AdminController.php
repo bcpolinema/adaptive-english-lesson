@@ -56,7 +56,7 @@ class AdminController extends Controller
     {
         $subjects = Subject::all('id', 'name');
         $topics = Topic::with('subject')->get();
-        $levels = Level::all('id', 'title');
+        $levels = Level::with('topic')->get();
         return view('admin.level', compact('levels', 'subjects', 'topics'));
     }
 
@@ -69,8 +69,8 @@ class AdminController extends Controller
 
     public function exercise()
     {
-        $subjects = Level::all('id', 'title');
-        return view('admin.exercise', compact('subjects'));
+        $levels = Level::with(['topic', 'subject'])->get();
+        return view('admin.exercise', compact('levels'));
     }
 
     public function exercise_detail(Request $request)

@@ -54,9 +54,16 @@
                     @empty
                     <code>no exercise available</code>
                     @endforelse
+                    <div class="col-md-6 col-sm-6 form-group has-feedback">
+                        <label for="comment">Comment</label>
+                        <textarea type="text" rows="5" name="comment" class="form-control has-feedback-left"
+                            placeholder="Comment"></textarea>
+                        <span class="fa fa-comment form-control-feedback left" aria-hidden="true"></span>
+                        <span class="text-danger error-text comment_error"></span>
+                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
-                        <div class="col-md-9 col-sm-9  offset-md-3">
+                        <div class="col-md-9 col-sm-9 offset-md-3">
                             <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                     </div>

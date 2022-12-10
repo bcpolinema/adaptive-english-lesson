@@ -21,21 +21,22 @@ class StudentController extends Controller
     }
 
     public function subject(Request $request){
-        $level_1 = Level::where('subject_id', '=', $request->id)
-                        ->where('title', '3')->get();
-        /*$levels = Level::where('subject_id', '=', $request->id)       
-                        ->with('topStdLearnings')
-                        ->get();*/
-        $levels = Level::where('subject_id', '=', $request->id)
+        $topics = Topic::where('subject_id', '=', $request->id)
+                        ->get();
+        return view('student.topic', compact('topics'));
+    }
+
+    public function level_list(Request $request){
+        $level_list = Level::where('topic_id', '=', $request->tpc_id)
                         ->with('topic')
                         ->get();
-        // return $levels;
-        return view('student.topic', compact('levels', 'level_1'));
+        return view('student.level_list', compact('level_list'));
     }
 
     public function level($std_id, $id){
         $stdlrn = StdLearning::find($std_id);
-        $levels = Level::where('id', '=', $id)->get();
+        $levels = Level::where('id', '=', $id)
+                        ->get();
         return view('student.level', compact('levels', 'stdlrn'));
     }
 
@@ -106,6 +107,7 @@ class StudentController extends Controller
             $i++;
         }
         $stdlrn->score = $total_score;
+        $stdlrn->comment = $request->comment;
         $stdlrn->update();
        
         if (!$query) {
