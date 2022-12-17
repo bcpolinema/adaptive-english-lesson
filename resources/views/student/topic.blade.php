@@ -26,7 +26,7 @@
                                 <div class="block_content">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <a href= "{{ route('student.level_list', ['tpc_id' => $topic->id ] ) }}" class="button-65">
+                                            <a href= "{{ route('student.level_list', ['tpc_id' => $topic->id ] ) }}" class="button-topic">
                                                 <span><strong>Start Topic</strong></span>           
                                             </a>
                                         <div>

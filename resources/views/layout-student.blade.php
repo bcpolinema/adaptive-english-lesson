@@ -42,10 +42,71 @@
       margin: auto auto;
     }
 
-    .button-65 {
+    .button-topic {
     appearance: none;
     backface-visibility: hidden;
-    background-color: #2f80ed;
+    background-color: #025773;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    height: 42px;
+    line-height: 1;
+    outline: none;
+    overflow: hidden;
+    padding: 14px 30px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+    margin-left: 40%;
+    }
+
+    .button-topic:hover {
+    background-color: #1366d6;
+    box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+    }
+
+    .button-topic:hover:after {
+    opacity: .5;
+    }
+
+    .button-topic:active {
+    box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+    transform: translateY(2px);
+    transition-duration: .35s;
+    }
+
+    .button-topic:active:after {
+    opacity: 1;
+    }
+
+    @media (min-width: 768px) {
+    .button-topic {
+        padding: 14px 22px;
+        width: 176px;
+    }
+    }
+
+    .button-level {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #002F47;
     border-radius: 10px;
     border-style: none;
     box-shadow: none;
@@ -73,9 +134,10 @@
     vertical-align: top;
     white-space: nowrap;
     margin-left: 40%;
+    margin-bottom: 3%;
     }
 
-    .button-65:hover {
+    .button-level:hover {
     background-color: #1366d6;
     box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
     opacity: 1;
@@ -83,26 +145,27 @@
     transition-duration: .35s;
     }
 
-    .button-65:hover:after {
+    .button-level:hover:after {
     opacity: .5;
     }
 
-    .button-65:active {
+    .button-level:active {
     box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
     transform: translateY(2px);
     transition-duration: .35s;
     }
 
-    .button-65:active:after {
+    .button-level:active:after {
     opacity: 1;
     }
 
     @media (min-width: 768px) {
-    .button-65 {
+    .button-level {
         padding: 14px 22px;
         width: 176px;
     }
     }
+
 
     .start{
         margin: auto auto;

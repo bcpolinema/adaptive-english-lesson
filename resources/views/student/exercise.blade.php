@@ -16,6 +16,7 @@
             <div class="x_content" style="display: block;">
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
                     <input type="hidden" name="stdlrn_id" value="{{ $stdlrn->id }}">
+
                     @csrf
                     <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)
@@ -26,27 +27,32 @@
                         <div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="A"> A. {{ $exercise->{'option_a'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="A"> A.
+                                    {{ $exercise->{'option_a'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="B"> B. {{ $exercise->{'option_b'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="B"> B.
+                                    {{ $exercise->{'option_b'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="C"> C. {{ $exercise->{'option_c'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="C"> C.
+                                    {{ $exercise->{'option_c'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="D"> D. {{ $exercise->{'option_d'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="D"> D.
+                                    {{ $exercise->{'option_d'} }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="E"> E. {{ $exercise->{'option_e'} }}
+                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="E"> E.
+                                    {{ $exercise->{'option_e'} }}
                                 </label>
                             </div>
                         </div>
@@ -76,49 +82,51 @@
 
 @section('script')
 <script>
-    $(document).ready(function() {
-        $('#exercise_form').on('submit', function(e) {
-            e.preventDefault();
-            var form = this;
-            const take_id = $(this).data('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, submit it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: $(form).attr('action'),
-                        method: $(form).attr('method'),
-                        processData: false,
-                        data: new FormData(form),
-                        dataType: 'json',
-                        contentType: false,
-                        success: function(response) {
-                            if (response.code == 0) {
-                                Swal.fire(
-                                    'Oops!',
-                                    'Something went wrong!.',
-                                    'error'
-                                )
-                            } else {
-                                $(form)[0].reset();
-                                Swal.fire(
-                                    'Added!',
-                                    'Your answer has submitted!',
-                                    'success'
-                                )
-                                window.history.go(-2);
-                            }
+$(document).ready(function() {
+    $('#exercise_form').on('submit', function(e) {
+        e.preventDefault();
+        var form = this;
+        const take_id = $(this).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, submit it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: $(form).attr('action'),
+                    method: $(form).attr('method'),
+                    processData: false,
+                    data: new FormData(form),
+                    dataType: 'json',
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == 0) {
+                            Swal.fire(
+                                'Oops!',
+                                'Something went wrong!.',
+                                'error'
+                            )
+                        } else {
+                            console.log("AAA");
+                            console.log(response);
+                            $(form)[0].reset();
+                            Swal.fire(
+                                'Added!',
+                                'Your answer has submitted!',
+                                'success'
+                            )
+                            window.history.go(-2);
                         }
-                    });
-                }       
-            })
-        });
+                    }
+                });
+            }
+        })
     });
+});
 </script>
 @endsection

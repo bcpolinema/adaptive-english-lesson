@@ -8,6 +8,7 @@ use App\Level;
 use App\Topic;
 use App\StdExercise;
 use App\StdLearning;
+use App\ViewScoreRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -42,8 +43,10 @@ class StudentController extends Controller
 
     public function exercise($std_id, $id){
         $stdlrn = StdLearning::find($std_id);
+        $view =  ViewScoreRoute::where('std_learning_id', '=', $std_id)
+                                ->get();
         $exercises = Exercise::where('level_id', '=', $id)->get();
-        return view('student.exercise', compact('exercises', 'stdlrn'));
+        return view('student.exercise', compact('exercises', 'stdlrn', 'view'));
     }
 
     public function stdTakeExercise(Request $request){
@@ -109,11 +112,16 @@ class StudentController extends Controller
         $stdlrn->score = $total_score;
         $stdlrn->comment = $request->comment;
         $stdlrn->update();
+        
+
+        $next_learn = ViewScoreRoute::where('std_learning_id', '=', $stdlrn->id)->first();
+        $stdlrn->next_learning = $next_learn->ROUTE;
+        $stdlrn->update();
        
         if (!$query) {
-            return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+            return response()->json(['code' => 0, 'next_learn' => $next_learn]);
         } else {
-            return response()->json(['code' => 1, 'msg' => 'New Std Exercise has been successfully saved']);
+            return response()->json(['code' => 1, 'next_learn' => $next_learn]);
         }        
     }
 }

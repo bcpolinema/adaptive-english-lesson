@@ -1,12 +1,12 @@
 @extends('layout-student')
 @section('content')
 <div>
-    
+
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <!-- <h2><strong></strong></h2> -->
+                    <h2><strong>List of Level</strong></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -23,52 +23,20 @@
                                     </p>
                                 </div>
                                 <div class="block_content">
-                                    @foreach($level_list as $levelst)
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-6">
-                                        <form id="start_form" action="{{ route('student.start') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="level_id" value="{{ $levelst->id }}">
-                                            @section('script')
-                                            <script>
-                                                    $(document).ready(function() {
-                                                        $('#start_form').on('submit', function(e){
-                                                            e.preventDefault();
-                                                            var form = this;
-                                                            $.ajax({
-                                                                url: $(form).attr('action'),
-                                                                method: $(form).attr('method'),
-                                                                data: new FormData(form),
-                                                                processData: false,
-                                                                dataType: 'json',
-                                                                contentType: false,
-                                                                beforeSend: function () {
-                                                                    $(this).find('span.error-text').text('');
-                                                                },
-                                                                success: function (data) {
-                                                                    if (data.code == 0) {
-                                                                        Swal.fire(
-                                                                            'Oops!',
-                                                                            'Something went wrong!.',
-                                                                            'error'
-                                                                        )
-                                                                    } else {
-                                                                        window.location.href = '/s/'+ data.stdlrn.id +'/content/'+ {{ $levelst->id }}
-                                                                    }
-                                                                }
-                                                            });
-                                                        });
-                                                    });
-                                            </script>           
-                                            @endsection
-                                            <button role="button" type="submit">Level {{ $levelst->title }}</button>
-                                        </form>
-                                        
-                                        <div>
-                                   
+                                        @forelse($level_list as $levelst)
+                                        <div class="col">
+                                            <button class="button-level" id="{{ $levelst->id }}" type="button"
+                                                value="{{ $levelst->id }}">Level {{ $levelst->title }}</button>
+
+
+                                            @empty
+                                            <code>no list level available at the moment</code>
+                                            @endforelse
+
+                                            <div class="byline"></div>
+                                        </div>
                                     </div>
-                                    @endforeach
-                                    <div class="byline"></div>
                                 </div>
                             </div>
                         </li>
@@ -80,3 +48,33 @@
 </div>
 @endsection
 
+@section('script')
+<script>
+$('.button-level').click(function(e) {
+    console.log("aaa");
+    console.log($(this).val());
+    e.preventDefault();
+    $.ajax({
+        url: "{{ route('student.start') }}",
+        type: "POST",
+        data: {
+            _token: '{{ csrf_token() }}',
+            level_id: $(this).val()
+        },
+        success: function(data) {
+            console.log(data);
+            if (data.code == 0) {
+                Swal.fire(
+                    'Oops!',
+                    'Something went wrong!.',
+                    'error'
+                )
+            } else {
+                console.log('taek');
+                window.location.href = '/s/' + data.stdlrn.id + '/content/' + data.stdlrn.level_id;
+            }
+        }
+    });
+});
+</script>
+@endsection
