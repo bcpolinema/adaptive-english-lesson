@@ -43,10 +43,8 @@ class StudentController extends Controller
 
     public function exercise($std_id, $id){
         $stdlrn = StdLearning::find($std_id);
-        $view =  ViewScoreRoute::where('std_learning_id', '=', $std_id)
-                                ->get();
         $exercises = Exercise::where('level_id', '=', $id)->get();
-        return view('student.exercise', compact('exercises', 'stdlrn', 'view'));
+        return view('student.exercise', compact('exercises', 'stdlrn'));
     }
 
     public function stdTakeExercise(Request $request){

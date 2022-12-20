@@ -16,7 +16,6 @@
             <div class="x_content" style="display: block;">
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
                     <input type="hidden" name="stdlrn_id" value="{{ $stdlrn->id }}">
-
                     @csrf
                     <?php $number = 1; ?>
                     @forelse ($exercises as $exercise)
@@ -112,7 +111,6 @@ $(document).ready(function() {
                                 'error'
                             )
                         } else {
-                            console.log("AAA");
                             console.log(response);
                             $(form)[0].reset();
                             Swal.fire(

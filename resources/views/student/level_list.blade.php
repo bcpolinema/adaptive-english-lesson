@@ -51,8 +51,6 @@
 @section('script')
 <script>
 $('.button-level').click(function(e) {
-    console.log("aaa");
-    console.log($(this).val());
     e.preventDefault();
     $.ajax({
         url: "{{ route('student.start') }}",
@@ -70,7 +68,6 @@ $('.button-level').click(function(e) {
                     'error'
                 )
             } else {
-                console.log('taek');
                 window.location.href = '/s/' + data.stdlrn.id + '/content/' + data.stdlrn.level_id;
             }
         }

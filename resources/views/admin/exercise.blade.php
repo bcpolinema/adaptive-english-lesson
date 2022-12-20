@@ -21,7 +21,8 @@
                         <select class="form-control" name="level_id">
                             <option selected disabled> -- Choose Levels --</option>
                             @forelse ($levels as $level)
-                            <option value="{{$level-> {'id'} }}">( {{$level->subject->name}} ) Level {{$level-> {'title'} }} {{$level->topic->title}}</option>
+                            <option value="{{$level-> {'id'} }}">( {{$level->subject->name}} ) Level
+                                {{$level-> {'title'} }} {{$level->topic->title}}</option>
                             @empty
                             <option value="0">-- No Levels Available -- </option>
                             @endforelse
@@ -122,7 +123,9 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">No</th>
-                                <th class="column-title">Levels</th>
+                                <th class="column-title">Section</th>
+                                <th class="column-title">Topic</th>
+                                <th class="column-title">Level</th>
                                 <th class="column-title">Question</th>
                                 <th class="column-title">Answer Key</th>
                                 <th class="column-title">Action</th>
@@ -142,176 +145,188 @@
 
 @section('script')
 <script>
-    $(document).ready(function(){
-        var i = 1;
-        $('#add_exercise').on('submit', function(e){
-            e.preventDefault();
-            var form = this;
-            $.ajax({
-                url: $(form).attr('action'),
-                method: $(form).attr('method'),
-                data: new FormData(form),
-                processData: false,
-                dataType: 'json',
-                contentType: false,
-                beforeSend: function () {
-                    $(this).find('span.error-text').text('');
-                },
-                success: function (data) {
-                    if (data.code == 0) {
-                        $.each(data.error, function (prefix, val) {
-                            $(form).find('span.' + prefix + '_error').text(val[0]);
-                        });
-                    } else {
-                        $(form)[0].reset();
-                        $('#exercise_table').DataTable().ajax.reload(null, false);
-                        Swal.fire(
-                            'Added!',
-                            'Exercise Data Added Successfully!',
-                            'success'
-                        )
-                    }
-                }
-            });
-        });
-
-        $('#exercise_table').DataTable({
-            processing: true,
-            info: true,
-            ajax: "{{ route('admin.exercise.list') }}",
-            columns: [{
-                    data: "id",
-                    render: function(data, type, row, meta) {
-                        return i++;
-                    }
-                },
-                {
-                    data: "level_title",
-                    name: "level.title"
-                },
-                {
-                    data: "question",
-                    name: "question"
-                },
-                {
-                    data: "answer_key",
-                    render: function(data, type, row){
-                        if(row.answer_key == 'A'){
-                            return '<strong> (A) </strong>' + row.option_a;
-                        }else if(row.answer_key == 'B'){
-                            return '<strong> (B) </strong>' + row.option_b;
-                        }else if(row.answer_key == 'C'){
-                            return '<strong> (C) </strong>' + row.option_c;
-                        }else if(row.answer_key == 'D'){
-                            return '<strong> (D) </strong>' + row.option_d;
-                        }else{
-                            return '<strong> (E) </strong>' + row.option_e;
-                        }
-                    },
-                    
-                },
-                {
-                    data: "actions",
-                    name: "actions"
-                },
-            ]
-        });
-
-
-        $(document).on('click', '#edit_exercise_btn', function() {
-            const exercise_id = $(this).data('id');
-            const url = '{{ route("admin.exercise.detail") }}';
-            $('.edit_exercise_modal').find('form')[0].reset();
-            $.post(url, {
-                exercise_id: exercise_id
-            }, function(data) {
-                $('.edit_exercise_modal').find('input[name="exercise_id"]').val(data.details.id);
-                $('.edit_exercise_modal').find('select[name="level_id"]').val(data.details.level_id);
-                $('.edit_exercise_modal').find('textarea[name="question"]').val(data.details.question);
-                $('.edit_exercise_modal').find('input[name="option_a"]').val(data.details.option_a);
-                $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
-                $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
-                $('.edit_exercise_modal').find('input[name="option_c"]').val(data.details.option_c);
-                $('.edit_exercise_modal').find('input[name="option_d"]').val(data.details.option_d);
-                $('.edit_exercise_modal').find('input[name="option_e"]').val(data.details.option_e);
-                $('.edit_exercise_modal').find('select[name="answer_key"]').val(data.details.answer_key);
-                $('.edit_exercise_modal').find('input[name="weight"]').val(data.details.weight);
-                $('.edit_exercise_modal').modal('show');
-            }, 'json');
-        });
-
-        $('#update_exercise_form').on('submit', function(e) {
-            e.preventDefault();
-            var form = this;
-            $.ajax({
-                url: $(form).attr('action'),
-                method: $(form).attr('method'),
-                data: new FormData(form),
-                processData: false,
-                dataType: 'json',
-                contentType: false,
-                beforeSend: function() {
-                    $(this).find('span.error-text').text('');
-                },
-                success: function(data) {
-                    if (data.code == 0) {
-                        $.each(data.error, function(prefix, val) {
-                            $(form).find('span.' + prefix + '_error').text(val[0]);
-                        });
-                    } else {
-                        $(form)[0].reset();
-                        $('#exercise_table').DataTable().ajax.reload(null, false);
-                        $('.edit_exercise_modal').modal('hide');
-                        Swal.fire(
-                            'Updated!',
-                            'Exercise Data Updated Successfully!',
-                            'success'
-                        )
-                    }
-                }
-            });
-        });
-
-        $(document).on('click', '#delete_exercise_btn', function(e) {
-            e.preventDefault();
-            let id = $(this).data('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('admin.delete.exercise') }}",
-                        method: "post",
-                        data: {
-                            id: id,
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            if (response.code == 0) {
-                                Swal.fire(
-                                    'Oops!',
-                                    'Something went wrong!.',
-                                    'error'
-                                )
-                            } else {
-                                $('#exercise_table').DataTable().ajax.reload(null, false);
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Exercise data has been deleted.',
-                                    'success'
-                                )
-                            }
-                        }
+$(document).ready(function() {
+    var i = 1;
+    $('#add_exercise').on('submit', function(e) {
+        e.preventDefault();
+        var form = this;
+        $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: new FormData(form),
+            processData: false,
+            dataType: 'json',
+            contentType: false,
+            beforeSend: function() {
+                $(this).find('span.error-text').text('');
+            },
+            success: function(data) {
+                if (data.code == 0) {
+                    $.each(data.error, function(prefix, val) {
+                        $(form).find('span.' + prefix + '_error').text(val[0]);
                     });
+                } else {
+                    $(form)[0].reset();
+                    $('#exercise_table').DataTable().ajax.reload(null, false);
+                    Swal.fire(
+                        'Added!',
+                        'Exercise Data Added Successfully!',
+                        'success'
+                    )
                 }
-            })
+            }
         });
     });
+
+    $('#exercise_table').DataTable({
+        processing: true,
+        info: true,
+        ajax: "{{ route('admin.exercise.list') }}",
+        columns: [{
+                data: "id",
+                render: function(data, type, row, meta) {
+                    return i++;
+                }
+            },
+            {
+                data: "level_subject_name",
+                name: "level.subject.name"
+            },
+            {
+                data: "level_topic_title",
+                name: "level.topic.title"
+            },
+            {
+                data: "level_title",
+                name: "level.title"
+            },
+            {
+                data: "question",
+                name: "question"
+            },
+            {
+                data: "answer_key",
+                render: function(data, type, row) {
+                    if (row.answer_key == 'A') {
+                        return '<strong> (A) </strong>' + row.option_a;
+                    } else if (row.answer_key == 'B') {
+                        return '<strong> (B) </strong>' + row.option_b;
+                    } else if (row.answer_key == 'C') {
+                        return '<strong> (C) </strong>' + row.option_c;
+                    } else if (row.answer_key == 'D') {
+                        return '<strong> (D) </strong>' + row.option_d;
+                    } else {
+                        return '<strong> (E) </strong>' + row.option_e;
+                    }
+                },
+
+            },
+            {
+                data: "actions",
+                name: "actions"
+            },
+        ]
+    });
+
+
+    $(document).on('click', '#edit_exercise_btn', function() {
+        const exercise_id = $(this).data('id');
+        const url = '{{ route("admin.exercise.detail") }}';
+        $('.edit_exercise_modal').find('form')[0].reset();
+        $.post(url, {
+            exercise_id: exercise_id
+        }, function(data) {
+            $('.edit_exercise_modal').find('input[name="exercise_id"]').val(data.details.id);
+            $('.edit_exercise_modal').find('select[name="level_id"]').val(data.details
+                .level_id);
+            $('.edit_exercise_modal').find('textarea[name="question"]').val(data.details
+                .question);
+            $('.edit_exercise_modal').find('input[name="option_a"]').val(data.details.option_a);
+            $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
+            $('.edit_exercise_modal').find('input[name="option_b"]').val(data.details.option_b);
+            $('.edit_exercise_modal').find('input[name="option_c"]').val(data.details.option_c);
+            $('.edit_exercise_modal').find('input[name="option_d"]').val(data.details.option_d);
+            $('.edit_exercise_modal').find('input[name="option_e"]').val(data.details.option_e);
+            $('.edit_exercise_modal').find('select[name="answer_key"]').val(data.details
+                .answer_key);
+            $('.edit_exercise_modal').find('input[name="weight"]').val(data.details.weight);
+            $('.edit_exercise_modal').modal('show');
+        }, 'json');
+    });
+
+    $('#update_exercise_form').on('submit', function(e) {
+        e.preventDefault();
+        var form = this;
+        $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: new FormData(form),
+            processData: false,
+            dataType: 'json',
+            contentType: false,
+            beforeSend: function() {
+                $(this).find('span.error-text').text('');
+            },
+            success: function(data) {
+                if (data.code == 0) {
+                    $.each(data.error, function(prefix, val) {
+                        $(form).find('span.' + prefix + '_error').text(val[0]);
+                    });
+                } else {
+                    $(form)[0].reset();
+                    $('#exercise_table').DataTable().ajax.reload(null, false);
+                    $('.edit_exercise_modal').modal('hide');
+                    Swal.fire(
+                        'Updated!',
+                        'Exercise Data Updated Successfully!',
+                        'success'
+                    )
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#delete_exercise_btn', function(e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('admin.delete.exercise') }}",
+                    method: "post",
+                    data: {
+                        id: id,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.code == 0) {
+                            Swal.fire(
+                                'Oops!',
+                                'Something went wrong!.',
+                                'error'
+                            )
+                        } else {
+                            $('#exercise_table').DataTable().ajax.reload(null,
+                                false);
+                            Swal.fire(
+                                'Deleted!',
+                                'Exercise data has been deleted.',
+                                'success'
+                            )
+                        }
+                    }
+                });
+            }
+        })
+    });
+});
 </script>
 @endsection

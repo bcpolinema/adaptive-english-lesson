@@ -339,7 +339,7 @@ class AdminController extends Controller
             'content' => 'required|string',
             'video' => 'mimes:mp4',
             'audio' => 'mimes:mp3',
-            'image' => 'mimes:jpg',
+            'image' => 'mimes:jpeg,jpg,png',
             'youtube' => 'url',
             'route1' => 'required|numeric',
             'route2' => 'required|numeric',
@@ -448,7 +448,7 @@ class AdminController extends Controller
             'content' => 'required|string',
             'video' => 'mimes:mp4',
             'audio' => 'mimes:mp3',
-            'image' => 'mimes:jpg',
+            'image' => 'mimes:jpeg,jpg,png',
             'youtube' => 'url',
             'route1' => 'required',
             'route2' => 'required',
@@ -608,6 +608,12 @@ class AdminController extends Controller
             })
             ->addColumn('level_title', function (Exercise $exercise) {
                 return $exercise->level->title;
+            })
+            ->addColumn('level_topic_title', function (Exercise $exercise) {
+                return $exercise->level->topic->title;
+            })
+            ->addColumn('level_subject_name', function (Exercise $exercise) {
+                return $exercise->level->subject->name;
             })
             ->rawColumns(['actions'])
             ->make(true);
