@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Subject;
 use App\Level;
+use App\ViewLevelRoute;
 use App\Topic;
 use App\Exercise;
 use App\User;
@@ -412,7 +413,7 @@ class AdminController extends Controller
 
     public function level_list()
     {
-        $levels = Level::with(['subject', 'topic']);
+        $levels = ViewLevelRoute::with(['subject', 'topic']);
             return DataTables::of($levels)
             ->addColumn('actions', function ($row) {
                 return
@@ -421,10 +422,10 @@ class AdminController extends Controller
                 <button id="delete_level_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
                 </div>';
             })
-            ->addColumn('subject_name', function (Level $level) {
+            ->addColumn('subject_name', function (ViewLevelRoute $level) {
                 return $level->subject->name;
             })
-            ->addColumn('topic_title', function (Level $level) {
+            ->addColumn('topic_title', function (ViewLevelRoute $level) {
                 return $level->topic->title;
             })
             ->rawColumns(['actions'])

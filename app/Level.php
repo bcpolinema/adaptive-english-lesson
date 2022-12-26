@@ -34,6 +34,7 @@ class Level extends Model
         return $this->hasMany(Exercise::class);
     }
 
+
     public function subject()
     {
         return $this->belongsTo(Subject::class);

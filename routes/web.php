@@ -73,8 +73,6 @@ Route::group(['prefix' => 's', 'middleware' => ['student', 'auth', 'pvb']], func
     Route::get('topic/{tpc_id}', [StudentController::class, 'level_list'])->name('student.level_list');
     Route::get('{std_id}/content/{id}', [StudentController::class, 'level']);
     Route::get('{std_id}/exercise/{id}', [StudentController::class, 'exercise']);
-    Route::get('{std_id}/history/{id}', [StudentController::class, 'historyAnswer']);
-    Route::get('topic/listening', [StudentController::class, 'listening'])->name('student.topic.listening');
     Route::post('exercise/submit', [StudentController::class, 'submitAnswer'])->name('student.submit');
     Route::post('start', [StudentController::class, 'stdStart'])->name('student.start');
     Route::post('take_exercise', [StudentController::class, 'stdTakeExercise'])->name('student.take.exercise');

@@ -30,6 +30,11 @@ class Exercise extends Model
         return $this->belongsTo(Level::class);
     }
 
+    public function viewlevel()
+    {
+        return $this->belongsTo(ViewLevelRoute::class);
+    }
+
     public function stdexercises()
     {
         return $this->hasMany(StdExercise::class);

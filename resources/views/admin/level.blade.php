@@ -155,6 +155,7 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title">No</th>
+                                <th class="column-title">ID</th>
                                 <th class="column-title">Section</th>
                                 <th class="column-title">Topic</th>
                                 <th class="column-title">Level</th>
@@ -226,6 +227,10 @@ $(document).ready(function() {
                 }
             },
             {
+                data: "id",
+                name: "id"
+            },
+            {
                 data: "subject_name",
                 name: "subject.name"
             },
@@ -239,19 +244,7 @@ $(document).ready(function() {
             },
             {
                 data: "route1",
-                render: function(data, type, row) {
-                    if (row.route1 == row.id) {
-                        return '( ' + row.topic_title + ' ) ' + 'Level ' + data;
-                    } else if (row.route1 == row.level_id) {
-                        return '( ' + row.topic_title + ' ) ' + 'Level ' + data;
-                    } else if (row.route1 == row.level_id) {
-                        return '( ' + row.topic_title + ' ) ' + 'Level ' + data;
-                    } else if (row.route1 == row.level_id) {
-                        return '( ' + row.topic_title + ' ) ' + 'Level ' + data;
-                    } else {
-                        return '( ' + row.topic_title + ' ) ' + 'Level ' + data;
-                    }
-                },
+                name: "route1",
             },
             {
                 data: "route2",
