@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ViewLevelRoute extends Model
 {
-    protected $table = 'v_levels_route_title_content';
+    protected $table = 'v_level_title';
     public $timestamps = false;
 
     public function exercise()

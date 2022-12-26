@@ -117,7 +117,7 @@ class StudentController extends Controller
         $stdlrn->update();
        
         if (!$query) {
-            return response()->json(['code' => 0, 'next_learn' => $next_learn]);
+            return response()->json(['code' => 0]);
         } else {
             return response()->json(['code' => 1, 'next_learn' => $next_learn]);
         }        

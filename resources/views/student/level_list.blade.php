@@ -1,7 +1,6 @@
 @extends('layout-student')
 @section('content')
 <div>
-
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -24,16 +23,13 @@
                                 </div>
                                 <div class="block_content">
                                     <div class="row">
-                                        @forelse($level_list as $levelst)
                                         <div class="col">
+                                            @forelse($level_list as $levelst)
                                             <button class="button-level" id="{{ $levelst->id }}" type="button"
                                                 value="{{ $levelst->id }}">Level {{ $levelst->title }}</button>
-
-
                                             @empty
                                             <code>no list level available at the moment</code>
                                             @endforelse
-
                                             <div class="byline"></div>
                                         </div>
                                     </div>
