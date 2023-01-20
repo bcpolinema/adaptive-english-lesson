@@ -24,9 +24,16 @@
                                 <div class="block_content">
                                     <div class="row">
                                         <div class="col">
+                                            {{ $nextlevel = 0 }}
                                             @forelse($level_list as $levelst)
+                                            <h2 style="text-align: center;">Score
+                                                {{ ( $levelst->stdlearnings->isEmpty() || $levelst->stdlearnings[0]->score == null ) ? '0': $levelst->stdlearnings[0]->score }}/100
+                                            </h2>
                                             <button class="button-level" id="{{ $levelst->id }}" type="button"
-                                                value="{{ $levelst->id }}">Level {{ $levelst->title }}</button>
+                                                value="{{ $levelst->id }}"
+                                                {{ ( $levelst->stdlearnings->isEmpty() && $levelst->title != 1 )  ? 'disabled' : '' }}>
+                                                Level {{ $levelst->title }}</button>
+                                            {{ $levelst->stdlearnings->isEmpty() ? '' : $nextlevel = $levelst->stdlearnings[0]->next_learning}}
                                             @empty
                                             <code>no list level available at the moment</code>
                                             @endforelse

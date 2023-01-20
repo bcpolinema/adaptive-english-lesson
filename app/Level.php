@@ -45,13 +45,9 @@ class Level extends Model
         return $this->belongsTo(Topic::class);
     }
 
-    public function stdlearnings()
-    {
-        return $this->hasMany(StdLearning::class);
-    }
 
-    public function topStdLearnings(){
-        return $this->hasMany(StdLearning::class)->orderBy('score','DESC')->take(1);
+    public function stdlearnings(){
+        return $this->hasMany(StdLearning::class);
     }
 
 }

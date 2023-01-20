@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2022 at 05:45 AM
+-- Generation Time: Jan 20, 2023 at 02:21 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -84,10 +84,9 @@ CREATE TABLE `m_exercises` (
 --
 
 INSERT INTO `m_exercises` (`id`, `level_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `option_e`, `answer_key`, `weight`, `ts_entri`) VALUES
-(1, 2, 'Cum exercitation et', 'Asperiores nesciunt', 'Molestiae sed harum', 'Accusamus in Nam non', 'Possimus quo culpa', 'Dolores veniam dign', 'E', 2, '2022-08-04 13:26:12'),
 (2, 1, 'Qui consequuntur do', 'Ipsum consequuntur', 'Ratione voluptatem', 'Quam quos ea autem e', 'Amet omnis consecte', 'Eius molestiae ea du', 'A', 4, '2022-08-07 15:55:41'),
-(5, 20, 'Apakah Singa itu Mamalia?', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'Bukan', 'B', 2, '2022-08-10 01:10:06'),
-(7, 20, 'apakah ini soal?', 'ya', 'tidak', 'ya', 'ya', 'ya', 'A', 2, '2022-09-05 13:00:36');
+(10, 1, 'Soal', 'Asperiores nesciunt', 'Molestiae sed harum', 'Accusamus in Nam non', 'Possimus quo culpa', 'Eius molestiae ea du', 'B', 2, '2022-12-19 23:11:21'),
+(11, 1, 'Question', 'Asperiores nesciunt', 'Molestiae sed harum', 'Quam quos ea autem e', 'Amet omnis consecte', 'Eius molestiae ea du', 'C', 2, '2022-12-19 23:11:48');
 
 -- --------------------------------------------------------
 
@@ -118,13 +117,10 @@ CREATE TABLE `m_levels` (
 --
 
 INSERT INTO `m_levels` (`id`, `title`, `subject_id`, `topic_id`, `is_pretest`, `content`, `video`, `audio`, `image`, `youtube`, `route1`, `route2`, `route3`, `route4`, `ts_entri`) VALUES
-(1, '1', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-12-03 13:53:43'),
-(2, '1', 1, 13, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 2, 20, '2022-12-07 01:29:36'),
-(20, '1', 1, 14, 0, 'あなたの声が道しるべ あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ  あなたの声が道しるべ', 'Violet Evergarden ED - \'Michishirube\' (Piano _ Orchestral).mp4', '[Ada2Ajh]~Minori Chihara - Michishirube.mp3', 'wallpaperflare.com_wallpaper (1).jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 20, 20, 20, 20, '2022-12-07 01:29:44'),
-(38, '1', 1, 15, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 2, 20, 38, '2022-12-07 01:29:51'),
-(39, '2', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 1, 1, 1, '2022-12-08 02:01:21'),
-(40, '3', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 1, 39, '2022-12-08 02:01:25'),
-(41, '4', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 40, 1, '2022-12-08 02:01:33'),
+(1, '1', 1, 12, 0, 'Hello. My name is Winda Auliana. People usually call me Winda. I’m 14 years old and I was born in Bandung, on 17th January, 2006. I live in Bandung since I was child and now I study in SMP XXX.', NULL, NULL, '48f7c8dd3e690378bfdf6b94f7516d95.jpg', 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 39, 40, 41, 42, '2022-12-19 22:33:30'),
+(39, '2', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 40, 41, 42, '2022-12-19 22:15:41'),
+(40, '3', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 41, 42, '2022-12-19 22:15:59'),
+(41, '4', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 40, 42, '2022-12-19 22:16:23'),
 (42, '5', 1, 12, 0, 'tes', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=NeQM1c-XCDc', 1, 39, 40, 41, '2022-12-08 02:01:40');
 
 -- --------------------------------------------------------
@@ -148,12 +144,9 @@ CREATE TABLE `m_std_exercises` (
 --
 
 INSERT INTO `m_std_exercises` (`id`, `std_learning_id`, `exercise_id`, `answer`, `is_correct`, `score`, `ts_entri`) VALUES
-(95, 171, 5, 'B', 1, 2, '2022-12-03 14:21:41'),
-(96, 171, 7, 'A', 1, 2, '2022-12-03 14:21:41'),
-(97, 174, 2, 'B', 0, 0, '2022-12-06 10:29:27'),
-(98, 178, 2, 'B', 0, 0, '2022-12-07 01:25:06'),
-(99, 180, 2, 'B', 0, 0, '2022-12-08 01:41:15'),
-(100, 207, 2, 'B', 0, 0, '2022-12-08 02:22:22');
+(153, 320, 2, 'A', 1, 4, '2022-12-26 14:31:02'),
+(154, 320, 10, 'B', 1, 2, '2022-12-26 14:31:03'),
+(155, 320, 11, 'D', 0, 0, '2022-12-26 14:31:03');
 
 -- --------------------------------------------------------
 
@@ -169,7 +162,7 @@ CREATE TABLE `m_std_learnings` (
   `is_validated` tinyint(1) NOT NULL DEFAULT 0,
   `ts_exercise` datetime DEFAULT NULL,
   `score` int(11) DEFAULT NULL,
-  `next_learning` bigint(11) DEFAULT NULL,
+  `next_learning` int(11) DEFAULT NULL,
   `comment` text DEFAULT NULL,
   `is_termination` tinyint(1) NOT NULL DEFAULT 0,
   `ts_entri` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -180,15 +173,8 @@ CREATE TABLE `m_std_learnings` (
 --
 
 INSERT INTO `m_std_learnings` (`id`, `user_id`, `level_id`, `ts_start`, `is_validated`, `ts_exercise`, `score`, `next_learning`, `comment`, `is_termination`, `ts_entri`) VALUES
-(171, 9, 20, '2022-12-03 21:20:58', 0, '2022-12-03 21:21:25', 4, NULL, NULL, 0, '2022-12-03 14:21:41'),
-(174, 9, 1, '2022-12-06 17:29:19', 0, '2022-12-06 17:29:22', 0, NULL, NULL, 0, '2022-12-06 10:29:27'),
-(178, 9, 1, '2022-12-07 08:24:54', 0, '2022-12-07 08:25:02', 0, NULL, NULL, 0, '2022-12-07 01:25:06'),
-(180, 9, 1, '2022-12-08 08:34:57', 0, '2022-12-08 08:35:00', 0, NULL, 'ini komen', 0, '2022-12-08 01:41:15'),
-(207, 9, 1, '2022-12-08 09:22:15', 0, '2022-12-08 09:22:17', 0, NULL, 'tes', 0, '2022-12-08 02:22:22'),
-(211, 9, 1, '2022-12-09 17:40:22', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:40:22'),
-(212, 9, 39, '2022-12-09 17:40:26', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:40:26'),
-(213, 9, 1, '2022-12-09 17:41:17', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:41:17'),
-(214, 9, 39, '2022-12-09 17:41:25', 0, NULL, NULL, NULL, NULL, 0, '2022-12-09 10:41:25');
+(320, 9, 1, '2022-12-26 21:30:43', 0, '2022-12-26 21:30:46', 75, 41, NULL, 0, '2022-12-26 14:31:03'),
+(332, 11, 1, '2023-01-02 21:16:19', 0, NULL, NULL, NULL, NULL, 0, '2023-01-02 14:16:19');
 
 -- --------------------------------------------------------
 
@@ -335,7 +321,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (2, 'Administrator', 'admin@mail.com', NULL, '$2y$10$dp/EIXyLSnw0yM6nHB4P0eXpNSKqVYjXd6lA25WD6wR7SxefaxUJe', 'admin', NULL, '2022-07-06 01:58:07', '2022-07-06 01:58:07'),
 (3, 'Student 1', 'student@mail.com', NULL, '$2y$10$z.xakYmC5Qs6WPp9.rdelugKEZXNkLeVrnTVnIF/uq06T4di7uSwG', 'student', NULL, '2022-07-13 10:15:10', '2022-07-13 10:15:10'),
 (9, 'yusuf', 'mchyush@gmail.com', NULL, '$2y$10$lMuS0dP8Hi2C/J4E058b0ObXOHzR6jRDI9VjRzdMoD2i.wYGCQmb2', 'student', NULL, '2022-08-04 14:37:22', '2022-08-04 14:37:22'),
-(10, 'tes', 'tes@mail.com', NULL, '$2y$10$pid1hBAaQ4Ln4Km7ZeyEZ.S6jex8zLPPsIbk.CHy10kRcMh2MT3/C', 'student', NULL, '2022-11-29 01:33:42', '2022-11-29 01:33:42');
+(10, 'tes', 'tes@mail.com', NULL, '$2y$10$pid1hBAaQ4Ln4Km7ZeyEZ.S6jex8zLPPsIbk.CHy10kRcMh2MT3/C', 'student', NULL, '2022-11-29 01:33:42', '2022-11-29 01:33:42'),
+(11, 'Tubagus MIxue', 'mixue@gmail.com', NULL, '$2y$10$Kvgw2Mr2wGPPPiIW5M7aHeF0bfeRo.M70KpzjLAabid/YlpWjL4Gi', 'student', NULL, '2023-01-02 14:02:09', '2023-01-02 14:02:09');
 
 -- --------------------------------------------------------
 
@@ -355,6 +342,38 @@ CREATE TABLE `view1` (
 ,`answer_key` varchar(5)
 ,`weight` smallint(6)
 ,`ts_entri` timestamp
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_level_title`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_level_title` (
+`id` int(11)
+,`title` varchar(100)
+,`subject_id` int(11)
+,`topic_id` int(11)
+,`is_pretest` tinyint(1)
+,`content` varchar(200)
+,`video` varchar(200)
+,`audio` varchar(200)
+,`image` varchar(200)
+,`youtube` varchar(200)
+,`route1` int(11)
+,`route2` int(11)
+,`route3` int(11)
+,`route4` int(11)
+,`ts_entri` timestamp
+,`title_route1` varchar(100)
+,`content_route1` varchar(200)
+,`title_route2` varchar(100)
+,`content_route2` varchar(200)
+,`title_route3` varchar(100)
+,`content_route3` varchar(200)
+,`title_route4` varchar(100)
+,`content_route4` varchar(200)
 );
 
 -- --------------------------------------------------------
@@ -407,6 +426,15 @@ CREATE TABLE `v_std_exercises_score` (
 DROP TABLE IF EXISTS `view1`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view1`  AS SELECT `m_exercises`.`id` AS `id`, `m_exercises`.`level_id` AS `level_id`, `m_exercises`.`question` AS `question`, `m_exercises`.`option_a` AS `option_a`, `m_exercises`.`option_b` AS `option_b`, `m_exercises`.`option_c` AS `option_c`, `m_exercises`.`option_d` AS `option_d`, `m_exercises`.`option_e` AS `option_e`, `m_exercises`.`answer_key` AS `answer_key`, `m_exercises`.`weight` AS `weight`, `m_exercises`.`ts_entri` AS `ts_entri` FROM `m_exercises` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_level_title`
+--
+DROP TABLE IF EXISTS `v_level_title`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_level_title`  AS SELECT `a`.`id` AS `id`, `a`.`title` AS `title`, `a`.`subject_id` AS `subject_id`, `a`.`topic_id` AS `topic_id`, `a`.`is_pretest` AS `is_pretest`, `a`.`content` AS `content`, `a`.`video` AS `video`, `a`.`audio` AS `audio`, `a`.`image` AS `image`, `a`.`youtube` AS `youtube`, `a`.`route1` AS `route1`, `a`.`route2` AS `route2`, `a`.`route3` AS `route3`, `a`.`route4` AS `route4`, `a`.`ts_entri` AS `ts_entri`, `b`.`title` AS `title_route1`, `b`.`content` AS `content_route1`, `c`.`title` AS `title_route2`, `c`.`content` AS `content_route2`, `d`.`title` AS `title_route3`, `d`.`content` AS `content_route3`, `e`.`title` AS `title_route4`, `e`.`content` AS `content_route4` FROM ((((`m_levels` `a` left join `m_levels` `b` on(`a`.`route1` = `b`.`id`)) left join `m_levels` `c` on(`a`.`route2` = `c`.`id`)) left join `m_levels` `d` on(`a`.`route3` = `d`.`id`)) left join `m_levels` `e` on(`a`.`route4` = `e`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -538,25 +566,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `m_exercises`
 --
 ALTER TABLE `m_exercises`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `m_levels`
 --
 ALTER TABLE `m_levels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `m_std_exercises`
 --
 ALTER TABLE `m_std_exercises`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `m_std_learnings`
 --
 ALTER TABLE `m_std_learnings`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=333;
 
 --
 -- AUTO_INCREMENT for table `m_subjects`
@@ -580,7 +608,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -610,9 +638,9 @@ ALTER TABLE `m_std_exercises`
 -- Constraints for table `m_std_learnings`
 --
 ALTER TABLE `m_std_learnings`
-  ADD CONSTRAINT `m_std_learnings_ibfk_1` FOREIGN KEY (`next_learning`) REFERENCES `m_std_learnings` (`id`),
   ADD CONSTRAINT `std_learning_to_sbj` FOREIGN KEY (`level_id`) REFERENCES `m_levels` (`id`),
-  ADD CONSTRAINT `std_learning_to_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `std_learning_to_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `std_next_learning_to_level` FOREIGN KEY (`next_learning`) REFERENCES `m_levels` (`id`);
 
 --
 -- Constraints for table `m_topics`

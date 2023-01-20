@@ -29,7 +29,9 @@ class StudentController extends Controller
 
     public function level_list(Request $request){
         $level_list = Level::where('topic_id', '=', $request->tpc_id)
-                        ->with('topic')
+                        ->with(["stdlearnings" => function($s){
+                            $s->where('user_id', '=', Auth::user()->id);
+                        }])
                         ->get();
         return view('student.level_list', compact('level_list'));
     }
@@ -107,7 +109,9 @@ class StudentController extends Controller
             $query = $stdexr->save();
             $i++;
         }
-        $stdlrn->score = $total_score;
+
+        $score_result = ViewScoreRoute::where('std_learning_id', '=', $stdlrn->id)->first();
+        $stdlrn->score = $score_result->score_exercise;
         $stdlrn->comment = $request->comment;
         $stdlrn->update();
         
@@ -115,6 +119,7 @@ class StudentController extends Controller
         $next_learn = ViewScoreRoute::where('std_learning_id', '=', $stdlrn->id)->first();
         $stdlrn->next_learning = $next_learn->ROUTE;
         $stdlrn->update();
+        
        
         if (!$query) {
             return response()->json(['code' => 0]);

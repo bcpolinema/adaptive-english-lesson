@@ -35,8 +35,8 @@ class StdLearning extends Model
         return $this->belongsTo(User::class);
     }
      
-    public function subject()
+    public function level()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Level::class);
     }
 }
