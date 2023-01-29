@@ -29,11 +29,21 @@ class StudentController extends Controller
 
     public function level_list(Request $request){
         $level_list = Level::where('topic_id', '=', $request->tpc_id)
-                        ->with(["stdlearnings" => function($s){
-                            $s->where('user_id', '=', Auth::user()->id);
-                        }])
-                        ->get();
-        return view('student.level_list', compact('level_list'));
+                    ->with('stdlearningStudent')
+                    ->get();
+        // return response()->json(['levels' => $level_list]);
+        
+        // get latest level using join
+        $current_level = StdLearning::join('m_levels', 'm_levels.id', '=', 'm_std_learnings.level_id')
+                        ->join('m_topics', 'm_topics.id', '=', 'm_levels.topic_id')
+                        ->where('m_std_learnings.user_id', '=', Auth::user()->id)
+                        ->orderBy('m_std_learnings.ts_start', 'desc')
+                        ->first();
+        if($current_level == null){
+            $current_level = 0;
+        }
+        // return response()->json(['current_level' => $current_level]);
+        return view('student.level_list', compact('level_list', 'current_level'));
     }
 
     public function level($std_id, $id){

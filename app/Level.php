@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Level extends Model
 {
@@ -48,6 +49,11 @@ class Level extends Model
 
     public function stdlearnings(){
         return $this->hasMany(StdLearning::class);
+    }
+
+    public function stdlearningStudent()
+    {
+        return $this->hasMany(StdLearning::class,'level_id')->where('user_id', '=', Auth::user()->id)->orderBy('ts_exercise', 'DESC');
     }
 
 }
