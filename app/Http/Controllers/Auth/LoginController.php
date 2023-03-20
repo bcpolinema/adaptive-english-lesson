@@ -71,7 +71,7 @@ class LoginController extends Controller
             }
         }else{
             Alert::error('Oops! Login Failure.', 'Something went wrong!');
-            return redirect()->route('login');
+            return redirect()->back();
         }
     }
 }
