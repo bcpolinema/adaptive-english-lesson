@@ -58,7 +58,7 @@ https://templatemo.com/tm-570-chain-app-dev
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="/" class="logo">
-                            <img src="{{ asset('landing-page-v1/assets/images/new-logo-ael-black.png') }}"
+                            <img src="{{ asset('landing-page-v1/assets/images/logo-ael-new.png') }}"
                                 alt="Chain App Dev">
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -250,7 +250,7 @@ https://templatemo.com/tm-570-chain-app-dev
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h4>Features <em>Lesson &amp; Section</em> for you</h4>
+                        <h4>Features <em>Section</em> for you</h4>
                         <img src="assets/images/heading-line-dec.png" alt="">
                         <p>Kembangkan skill bahasa inggris mu dengan mempelejari berbagai topic pada setiap section
                             dibawah ini
@@ -266,51 +266,61 @@ https://templatemo.com/tm-570-chain-app-dev
                     <div class="service-item first-service">
                         <div class="icon"></div>
                         <h4>Listening</h4>
-                        <p>You are not allowed to redistribute this template ZIP file on any other website.</p>
-                        <div class="text-button">
+                        <p> It typically consists of a series of audio
+                            recordings, such as conversations, lectures, or monologues, that are played for the
+                            test-taker, who must then answer a set of questions based on the content of the recordings.
+                        </p>
+                        <!-- <div class="text-button">
                             <a href="#">Read More <i class="fa fa-arrow-right"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="service-item second-service">
                         <div class="icon"></div>
                         <h4>Reading</h4>
-                        <p>You are allowed to use the Chain App Dev HTML template. Feel free to modify or edit this
-                            layout.</p>
-                        <div class="text-button">
+                        <p>
+                            It typically consists of a series of written passages, such as articles, essays, or short
+                            stories, that are presented to the test-taker, who must then answer a set of questions based
+                            on the content of the passages.
+                        </p>
+                        <!-- <div class="text-button">
                             <a href="#">Read More <i class="fa fa-arrow-right"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="service-item third-service">
                         <div class="icon"></div>
                         <h4>Grammar</h4>
-                        <p>If this template is beneficial for your work, please support us <a rel="nofollow"
-                                href="https://paypal.me/templatemo" target="_blank">a little via PayPal</a>. Thank you.
+                        <p>
+                            It typically consists of a set of questions that assess the test-taker's knowledge of
+                            various aspects of grammar, such as verb tenses, sentence structure, punctuation, and parts
+                            of speech.
                         </p>
-                        <div class="text-button">
+                        <!-- <div class="text-button">
                             <a href="#">Read More <i class="fa fa-arrow-right"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="service-item fourth-service">
                         <div class="icon"></div>
                         <h4>Vocabulary</h4>
-                        <p>Lorem ipsum dolor consectetur adipiscing elit sedder williamsburg photo booth quinoa and
-                            fashion axe.</p>
-                        <div class="text-button">
+                        <p>
+                            It typically consists of a set of questions that assess the test-taker's knowledge of
+                            various words and phrases, including their meaning, usage, and context.
+                        </p>
+                        <!-- <div class="text-button">
                             <a href="#">Read More <i class="fa fa-arrow-right"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="about" class="about-us section">
+    <!-- <div id="about" class="about-us section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 align-self-center">
@@ -357,14 +367,14 @@ https://templatemo.com/tm-570-chain-app-dev
                 </div>
                 <div class="col-lg-6">
                     <div class="right-image">
-                        <img src="assets/images/about-right-dec.png" alt="">
+                        <img src="{{ asset('landing-page-v1/assets/images/about-right-dec.png') }}" alt="">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div id="clients" class="the-clients">
+    <!-- <div id="clients" class="the-clients">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -623,9 +633,9 @@ https://templatemo.com/tm-570-chain-app-dev
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div id="pricing" class="pricing-tables">
+    <!-- <div id="pricing" class="pricing-tables">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -698,17 +708,17 @@ https://templatemo.com/tm-570-chain-app-dev
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <footer id="newsletter">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="section-heading">
-                        <h4>Join our mailing list to receive the news &amp; latest trends</h4>
+                        <h4>Adaptive English Learning</h4>
                     </div>
                 </div>
-                <div class="col-lg-6 offset-lg-3">
+                <!-- <div class="col-lg-6 offset-lg-3">
                     <form id="search" action="#" method="GET">
                         <div class="row">
                             <div class="col-lg-6 col-sm-6">
@@ -725,10 +735,10 @@ https://templatemo.com/tm-570-chain-app-dev
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> -->
             </div>
             <div class="row">
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                     <div class="footer-widget">
                         <h4>Contact Us</h4>
                         <p>Rio de Janeiro - RJ, 22795-008, Brazil</p>
@@ -779,10 +789,10 @@ https://templatemo.com/tm-570-chain-app-dev
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore.</p>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-12">
                     <div class="copyright-text">
-                        <p>Copyright © 2022 Adaptive English Lessons. All Rights Reserved.
+                        <p>Copyright © 2022 Adaptive English Learning. All Rights Reserved.
                         </p>
                     </div>
                 </div>
