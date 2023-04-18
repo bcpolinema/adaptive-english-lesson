@@ -12,6 +12,7 @@ class Exercise extends Model
     protected $fillable = [
         'level_id',
         'question',
+        'image',
         'option_a',
         'option_b',
         'option_c',

@@ -24,10 +24,15 @@
                                 <div class="block_content">
                                     <div class="row">
                                         <div class="col">
+                                            <!-- Score -->
                                             @forelse($level_list as $levelst)
                                             <h2 style="text-align: center;">Score
                                                 {{ ( $levelst->stdlearningStudent->isEmpty() || $levelst->stdlearningStudent[0]->score == null ) ? '0': $levelst->stdlearningStudent[0]->score }}/100
                                             </h2>
+                                            <!-- End Score -->
+
+                                            <!-- Level Action -->
+                                            @if($current_level != null)
                                             <button class="button-level" id="{{ $levelst->id }}" type="button"
                                                 value="{{ $levelst->id }}" {{ 
                                                     ( 
@@ -36,7 +41,17 @@
                                                         $levelst->title == 1 
                                                     )  ? '' : 'disabled' 
                                                 }}>
-                                                Level {{ $levelst->title }}</button>
+                                                {{ $levelst->title }}</button>
+                                            @else
+                                            <button class="button-level" id="{{ $levelst->id }}" type="button"
+                                                value="{{ $levelst->id }}" {{ 
+                                                    ( 
+                                                        $levelst->title == 1 
+                                                    )  ? '' : 'disabled' }}>
+                                                {{ $levelst->title }}</button>
+                                            @endif
+                                            <!-- End Level Action -->
+
                                             @empty
                                             <code>no list level available at the moment</code>
                                             @endforelse

@@ -39,9 +39,11 @@ class StudentController extends Controller
                         ->where('m_std_learnings.user_id', '=', Auth::user()->id)
                         ->orderBy('m_std_learnings.ts_start', 'desc')
                         ->first();
+
         if($current_level == null){
             $current_level = 0;
         }
+        
         // return response()->json(['current_level' => $current_level]);
         return view('student.level_list', compact('level_list', 'current_level'));
     }

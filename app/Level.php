@@ -15,6 +15,7 @@ class Level extends Model
         'subject_id',
         'topic_id',
         'is_pretest',
+        'is_termination',
         'content',
         'video',
         'audio',

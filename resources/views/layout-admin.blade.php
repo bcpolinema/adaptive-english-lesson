@@ -18,7 +18,8 @@
     <!-- Bootstrap -->
     <link href="{{ asset('gentelella/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{ asset('gentelella/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- NProgress -->
     <link href="{{ asset('gentelella/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
@@ -43,6 +44,40 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+
+    <style>
+    .img-container {
+        text-align: center;
+    }
+
+    .btn-edit {
+        font-size: 18px;
+        padding: 5;
+        border: none;
+        background: none;
+        color: black;
+    }
+
+    .btn-edit:hover {
+        color: #00FF00;
+        transition: 0.1s;
+        border: none;
+    }
+
+    .btn-delete {
+        font-size: 18px;
+        padding: 5;
+        border: none;
+        background: none;
+        color: black;
+    }
+
+    .btn-delete:hover {
+        color: #FF0000;
+        transition: 0.1s;
+        border: none;
+    }
+    </style>
 </head>
 
 <body class="nav-md">
@@ -65,7 +100,10 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title"><i class="fa fa-book"></i> <span>A E L</span></a>
+                        <a href="/" class="site_title"><i class="fas fa-book"></i><span
+                                style="font-size:14px;">&nbsp;&nbsp;Adaptive
+                                English Learning</span>
+                        </a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -73,7 +111,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="{{ asset('images/img.jpg') }}" alt="..." class="img-circle profile_img">
+                            <img src="{{ asset('images/user.png') }}" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
@@ -91,16 +129,25 @@
                         <div class="menu_section">
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li><a href="/"><i class="fa fa-home"></i> Home </a>
+                                <li><a href="/"><i class="fas fa-home" style='font-size:20px'></i> &nbsp;&nbsp;Home
+                                    </a>
                                 </li>
-                                <li><a href="{{route('admin.exercise')}}"><i class="fa fa-edit"></i> Exercises
+                                <li><a href="{{route('admin.exercise')}}"><i class="fas fa-question-circle"
+                                            style='font-size:20px'></i> &nbsp;&nbsp;Exercises
                                         </span></a>
                                 </li>
-                                <li><a href="{{route('admin.level')}}"><i class="fa fa-signal"></i> Levels </a>
+                                <li><a href="{{route('admin.route')}}"><i class="fas fa-route"
+                                            style='font-size:20px'></i> &nbsp;&nbsp;Route
+                                        </span></a>
                                 </li>
-                                <li><a href="{{route('admin.topic')}}"><i class="fa fa-tasks"></i> Topics </a>
+                                <li><a href="{{route('admin.level')}}"><i class="fas fa-signal"
+                                            style='font-size:16px'></i> &nbsp;&nbsp;Levels </a>
                                 </li>
-                                <li><a href="{{route('admin.subject')}}"><i class="fa fa-table"></i> Subjects </a>
+                                <li><a href="{{route('admin.topic')}}"><i class="fas fa-tasks"
+                                            style='font-size:20px'></i> &nbsp;&nbsp;Topics </a>
+                                </li>
+                                <li><a href="{{route('admin.subject')}}"><i class="fas fa-table"
+                                            style='font-size:20px'></i> &nbsp;&nbsp;Subjects </a>
                                 </li>
                             </ul>
                         </div>
@@ -121,21 +168,21 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    <img src="{{ asset('images/img.jpg') }}" alt="">
+                                    <img src="{{ asset('images/user.png') }}" alt="">
                                     @auth
                                     {{ Auth::user()->name }}
                                     @endauth
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Profile</a></li>
+                                    <!-- <li><a href="javascript:;"> Profile</a></li>
                                     <li>
                                         <a href="javascript:;">
                                             <span class="badge bg-red pull-right">50%</span>
                                             <span>Settings</span>
                                         </a>
                                     </li>
-                                    <li><a href="javascript:;">Help</a></li>
+                                    <li><a href="javascript:;">Help</a></li> -->
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i> Log
                                             Out</a></li>
@@ -157,7 +204,7 @@
             <!-- footer content -->
             <footer class="footer_fixed">
                 <div class="pull-right">
-                    Adaptive English Lesson by <a href="https://colorlib.com">Politeknik Negeri Malang</a>
+                    Adaptive English Learning by <a href="https://www.polinema.ac.id/">Politeknik Negeri Malang</a>
                 </div>
                 <div class="clearfix"></div>
             </footer>
@@ -218,6 +265,13 @@
     <script src="{{ asset('gentelella/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
     <script src="{{ asset('gentelella/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('gentelella/pdfmake/build/vfs_fonts.js') }}"></script>
+    <!-- <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> -->
 
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('build/js/custom.min.js') }}"></script>

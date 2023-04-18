@@ -42,7 +42,7 @@ class AdminController extends Controller
 
     public function topic()
     {
-        $subjects = Subject::all('id', 'name');
+        $subjects = Subject::all();
         return view('admin.topic', compact('subjects'));
     }
 
@@ -53,12 +53,42 @@ class AdminController extends Controller
         return response()->json(['details' => $topic_details]);
     }
 
-    public function level()
+    public function route()
     {
         $subjects = Subject::all('id', 'name');
         $topics = Topic::with('subject')->get();
         $levels = Level::with('topic')->get();
+        return view('admin.route', compact('levels', 'subjects', 'topics'));
+    }
+
+    public function route_detail(Request $request)
+    {
+        $level_id = $request->level_id;
+        $level_details = Level::find($level_id);
+        return response()->json(['details' => $level_details]);
+    }
+
+    public function level()
+    {
+        $subjects = Subject::all();
+        $topics = Topic::with('subject')->get();
+        $levels = Level::with('topic')->get();
         return view('admin.level', compact('levels', 'subjects', 'topics'));
+    }
+
+    public function getTopicBySubject(Request $request)
+    {
+        $subject_id = $request->input('subject_id');
+        $subtopics = Topic::where('subject_id', $subject_id)->with('subject')->get();
+        return response()->json($subtopics);
+    }
+
+    public function getFTopicByFSubject(Request $request)
+    {
+        $subject_name = $request->input('subject_name');
+        $subject = Subject::where('name', $subject_name)->first();
+        $topics = Topic::where('subject_id', $subject->id)->with('subject')->get();
+        return response()->json($topics);
     }
 
     public function level_detail(Request $request)
@@ -144,8 +174,8 @@ class AdminController extends Controller
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
-                <button id="edit_subject_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_subject_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                <button id="edit_subject_btn" type="button" class="btn-edit" data-id="' . $row['id'] . '"><i class="fas fa-edit"></i></button>
+                <button id="delete_subject_btn"  type="button" class="btn-delete" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></button>
               </div>';
             })
             ->rawColumns(['actions'])
@@ -257,17 +287,18 @@ class AdminController extends Controller
 
     public function topic_list()
     {
-        $topics = Topic::with('subject');
+        $topics = Topic::with('subject')->select('m_topics.*');
+
         return DataTables::of($topics)
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
-                <button id="edit_topic_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_topic_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                <button id="edit_topic_btn" type="button" class="btn-edit" data-id="' . $row['id'] . '"><i class="fas fa-edit"></i></button>
+                <button id="delete_topic_btn"  type="button" class="btn-delete" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></button>
               </div>';
             })
-            ->addColumn('subject_name', function (Topic $topic) {
-                return $topic->subject->name;
+            ->addColumn('subject_name', function ($topics) {
+                return $topics->subject->name;
             })
             ->rawColumns(['actions'])
             ->make(true);
@@ -337,15 +368,12 @@ class AdminController extends Controller
             'subject_id' => 'required|string',
             'topic_id' => 'required|string',
             'is_pretest' => 'string',
+            'is_termination' => 'string',
             'content' => 'required|string',
             'video' => 'mimes:mp4',
             'audio' => 'mimes:mp3',
             'image' => 'mimes:jpeg,jpg,png',
             'youtube' => 'url',
-            'route1' => 'required|numeric',
-            'route2' => 'required|numeric',
-            'route3' => 'required|numeric',
-            'route4' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -388,6 +416,7 @@ class AdminController extends Controller
                     'subject_id' => $request->subject_id,
                     'topic_id' => $request->topic_id,
                     'is_pretest' => $request->is_pretest,
+                    'is_termination' => $request->is_termination,
                     'content' => $request->content,
                     'audio' => $audio_name,
                     'video' => $video_name,
@@ -399,11 +428,6 @@ class AdminController extends Controller
                     'route4' => $request->route4,
                 ]);
 
-                DB::statement('UPDATE m_levels SET route1 = id WHERE route1=0');
-                DB::statement('UPDATE m_levels SET route2 = id WHERE route2=0');
-                DB::statement('UPDATE m_levels SET route3 = id WHERE route3=0');
-                DB::statement('UPDATE m_levels SET route4 = id WHERE route4=0');
-
                 return response()->json(['code' => 1, 'msg' => 'BERHASIL menambahkan soal baru.']);
             } else {
                 return response()->json(['code' => 0, 'msg' => 'GAGAL menambahkan soal baru.']);
@@ -411,15 +435,17 @@ class AdminController extends Controller
         }
     }
 
-    public function level_list()
+    public function level_list(Request $request)
     {
-        $levels = ViewLevelRoute::with(['subject', 'topic']);
+
+            $levels = ViewLevelRoute::query()->with(['subject', 'topic'])->select('v_level_title.*');;
+
             return DataTables::of($levels)
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
-                <button id="edit_level_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_level_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                <button id="edit_level_btn" type="button" class="btn-edit" data-id="' . $row['id'] . '"><i class="fas fa-edit"></i></button>
+                <button id="delete_level_btn"  type="button" class="btn-delete" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></button>
                 </div>';
             })
             ->addColumn('subject_name', function (ViewLevelRoute $level) {
@@ -428,8 +454,11 @@ class AdminController extends Controller
             ->addColumn('topic_title', function (ViewLevelRoute $level) {
                 return $level->topic->title;
             })
+          
             ->rawColumns(['actions'])
             ->make(true);
+
+       
     }
 
     public function updateLevel(Request $request)
@@ -446,15 +475,12 @@ class AdminController extends Controller
             'subject_id' => 'required|string',
             'topic_id' => 'required|string',
             'is_pretest' => 'numeric',
+            'is_termination' => 'numeric',
             'content' => 'required|string',
             'video' => 'mimes:mp4',
             'audio' => 'mimes:mp3',
             'image' => 'mimes:jpeg,jpg,png',
             'youtube' => 'url',
-            'route1' => 'required',
-            'route2' => 'required',
-            'route3' => 'required',
-            'route4' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -501,21 +527,13 @@ class AdminController extends Controller
                 'subject_id' => $request->subject_id,
                 'topic_id' => $request->topic_id,
                 'is_pretest' => $request->is_pretest,
+                'is_termination' => $request->is_termination,
                 'content' => $request->content,
                 'audio' => $audio_name,
                 'video' => $video_name,
                 'image' => $image_name,
                 'youtube' => $request->youtube,
-                'route1' => $request->route1,
-                'route2' => $request->route2,
-                'route3' => $request->route3,
-                'route4' => $request->route4,
             ]);
-
-            DB::statement('UPDATE m_levels SET route1 = id WHERE route1=0');
-            DB::statement('UPDATE m_levels SET route2 = id WHERE route2=0');
-            DB::statement('UPDATE m_levels SET route3 = id WHERE route3=0');
-            DB::statement('UPDATE m_levels SET route4 = id WHERE route4=0');
 
             return response()->json();
         }
@@ -527,7 +545,7 @@ class AdminController extends Controller
         $query = Level::find($id);
 
         // Hapus Image
-        if (Storage::delete('public/images/' . $query->image)) {
+        if (Storage::delete('public/image/' . $query->image)) {
 			Level::destroy($id);
 		}
         // Hapus Video
@@ -554,6 +572,91 @@ class AdminController extends Controller
     */
 
     /*
+        Start of Route
+    */
+
+
+    public function addRoute(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'route1' => 'required|numeric',
+            'route2' => 'required|numeric',
+            'route3' => 'required|numeric',
+            'route4' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            Level::insert([
+                'route1' => $request->route1,
+                'route2' => $request->route2,
+                'route3' => $request->route3,
+                'route4' => $request->route4,
+            ]);
+
+            DB::statement('UPDATE m_levels SET route1 = id WHERE route1=0');
+            DB::statement('UPDATE m_levels SET route2 = id WHERE route2=0');
+            DB::statement('UPDATE m_levels SET route3 = id WHERE route3=0');
+            DB::statement('UPDATE m_levels SET route4 = id WHERE route4=0');
+
+            return response()->json(['code' => 1, 'msg' => 'BERHASIL menambahkan route baru.']);
+            return response()->json(['code' => 0, 'msg' => 'GAGAL menambahkan route baru.']);   
+        }
+    }
+    
+
+    public function route_list()
+    {
+        $levels = ViewLevelRoute::with(['subject', 'topic']);
+            return DataTables::of($levels)
+            ->addColumn('actions', function ($row) {
+                return
+                    '<div class="btn-group" role="group">
+                <button id="edit_route_btn" type="button" class="btn-edit" data-id="' . $row['id'] . '"><i class="fas fa-edit"></i></button>
+                </div>';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
+    public function updateRoute(Request $request)
+    {
+        $level_id = $request->level_id;
+        $level = Level::find($level_id);
+
+        $validator = Validator::make($request->all(), [
+            'route1' => 'required',
+            'route2' => 'required',
+            'route3' => 'required',
+            'route4' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+
+            $level->update([
+                'route1' => $request->route1,
+                'route2' => $request->route2,
+                'route3' => $request->route3,
+                'route4' => $request->route4,
+            ]);
+
+            DB::statement('UPDATE m_levels SET route1 = id WHERE route1=0');
+            DB::statement('UPDATE m_levels SET route2 = id WHERE route2=0');
+            DB::statement('UPDATE m_levels SET route3 = id WHERE route3=0');
+            DB::statement('UPDATE m_levels SET route4 = id WHERE route4=0');
+
+            return response()->json();
+        }
+    }
+
+    /*
+        End of Route
+    */
+
+    /*
         Start of Exercise
     */
 
@@ -562,6 +665,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'level_id' => 'required|integer',
             'question' => 'required|string',
+            'image' => 'mimes:jpeg,jpg,png,gif',
             'option_a' => 'required|string',
             'option_b' => 'required|string',
             'option_c' => 'required|string',
@@ -573,24 +677,35 @@ class AdminController extends Controller
 
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        } else {
-            //Create exercise
-            $exercise = new Exercise();
-            $exercise->level_id = $request->level_id;
-            $exercise->question = $request->question;
-            $exercise->option_a = $request->option_a;
-            $exercise->option_b = $request->option_b;
-            $exercise->option_c = $request->option_c;
-            $exercise->option_d = $request->option_d;
-            $exercise->option_e = $request->option_e;
-            $exercise->answer_key = $request->answer_key;
-            $exercise->weight = $request->weight;
-            $query = $exercise->save();
-
-            if (!$query) {
-                return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+        }else{
+            if ($request->hasFile('image')) {
+                $image_path = 'exercise_image/';
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $this->image_upload = $image->storeAs($image_path, $image_name, 'public');
             } else {
-                return response()->json(['code' => 1, 'msg' => 'New Exercise has been successfully saved']);
+                $this->image_upload = true;
+            }
+
+            if ($this->image_upload) {
+                $exercise = new Exercise();
+                $exercise->level_id = $request->level_id;
+                $exercise->question = $request->question;
+                $exercise->image = $image_name;
+                $exercise->option_a = $request->option_a;
+                $exercise->option_b = $request->option_b;
+                $exercise->option_c = $request->option_c;
+                $exercise->option_d = $request->option_d;
+                $exercise->option_e = $request->option_e;
+                $exercise->answer_key = $request->answer_key;
+                $exercise->weight = $request->weight;
+                $query = $exercise->save();
+
+                if (!$query) {
+                    return response()->json(['code' => 0, 'msg' => 'Something went wrong']);
+                } else {
+                    return response()->json(['code' => 1, 'msg' => 'New Exercise has been successfully saved']);
+                }
             }
         }
     }
@@ -603,8 +718,8 @@ class AdminController extends Controller
             ->addColumn('actions', function ($row) {
                 return
                     '<div class="btn-group" role="group">
-                <button id="edit_exercise_btn" type="button" class="btn btn-default" data-id="' . $row['id'] . '">Edit</button>
-                <button id="delete_exercise_btn"  type="button" class="btn btn-default" data-id="' . $row['id'] . '">Delete</button>
+                <button id="edit_exercise_btn" type="button" class="btn-edit" data-id="' . $row['id'] . '"><i class="fas fa-edit"></i></button>
+                <button id="delete_exercise_btn"  type="button" class="btn-delete" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></button>
                 </div>';
             })
             ->addColumn('level_title', function (Exercise $exercise) {
@@ -623,10 +738,14 @@ class AdminController extends Controller
     public function updateExercise(Request $request)
     {
         $exercise_id = $request->exercise_id;
+        $exercise = Exercise::find($exercise_id);
+        
+        $image_name = '';
 
         $validator = Validator::make($request->all(), [
             'level_id' => 'required|integer',
             'question' => 'required|string',
+            'image' => 'mimes:jpeg,jpg,png,gif',
             'option_a' => 'required|string',
             'option_b' => 'required|string',
             'option_c' => 'required|string',
@@ -639,10 +758,23 @@ class AdminController extends Controller
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
+             // Update Image
+             if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $image->storeAs('public/exercise_image', $image_name);
+                if ($exercise->image) {
+                    Storage::delete('public/exercise_image/' . $exercise->image);
+                }
+            } else {
+                $image_name = $request->exercise_image;
+            }
+            
             //Update exercise
             $exercise = Exercise::find($exercise_id);
             $exercise->level_id = $request->level_id;
             $exercise->question = $request->question;
+            $exercise->image = $image_name;
             $exercise->option_a = $request->option_a;
             $exercise->option_b = $request->option_b;
             $exercise->option_c = $request->option_c;
@@ -657,27 +789,29 @@ class AdminController extends Controller
             } else {
                 return response()->json(['code' => 1, 'msg' => 'Exercise has been successfully updated']);
             }
-
-
         }
     }
 
     public function deleteExercise(Request $request)
     {
         $id = $request->id;
-        $query = Exercise::find($id)->delete();
+        $query = Exercise::find($id);
 
-        if($query){
-            return response()->json(['code'=>1, 'msg'=>'Exercise has been deleted from database']);
-        }else{
+        // Hapus Image
+        if (Storage::delete('public/exercise_image/' . $query->image)) {
+			Exercise::destroy($id);
+		}
+
+        $query->delete();
+
+        if(!$query){
             return response()->json(['code'=>0, 'msg'=>'Something went wrong']);
+        }else{
+            return response()->json(['code'=>1, 'msg'=>'Exercise has been deleted from database']);
         }
     }
     
     /*
         End of Exercise
     */
-    
-    
-    
 }

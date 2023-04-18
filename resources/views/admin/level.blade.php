@@ -13,28 +13,24 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <br />
-                <form id="add_level" action="{{route('admin.add.level')}}" method="POST"
-                    class="form-label-left input_mask" enctype="multipart/form-data">
+                <form id="add_level" action="{{route('admin.add.level')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="col-md-6 col-sm-6 form-group">
-                        <label for="subject_id">Choose Subject</label>
-                        <select class="form-control" name="subject_id">
+                    <div class="col-md-6 form-group">
+                        <br>
+                        <label for="subject_id">Subject</label>
+                        <select class="form-control" name="subject_id" id="subject_id">
                             <option selected disabled> -- Choose Subject --</option>
                             @foreach ($subjects as $subject)
-                            <option value="{{ $subject-> {'id'} }}"> {{ $subject-> {'name'} }} </option>
+                            <option value="{{ $subject->id }}"> {{ $subject->name }} </option>
                             @endforeach
                         </select>
-                        <span class="text-danger error-text topic_id_error"></span>
+                        <span class="text-danger error-text subject_id_error"></span>
                     </div>
-                    <div class="col-md-6 col-sm-6 form-group">
+                    <div class="col-md-6 form-group">
+                        <br>
                         <label for="topic_id">Choose Topic</label>
-                        <select class="form-control" name="topic_id">
-                            <option selected disabled> -- Choose Topic --</option>
-                            @foreach ($topics as $topic)
-                            <option value="{{ $topic->id }}">( {{ $topic->subject->name }} ) {{ $topic->title }}
-                            </option>
-                            @endforeach
+                        <select class="form-control" name="topic_id" id="topic_id">
+                            <option value=""> -- Choose Topic --</option>
                         </select>
                         <span class="text-danger error-text topic_id_error"></span>
                     </div>
@@ -45,11 +41,17 @@
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text title_error"></span>
                     </div>
-                    <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-6 col-sm-6 form-group">
                         <input type="checkbox" name="is_pretest" value="1">
                         <input type="hidden" name="is_pretest" value="0">
                         <label for="is_pretest"> Is Pretest</label><br>
                         <span class="text-danger error-text is_pretest_error"></span>
+                    </div>
+                    <div class="col-md-6 col-sm-6 form-group">
+                        <input type="checkbox" name="is_termination" value="1">
+                        <input type="hidden" name="is_terminaton" value="0">
+                        <label for="is_termination"> Is Termination</label><br>
+                        <span class="text-danger error-text is_termination_error"></span>
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
                         <label for="content">Level Content</label>
@@ -83,53 +85,10 @@
                         <span class="fa fa-play form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text youtube_error"></span>
                     </div>
-                    <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <label for="">Route 1</label>
-                        <select class="form-control" name="route1">
-                            <option selected disabled> -- Route 1 --</option>
-                            @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> Level {{ $level-> {'title'} }} (
-                                {{ $level->topic->title }} ) </option>
-                            @endforeach
-                            <option value="0"> -- It Self --</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <label for="">Route 2</label>
-                        <select class="form-control" name="route2">
-                            <option selected disabled> -- Route 2 --</option>
-                            @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> Level {{ $level-> {'title'} }} (
-                                {{ $level->topic->title }} ) </option>
-                            @endforeach
-                            <option value="0"> -- It Self --</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <label for="">Route 3</label>
-                        <select class="form-control" name="route3">
-                            <option selected disabled> -- Route 3 --</option>
-                            @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> Level {{ $level-> {'title'} }} (
-                                {{ $level->topic->title }} )</option>
-                            @endforeach
-                            <option value="0"> -- It Self --</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-12 form-group has-feedback">
-                        <label for="">Route 4</label>
-                        <select class="form-control" name="route4">
-                            <option selected disabled> -- Route 4 --</option>
-                            @foreach($levels as $level)
-                            <option value="{{ $level-> {'id'} }}"> Level {{ $level-> {'title'} }} (
-                                {{ $level->topic->title }} ) </option>
-                            @endforeach
-                            <option value="0"> -- It Self --</option>
-                        </select>
-                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group row">
                         <div class="col-md-9 col-sm-9 offset-md-3">
+                            <br>
                             <button class="btn btn-primary" type="reset">Reset</button>
                             <button type="submit" class="btn btn-success">Add</button>
                         </div>
@@ -139,6 +98,27 @@
         </div>
     </div>
 </div>
+<div class="col-md-6 form-group">
+    <label for="subject_name">Filter Subject (Section)</label>
+    <select class="form-control" name="subject_name" id="subject_name">
+        <option value=""> All </option>
+        @foreach ($subjects as $subject)
+        <option value="{{ $subject->name }}"> {{ $subject->name }} </option>
+        @endforeach
+    </select>
+</div>
+<div class="col-md-6 form-group">
+    <label for="topic_name">Filter Topic</label>
+    <select class="form-control" name="topic_name" id="topic_name">
+        <option value=""> All </option>
+    </select>
+</div>
+<!-- <div class="col-md-4 form-group">
+    <label for="title_name">Filter Level</label>
+    <select class="form-control" name="title_name" id="title_name">
+        <option value=""> All </option>
+    </select>
+</div> -->
 <div class="row">
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
@@ -158,10 +138,6 @@
                                 <th class="column-title">Section</th>
                                 <th class="column-title">Topic</th>
                                 <th class="column-title">Level</th>
-                                <th class="column-title">Route 1</th>
-                                <th class="column-title">Route 2</th>
-                                <th class="column-title">Route 3</th>
-                                <th class="column-title">Route 4</th>
                                 <th class="column-title">Action</th>
                             </tr>
                         </thead>
@@ -179,11 +155,84 @@
 @section('script')
 <script>
 $(document).ready(function() {
-    var i = 1;
+    // Get Data Topic By Data Subject ( Insert Data )
+    $('#subject_id').change(function() {
+        var subject_id = $(this).val();
+        if (subject_id) {
+            $.ajax({
+                url: '{{ route("admin.level.get.topic") }}',
+                type: 'GET',
+                data: {
+                    subject_id: subject_id
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#topic_id').empty();
+                    $('#topic_id').append(
+                        '<option value=""> -- Choose Topic --</option>');
+                    $.each(data, function(index, topic) {
+                        $('#topic_id').append('<option value="' + topic.id +
+                            '">' + "(" + topic.subject.name + ")" + " " +
+                            topic.title + '</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    // Get Filtering Topic By Filtering Subject
+    $('#subject_name').change(function() {
+        var subject_name = $(this).val();
+        if (subject_name) {
+            $.ajax({
+                url: '{{ route("admin.level.get.f.topic") }}',
+                type: 'GET',
+                data: {
+                    subject_name: subject_name
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#topic_name').empty();
+                    $('#topic_name').append(
+                        '<option value=""> Choose Topic </option>');
+                    $.each(data, function(index, topic) {
+                        $('#topic_name').append('<option value="' + topic.title +
+                            '">' + "(" + topic.subject.name + ")" + " " + topic
+                            .title + '</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    // Get Filtering Title By Filtering Topic
+    $('#topic_name').change(function() {
+        var topic_name = $(this).val();
+        if (topic_name) {
+            $.ajax({
+                url: '{{ route("admin.level.get.f.title") }}',
+                type: 'GET',
+                data: {
+                    topic_name: topic_name
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#title_name').empty();
+                    $('#title_name').append(
+                        '<option value=""> Choose Level </option>');
+                    $.each(data.levels, function(title) {
+                        $('#title_name').append('<option value="' + title +
+                            '">' + title + '</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    // Insert Data
     $("#add_level").on("submit", function(e) {
         e.preventDefault();
         var form = this;
-
         $.ajax({
             url: $(form).attr("action"),
             method: $(form).attr("method"),
@@ -214,18 +263,19 @@ $(document).ready(function() {
         });
     });
 
-
-    $('#level_table').DataTable({
+    // DataTables
+    var table = $('#level_table').DataTable({
         processing: true,
-        info: true,
+        serverSide: true,
+        pageLength: 25,
         ajax: "{{ route('admin.level.list') }}",
         columns: [{
                 data: "id",
                 render: function(data, type, row, meta) {
-                    return i++;
+                    return meta.row + 1;
                 }
-            },
 
+            },
             {
                 data: "subject_name",
                 name: "subject.name"
@@ -239,37 +289,34 @@ $(document).ready(function() {
                 name: "title"
             },
             {
-                data: "title_route1",
-                render: function(data, type, row, meta) {
-                    return "Level " + data;
-                }
-            },
-            {
-                data: "title_route2",
-                render: function(data, type, row, meta) {
-                    return "Level " + data;
-                }
-            },
-            {
-                data: "title_route3",
-                render: function(data, type, row, meta) {
-                    return "Level " + data;
-                }
-            },
-            {
-                data: "title_route4",
-                render: function(data, type, row, meta) {
-                    return "Level " + data;
-                }
-            },
-            {
                 data: "actions",
                 name: "actions"
             },
         ]
     });
 
+    // Add column filtering for subject_name column
+    $('#subject_name').on('change', function() {
+        table.column('subject.name:name')
+            .search(this.value)
+            .draw();
+    });
 
+    // Add column filtering for topic_title column
+    $('#topic_name').on('change', function() {
+        table.column('topic.title:name')
+            .search(this.value)
+            .draw();
+    });
+
+    // Add column filtering for title_level column
+    $('#title_name').on('change', function() {
+        table.column('title:name')
+            .search(this.value)
+            .draw();
+    });
+
+    // View Edit Data
     $(document).on('click', '#edit_level_btn', function() {
         const level_id = $(this).data('id');
         const url = '{{ route("admin.level.detail") }}';
@@ -281,8 +328,13 @@ $(document).ready(function() {
             $('.edit_level_modal').find('input[name="title"]').val(data.details.title);
             $('.edit_level_modal').find('select[name="subject_id"]').val(data.details
                 .subject_id);
-            $('.edit_level_modal').find('select[name="topic_id"]').val(data.details.topic_id);
+            $('.edit_level_modal').find('select[name="topic_id"]').val(data.details
+                .topic_id);
             $('.edit_level_modal').find('textarea[name="content"]').val(data.details.content);
+            $('.edit_level_modal').find('input[name="is_pretest"]').prop('checked', data.details
+                .is_pretest);
+            $('.edit_level_modal').find('input[name="is_termination"]').prop('checked', data
+                .details.is_termination);
             $('.edit_level_modal').find("#image").html(
                 `<img src="storage/image/${data.details.image}" width="260" height="120">`);
             $('.edit_level_modal').find("#video").html(
@@ -305,6 +357,7 @@ $(document).ready(function() {
         }, 'json');
     });
 
+    // Update Data
     $('#update_level_form').on('submit', function(e) {
         e.preventDefault();
         var form = this;
@@ -337,6 +390,7 @@ $(document).ready(function() {
         });
     });
 
+    // Delete Data
     $(document).on('click', '#delete_level_btn', function(e) {
         e.preventDefault();
         let id = $(this).data('id');
