@@ -33,6 +33,9 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+
+    <!-- Graph CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('arg-graph-1.1/arg-graph.min.css') }}" />
 </head>
 
 <style>
@@ -175,9 +178,107 @@ div.polaroid {
 }
 
 
+.container {
+    height: 100px;
+}
+
 .start {
     margin: auto auto;
     color: white;
+}
+
+h3,
+button,
+#newItem,
+#output {
+    margin: 20px 20px 5px 20px;
+}
+
+#output {
+    white-space: pre;
+    font-family: monospace;
+}
+
+.arg-Graph_item {
+    text-align: center;
+    text-transform: uppercase;
+    background-image: none;
+    padding: 4px 10px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    color: white;
+    border-color: transparent;
+    background: #26c6da;
+}
+
+ol.list-topic {
+    list-style: none;
+    counter-reset: list;
+    padding: 0 1rem;
+}
+
+p.list-topic {
+    margin: 0;
+    line-height: 1.6;
+}
+
+h3.list-topic {
+    display: flex;
+    align-items: baseline;
+    margin: 0 0 1rem;
+    color: rgb(70 70 70);
+}
+
+h3.list-topic::before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    content: counter(list);
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: #025773;
+    color: white;
+}
+
+li.list-topic {
+    --stop: calc(100% / var(--length) * var(--i));
+    --l: 62%;
+    --l2: 88%;
+    --h: calc((var(--i) - 1) * (180 / var(--length)));
+    --c1: hsl(var(--h), 71%, var(--l));
+    --c2: hsl(var(--h), 71%, var(--l2));
+
+    position: relative;
+    counter-increment: list;
+    max-width: 500rem;
+    margin: 2rem auto;
+    padding: 2rem 1rem 1rem;
+    box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background-color: white;
+}
+
+li.list-topic::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to left, #025773, #2c3e50);
+}
+
+@media (min-width: 40em) {
+    li.list-topic {
+        margin: 3rem auto;
+        padding: 3rem 2rem 2rem;
+    }
 }
 </style>
 
@@ -325,6 +426,12 @@ div.polaroid {
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('build/js/custom.min.js') }}"></script>
 
+
+    <!-- Graph -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('arg-graph-1.1/arg-graph.min.js') }}" type="text/javascript"></script>
 
     <script>
     $.ajaxSetup({

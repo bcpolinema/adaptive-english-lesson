@@ -22,15 +22,20 @@ class StudentController extends Controller
     }
 
     public function subject(Request $request){
-        $topics = Topic::where('subject_id', '=', $request->id)
-                        ->get();
-        return view('student.topic', compact('topics'));
+        $topics = Topic::where('subject_id', '=', $request->id)->with('subject')->get();
+        $subject_name = Subject::where('id', '=', $request->id)->pluck('name')->first();
+        return view('student.topic', compact('topics', 'subject_name'));
     }
 
     public function level_list(Request $request){
         $level_list = Level::where('topic_id', '=', $request->tpc_id)
-                    ->with('stdlearningStudent')
+                    ->with('stdlearningStudent', 'topic')
                     ->get();
+        
+        $subjects = Topic::where('id', '=', $request->tpc_id)->with('subject')->first();
+        $subjectName = $subjects->subject->name;
+
+        $topicName = Topic::where('id', '=', $request->tpc_id)->pluck('title')->first();
         // return response()->json(['levels' => $level_list]);
         
         // get latest level using join
@@ -45,7 +50,7 @@ class StudentController extends Controller
         }
         
         // return response()->json(['current_level' => $current_level]);
-        return view('student.level_list', compact('level_list', 'current_level'));
+        return view('student.level_list', compact('level_list', 'current_level', 'topicName', 'subjectName'));
     }
 
     public function level($std_id, $id){

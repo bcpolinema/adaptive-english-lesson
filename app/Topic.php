@@ -23,6 +23,12 @@ class Topic extends Model
         return $this->belongsTo(Subject::class);
     }
 
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+    
+
     public function viewlevel()
     {
         return $this->hasMany(ViewLevelRoute::class);
@@ -32,4 +38,5 @@ class Topic extends Model
     {
         return $this->hasMany(Level::class);
     }
+
 }
