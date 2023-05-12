@@ -100,8 +100,9 @@ class AdminController extends Controller
 
     public function exercise()
     {
+        $subjects = Subject::all();
         $levels = Level::with(['topic', 'subject'])->get();
-        return view('admin.exercise', compact('levels'));
+        return view('admin.exercise', compact('levels', 'subjects'));
     }
 
     public function exercise_detail(Request $request)

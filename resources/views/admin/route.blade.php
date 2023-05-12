@@ -48,6 +48,25 @@
                 <form id="add_route" action="{{route('admin.add.route')}}" method="POST"
                     class="form-label-left input_mask" enctype="multipart/form-data">
                     @csrf
+                    <!-- <div class="col-md-6 form-group">
+                        <br>
+                        <label for="subject_id">Subject</label>
+                        <select class="form-control" name="subject_id" id="subject_id">
+                            <option selected disabled> -- Choose Subject --</option>
+                            @foreach ($subjects as $subject)
+                            <option value="{{ $subject->id }}"> {{ $subject->name }} </option>
+                            @endforeach
+                        </select>
+                        <span class="text-danger error-text subject_id_error"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <br>
+                        <label for="topic_id">Choose Topic</label>
+                        <select class="form-control" name="topic_id" id="topic_id">
+                            <option value=""> -- Choose Topic --</option>
+                        </select>
+                        <span class="text-danger error-text topic_id_error"></span>
+                    </div> -->
                     <div class="col-md-3 col-sm-12 form-group has-feedback">
                         <label for="">Route 1</label>
                         <select class="form-control" name="route1">
@@ -141,6 +160,7 @@
 @section('script')
 <script>
 $(document).ready(function() {
+    // Get Data Topic By Data Subject ( Insert Data )
     // $('#subject_id').change(function() {
     //     var subject_id = $(this).val();
     //     if (subject_id) {
@@ -164,6 +184,7 @@ $(document).ready(function() {
     //         });
     //     }
     // });
+
     $("#add_route").on("submit", function(e) {
         e.preventDefault();
         var form = this;

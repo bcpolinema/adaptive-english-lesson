@@ -120,7 +120,7 @@
         </div>
     </div>
 </div>
-<!-- <div class="col-md-6 form-group">
+<div class="col-md-6 form-group">
     <label for="subject_name">Filter Subject (Section)</label>
     <select class="form-control" name="subject_name" id="subject_name">
         <option value=""> All </option>
@@ -134,7 +134,7 @@
     <select class="form-control" name="topic_name" id="topic_name">
         <option value=""> All </option>
     </select>
-</div> -->
+</div>
 <div class="row">
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">

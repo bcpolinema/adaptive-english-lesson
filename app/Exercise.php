@@ -30,7 +30,7 @@ class Exercise extends Model
     {
         return $this->belongsTo(Level::class);
     }
-
+    
     public function viewlevel()
     {
         return $this->belongsTo(ViewLevelRoute::class);

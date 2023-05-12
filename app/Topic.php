@@ -33,6 +33,7 @@ class Topic extends Model
     {
         return $this->hasMany(ViewLevelRoute::class);
     }
+    
 
     public function level()
     {
