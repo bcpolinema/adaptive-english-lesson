@@ -204,7 +204,8 @@
             <!-- footer content -->
             <footer class="footer_fixed">
                 <div class="pull-right">
-                    Adaptive English Learning by <a href="https://www.polinema.ac.id/">Politeknik Negeri Malang</a>
+                    Adaptive English Learning by <a href="https://www.polinema.ac.id/" target="_blank">Politeknik Negeri
+                        Malang</a>
                 </div>
                 <div class="clearfix"></div>
             </footer>

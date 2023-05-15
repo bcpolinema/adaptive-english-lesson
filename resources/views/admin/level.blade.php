@@ -41,6 +41,12 @@
                         <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text title_error"></span>
                     </div>
+                    <div class="col-md-12 form-group has-feedback">
+                        <strong><strong style="color:red;font-size:16px;">*</strong> Example input form level title
+                            :
+                            Level
+                            1</strong>
+                    </div>
                     <div class="col-md-6 col-sm-6 form-group">
                         <input type="checkbox" name="is_pretest" value="1">
                         <input type="hidden" name="is_pretest" value="0">

@@ -1,74 +1,81 @@
-@extends('layout-student')
+@extends('layout-master')
 @section('content')
-<h1>Exercise</h1>
-
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Question</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
+                <h2>Exercise</h2>
             </div>
             <div class="x_content" style="display: block;">
                 <form id="exercise_form" action="{{route('student.submit')}}" method="POST">
                     <input type="hidden" name="stdlrn_id" value="{{ $stdlrn->id }}">
                     @csrf
                     <?php $number = 1; ?>
-                    @forelse ($exercises as $exercise)
-                    <br>
-                    <div class="form-group row">
-                        <label>{{ $number }}. {{ $exercise->{'question'} }} </label>
-                        <?php $number++; ?>
-                        <div>
-                            <div class="radio">
-                                <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="A"> A.
-                                    {{ $exercise->{'option_a'} }}
-                                </label>
+                    <ol class="list-question" style="--length: 10" role="list">
+                        @forelse ($exercises as $exercise)
+                        <li class="list-question" style="--i: 5">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h3 class="list-question">{{ $number }}. {{ $exercise->{'question'} }} </h3>
+                                <?php $number++; ?>
+                                @if($exercise->image)
+                                <div class="img-container">
+                                    <img src="{{ url('storage/exercise_image/'.$exercise->{'image'}) }}" height="auto"
+                                        width="300px">
+                                </div>
+                                @endif
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="radio">
+                                        <label>
+                                            <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="A">
+                                            A.
+                                            {{ $exercise->{'option_a'} }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="B">
+                                            B.
+                                            {{ $exercise->{'option_b'} }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="C">
+                                            C.
+                                            {{ $exercise->{'option_c'} }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="D">
+                                            D.
+                                            {{ $exercise->{'option_d'} }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="E">
+                                            E.
+                                            {{ $exercise->{'option_e'} }}
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="radio">
-                                <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="B"> B.
-                                    {{ $exercise->{'option_b'} }}
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="C"> C.
-                                    {{ $exercise->{'option_c'} }}
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="D"> D.
-                                    {{ $exercise->{'option_d'} }}
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input name="soal[{{ $exercise->{'id'} }}]" type="radio" value="E"> E.
-                                    {{ $exercise->{'option_e'} }}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    @empty
-                    <code>no exercise available</code>
-                    @endforelse
-                    <div class="col-md-6 col-sm-6 form-group has-feedback">
+                        </li>
+                        @empty
+                        <code>no exercise available</code>
+                        @endforelse
+                    </ol>
+
+                    <div class="col-md-12 col-sm-12 form-group has-feedback">
                         <label for="comment">Comment</label>
                         <textarea type="text" rows="5" name="comment" class="form-control has-feedback-left"
                             placeholder="Comment"></textarea>
-                        <span class="fa fa-comment form-control-feedback left" aria-hidden="true"></span>
                         <span class="text-danger error-text comment_error"></span>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
-                        <div class="col-md-9 col-sm-9 offset-md-3">
+                        <div class="col-md-12 col-sm-12 offset-md-9 pull-right">
                             <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                     </div>

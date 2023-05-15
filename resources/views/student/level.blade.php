@@ -1,19 +1,12 @@
-@extends('layout-student')
+@extends('layout-master')
 @section('content')
 <div>
-    <h1>Content</h1>
+    
     @forelse ($levels as $level)
+    <h1>Content {{ $level->topic->title }}</h1>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <div class="x_title">
-                    <strong style="font-size:18px">{{ $level->topic->title }}</strong>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="x_content" style="display: block;">
                     @if(!empty($level->image))
                     <div class="polaroid">
@@ -42,34 +35,34 @@
                             @csrf
                             @section('script')
                             <script>
-                                $(document).ready(function() {
-                                    $('#take_exc_form').on('submit', function(e){
-                                        e.preventDefault();
-                                        var form = this;
-                                        $.ajax({
-                                            url: $(form).attr('action'),
-                                            method: $(form).attr('method'),
-                                            data: new FormData(form),
-                                            processData: false,
-                                            dataType: 'json',
-                                            contentType: false,
-                                            beforeSend: function () {
-                                                $(this).find('span.error-text').text('');
-                                            },
-                                            success: function (data) {
-                                                if (data.code == 0) {
-                                                    Swal.fire(
-                                                        'Oops!',
-                                                        'Something went wrong!.',
-                                                        'error'
-                                                    )
-                                                } else {
-                                                    window.location.href = '/s/'+ {{ $stdlrn->id }}+'/exercise/'+ {{ $level->id }}
-                                                }
+                            $(document).ready(function() {
+                                $('#take_exc_form').on('submit', function(e) {
+                                    e.preventDefault();
+                                    var form = this;
+                                    $.ajax({
+                                        url: $(form).attr('action'),
+                                        method: $(form).attr('method'),
+                                        data: new FormData(form),
+                                        processData: false,
+                                        dataType: 'json',
+                                        contentType: false,
+                                        beforeSend: function() {
+                                            $(this).find('span.error-text').text('');
+                                        },
+                                        success: function(data) {
+                                            if (data.code == 0) {
+                                                Swal.fire(
+                                                    'Oops!',
+                                                    'Something went wrong!.',
+                                                    'error'
+                                                )
+                                            } else {
+                                                window.location.href = '/s/'+ {{ $stdlrn->id }}+'/exercise/'+ {{ $level->id }}
                                             }
-                                        });
+                                        }
                                     });
                                 });
+                            });
                             </script>
                             @endsection
                             <button class="btn btn-success" role="button" type="submit">Take Exercise</button>
@@ -77,7 +70,7 @@
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
     </div>
     @empty
     <code>no level available</code>

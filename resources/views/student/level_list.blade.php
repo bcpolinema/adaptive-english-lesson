@@ -1,4 +1,4 @@
-@extends('layout-student')
+@extends('layout-master')
 @section('content')
 <div>
     <div class="row">
@@ -6,26 +6,18 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2><strong>( {{ $subjectName }} ) {{ $topicName }} - Level List</strong></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
+
                 </div>
                 <div class="x_content" style="display: block;">
                     <ul class="list-unstyled timeline">
                         <li>
                             <div class="block">
-                                <div class="tags">
-                                    <p class="tag">
-                                        <span>Status</span>
-                                    </p>
-                                </div>
+
                                 <div class="block_content">
                                     <div class="row">
                                         <div class="col">
                                             <div class="container">
-                                                <h2><strong>Specific Graph Progress</strong></h2>
+                                                <br>
                                                 <div class="arg-Graph">
                                                     <div id="item1" class="arg-Graph_item"
                                                         style="left: 135px; top: 18px" data-neighbors="item2,item3">
@@ -73,20 +65,21 @@
                                                         aliqua. Adipiscing diam donec adipiscing tristique risus.
                                                     </p>
                                                     <!-- Level Action -->
+                                                    <br>
                                                     @if($current_level != null)
                                                     <button class="button-level" id="{{ $levelst->id }}" type="button"
                                                         value="{{ $levelst->id }}" {{ 
                                                     ( 
                                                         ($current_level->level_id == $levelst->id || $current_level->next_learning == $levelst->id) 
                                                         || 
-                                                        $levelst->title == 1 
+                                                        $levelst->title == "Level 1" || $levelst->title == "1" || $levelst->title == "level 1"
                                                     )  ? '' : 'disabled' 
                                                     }}> {{ $levelst->title }}</button>
                                                     @else
                                                     <button class="button-level" id="{{ $levelst->id }}" type="button"
                                                         value="{{ $levelst->id }}" {{ 
                                                     ( 
-                                                        $levelst->title == 1 
+                                                        $levelst->title == "Level 1" || $levelst->title == "1" || $levelst->title == "level 1"
                                                     )  ? '' : 'disabled' }}>
                                                         {{ $levelst->title }}</button>
                                                     @endif

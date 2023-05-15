@@ -374,7 +374,7 @@ class AdminController extends Controller
             'video' => 'mimes:mp4',
             'audio' => 'mimes:mp3',
             'image' => 'mimes:jpeg,jpg,png',
-            'youtube' => 'url',
+            'youtube' => 'sometimes|nullable|url',
         ]);
 
         if ($validator->fails()) {
@@ -481,7 +481,7 @@ class AdminController extends Controller
             'video' => 'mimes:mp4',
             'audio' => 'mimes:mp3',
             'image' => 'mimes:jpeg,jpg,png',
-            'youtube' => 'url',
+            'youtube' => 'sometimes|nullable|url',
         ]);
 
         if ($validator->fails()) {

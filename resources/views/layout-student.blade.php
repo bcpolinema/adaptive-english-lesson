@@ -17,7 +17,9 @@
     <!-- Bootstrap -->
     <link href="{{ asset('gentelella/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{ asset('gentelella/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- NProgress -->
     <link href="{{ asset('gentelella/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
@@ -182,6 +184,7 @@ div.polaroid {
     height: 100px;
 }
 
+
 .start {
     margin: auto auto;
     color: white;
@@ -280,15 +283,96 @@ li.list-topic::before {
         padding: 3rem 2rem 2rem;
     }
 }
+
+
+h3.list-question {
+    display: flex;
+    align-items: baseline;
+    margin: 0 0 1rem;
+    color: black;
+}
+
+h3.list-question::before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-right: 1rem;
+}
+
+ol.list-question {
+    list-style: none;
+    counter-reset: list;
+    padding: 0 1rem;
+}
+
+p.list-question {
+    margin: 0;
+    line-height: 1.6;
+}
+
+li.list-question {
+    --stop: calc(100% / var(--length) * var(--i));
+    --l: 62%;
+    --l2: 88%;
+    --h: calc((var(--i) - 1) * (180 / var(--length)));
+    --c1: hsl(var(--h), 71%, var(--l));
+    --c2: hsl(var(--h), 71%, var(--l2));
+
+    position: relative;
+    counter-increment: list;
+    max-width: 500rem;
+    margin: 2rem auto;
+    padding: 2rem 1rem 1rem;
+    box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: white;
+}
+
+li.list-question::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to left, white, #2c3e50);
+}
+
+@media (min-width: 40em) {
+    li.list-question {
+        margin: 3rem auto;
+        padding: 3rem 2rem 2rem;
+    }
+}
 </style>
 
 <body class="nav-md">
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title"><i class="fa fa-book"></i> <span>A E L</span></a>
+                        <a href="/" class="site_title"><i class="fas fa-book"></i><span
+                                style="font-size:14px;">&nbsp;&nbsp;Adaptive
+                                English Learning</span>
+                        </a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -296,12 +380,12 @@ li.list-topic::before {
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="{{ asset('images/img.jpg') }}" alt="..." class="img-circle profile_img">
+                            <img src="{{ asset('images/user.png') }}" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
                             @auth
-                            <h2>{{Auth::user()->name}}</h2>
+                            <h2> {{Auth::user()->name}} </h2>
                             @endauth
                         </div>
                     </div>
@@ -314,8 +398,19 @@ li.list-topic::before {
                         <div class="menu_section">
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li><a href="{{ route('student.home') }}"><i class="fa fa-home"></i> Dashboard </a>
+                                <li><a href="{{ route('student.home') }}"><i
+                                            class="fas fa-home"></i>&nbsp;&nbsp;Dashboard
+                                    </a>
                                 </li>
+                                <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"><i
+                                            class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log
+                                        Out </a>
+                                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
                                 <!-- <li><a><i class="fa fa-user"></i> Student <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="/">Exercises</a></li>
@@ -341,21 +436,22 @@ li.list-topic::before {
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    <img src="{{ asset('images/img.jpg') }}" alt="">
+                                    <img src="{{ asset('images/user.png') }}" alt="">
                                     @auth
                                     {{ Auth::user()->name }}
                                     @endauth
+                                    &nbsp;
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Profile</a></li>
+                                    <!-- <li><a href="javascript:;"> Profile</a></li>
                                     <li>
                                         <a href="javascript:;">
                                             <span class="badge bg-red pull-right">50%</span>
                                             <span>Settings</span>
                                         </a>
                                     </li>
-                                    <li><a href="javascript:;">Help</a></li>
+                                    <li><a href="javascript:;">Help</a></li> -->
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i> Log
                                             Out</a></li>
@@ -377,7 +473,8 @@ li.list-topic::before {
             <!-- footer content -->
             <footer class="footer_fixed">
                 <div class="pull-right">
-                    Adaptive English Lesson by <a href="https://colorlib.com">Politeknik Negeri Malang</a>
+                    Adaptive English Lesson by <a href="https://www.polinema.ac.id/" target="_blank">Politeknik Negeri
+                        Malang</a>
                 </div>
                 <div class="clearfix"></div>
             </footer>
