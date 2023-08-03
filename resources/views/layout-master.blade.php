@@ -14,7 +14,7 @@
     <title>Adaptive English Lesson | Politeknik Negeri Malang</title>
     <link rel="canonical" href="/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo-polinema.png')}}">
     <!-- This page CSS -->
     <!-- chartist CSS -->
     <link href="{{ asset('admin/assets/node_modules/morrisjs/morris.css') }}" rel="stylesheet">

@@ -13,8 +13,8 @@
         rel="stylesheet">
 
     <title>Adaptive English Learning - Politeknik Negeri Malang</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="{{ asset('landing-page-v1/assets/logo-polinema.png') }}" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo-polinema.png')}}">
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('landing-page-v1/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 

@@ -15,6 +15,9 @@
 
     <base href="{{ \URL::to('/') }} ">
 
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo-polinema.png')}}">
+
     <!-- Bootstrap -->
     <link href="{{ asset('gentelella/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
